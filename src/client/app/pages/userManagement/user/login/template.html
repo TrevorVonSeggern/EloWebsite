@@ -1,0 +1,24 @@
+<md-card class="login-box" ng-if="!vm.$userFactory.LoggedIn">
+	<form ng-submit="vm.login()" class="simple">
+		<h2>Login:</h2>
+		<div>
+			<tvo-text ng-submit="vm.login()" value="vm.user.username" label="'Username'"></tvo-text>
+		</div>
+		<div>
+			<tvo-password ng-submit="vm.login()" value="vm.user.password" label="'Password'"></tvo-password>
+		</div>
+
+		<div>
+			<tvo-button label="'Login'" type="'submit'"></tvo-button>
+			<tvo-button label="'Login with Google'" type="'button'" ng-click="vm.submitGoogle()"></tvo-button>
+		</div>
+		<div ng-if="vm.ErrorMessage">
+			{{vm.ErrorMessage}}
+		</div>
+	</form>
+</md-card>
+<div ng-if="vm.$userFactory.LoggedIn">
+	<div>
+		Head to the account page - <a href="#/account">My Account</a>
+	</div>
+</div>

@@ -1,0 +1,29 @@
+<md-card class="tvo-account-change-password-page">
+    <div ng-show="!vm.changedPassword">
+        <h2 class="profile">
+            <span>Profile: </span><span>{{vm.user.first_name}} {{vm.user.last_name}}</span>
+        </h2>
+        <div class="tvo-account-change-password-details">
+            <div>
+                <tvo-password value="vm.password" label="'Current Password'"></tvo-password>
+            </div>
+            <div>
+                <tvo-password value="vm.newPassword" label="'New Password'"></tvo-password>
+            </div>
+            <div>
+                <tvo-password value="vm.confirmPassword" label="'Confirm Password'"></tvo-password>
+            </div>
+            <div>
+                <tvo-button label="'Change'" ng-click="vm.submitChangePassword()"></tvo-button>
+            </div>
+        </div>
+        <div>{{vm.errorMessage}}</div>
+    </div>
+    <div ng-show="vm.changedPassword">
+        <h1>Changed Password Successful</h1>
+        <div>
+            <tvo-page-link label="'Home'" x-href="'/#/'"></tvo-page-link>
+            <tvo-page-link label="'Account Page'" x-href="'/#/account'"></tvo-page-link>
+        </div>
+    </div>
+</md-card>

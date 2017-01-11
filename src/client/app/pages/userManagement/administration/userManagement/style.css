@@ -1,0 +1,14 @@
+.scroll-container {
+  position: relative;
+}
+.single-item {
+  min-height: 50px;
+}
+.userManagement-single-item {
+  padding-left: 8px;
+  margin-right: 35px;
+  border-bottom: #dfdfdf solid 1px;
+}
+.userManagement-single-item:hover {
+  border-bottom: #858585 solid 1px;
+}

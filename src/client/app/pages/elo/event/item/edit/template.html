@@ -1,0 +1,25 @@
+<md-card>
+	<div ng-class="{loading: vm.loading}">
+		<md-card-title>
+			<md-card-title-text>
+				<span class="md-headline">Event</span>
+				<span class="md-subhead">Edit</span>
+			</md-card-title-text>
+		</md-card-title>
+		<div class="btn-group card-controls">
+			<span ng-if="vm.error">{{vm.error}}</span>
+			<tvo-delete-button ng-click="vm.deleteItem('/#/event')"></tvo-delete-button>
+			<tvo-button ng-click="vm.cancel('/#/event')" label="'Cancel'"></tvo-button>
+			<tvo-button ng-click="vm.save('/#/event')" label="'Save'"></tvo-button>
+		</div>
+
+		<md-card-content>
+			<tvo-text label="'Name'" value="vm.item.name"></tvo-text>
+			<tvo-datetime label="'Start Time'" value="vm.item.startTime"></tvo-datetime>
+			<tvo-datetime label="'End Time'" value="vm.item.endTime"></tvo-datetime>
+			<tvo-text label="'Comment'" value="vm.item.comment"></tvo-text>
+			<tvo-text label="'Game'" value="vm.item.gameId"></tvo-text>
+		</md-card-content>
+
+	</div>
+</md-card>

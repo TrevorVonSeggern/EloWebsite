@@ -1,0 +1,26 @@
+<md-card ng-if="!vm.eventEditFocused">
+    <div ng-class="{loading: vm.loading}">
+        <md-card-title>
+            <md-card-title-text>
+				<span class="md-headline">User</span>
+				<span class="md-subhead">Detail</span>
+            </md-card-title-text>
+        </md-card-title>
+		<div class="btn-group card-controls">
+			<tvo-button ng-click="vm.cancel('/#/userManagement')" label="'Back'"></tvo-button>
+			<tvo-button ng-click="vm.edit('/#/userManagement/edit')" label="'Edit'"></tvo-button>
+		</div>
+
+        <md-card-content>
+            <tvo-label-text label="'Username:'" value="vm.item.username"></tvo-label-text>
+            <tvo-label-text label="'First Name:'" value="vm.item.first_name"></tvo-label-text>
+            <tvo-label-text label="'Last Name:'" value="vm.item.last_name"></tvo-label-text>
+            <tvo-label-text label="'Email:'" value="vm.item.email"></tvo-label-text>
+            <tvo-label-text label="'Role:'" value="vm.item.role"></tvo-label-text>
+        </md-card-content>
+
+    </div>
+</md-card>
+<div ng-if="vm.eventEditFocused">
+    <tvo-user-management-item-edit id="vm.item._id" open="vm.eventEditFocused"></tvo-user-management-item-edit>
+</div>

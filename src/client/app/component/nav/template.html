@@ -1,0 +1,44 @@
+<!--Company Logo-->
+<!--Menu navigation-->
+<div class="menu">
+	<div class="icon" ng-click="vm.menuClick('/')"></div>
+
+	<ul ng-class="{debounce: vm.debounce}">
+		<!--<li ng-click="vm.menuClick('/category')" class="sub-menu"-->
+		<!--ng-if="vm.$userFactory.LoggedIn && vm.$userFactory.user.role && vm.$userFactory.user.role !== 'guest'">-->
+		<!--<span> - Category - </span>-->
+		<!--<ul ng-if="!vm.debounce">-->
+		<!--<li ng-click="vm.menuClick('/category/subcategory1')">-->
+		<!--<span>subcategory1</span>-->
+		<!--</li>-->
+		<!--</ul>-->
+		<!--</li>-->
+
+		<li ng-click="vm.menuClick('/game')"
+			ng-if="vm.$userFactory.LoggedIn">
+			<span>Game(s)</span>
+		</li>
+		<li ng-click="vm.menuClick('/event')"
+			ng-if="vm.$userFactory.LoggedIn">
+			<span>Event(s)</span>
+		</li>
+
+
+		<li ng-click="vm.menuClick('/administration')"
+			ng-if="vm.$userFactory.LoggedIn && vm.$userFactory.user.role === 'Administrator'">
+			<span>Administration</span>
+		</li>
+		<li ng-click="vm.menuClick('/account')" ng-if="vm.$userFactory.LoggedIn">
+			<span>Account</span>
+		</li>
+		<li ng-click="vm.menuClick('/logout')" ng-if="vm.$userFactory.LoggedIn">
+			<span>Sign Out</span>
+		</li>
+		<li ng-click="vm.menuClick('/login')" ng-if="!vm.$userFactory.LoggedIn">
+			<span>Log in</span>
+		</li>
+		<li ng-click="vm.menuClick('/register')" class="registerMenu" ng-if="!vm.$userFactory.LoggedIn">
+			<span>Sign Up</span>
+		</li>
+	</ul>
+</div>

@@ -1,0 +1,22 @@
+{
+    "clients": [
+        {
+            "name": "localAuth",
+            "url": "na",
+            "redirect_uri": "na",
+            "response_type": "json",
+            "client_id": "na",
+            "scope": "na",
+            "state": "na"
+        },
+        {
+            "name": "google",
+            "url": "https://accounts.google.com/o/oauth2/v2/auth",
+            "redirect_uri": "http://localhost:3000",
+            "response_type": "token",
+            "client_id": "329993242602-it9akqr1gbonicqp18u7esiqkn9jicoa.apps.googleusercontent.com",
+            "scope": "email",
+            "state": "google"
+        }
+    ]
+}

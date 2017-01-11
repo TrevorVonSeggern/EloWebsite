@@ -5,8 +5,8 @@ bower_components
 dist
 npm-debug.log
 iisnode
-**.js
-**.js.map
+*.js
+*.js.map
 src/server/api/auth/client/authData.json
 src/server/api/config/database.js
 src/server/api/config/database.ts

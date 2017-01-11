@@ -1,0 +1,39 @@
+.tvo-input-select-list {
+  width: 240px;
+  display: inline-block;
+  height: 42px;
+  margin: 4px 4px 0 0;
+  padding: 2px 2px 1px 2px;
+}
+.tvo-input-select-list input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px white inset;
+}
+.tvo-input-select-list label {
+  color: gray;
+  font-size: 12px;
+}
+.tvo-input-select-list div {
+  position: relative;
+}
+.tvo-input-select-list div select {
+  outline: none;
+  width: 100%;
+  border: 0;
+  border-bottom: #a4a4a4 solid 1px;
+  position: absolute;
+  z-index: 1;
+  margin: 1px 0 0 4px;
+  padding: 2px 0 3px 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: none;
+}
+.tvo-input-select-list div select option {
+  margin-left: -4px;
+}
+.tvo-input-select-list div .carrot-icon {
+  position: absolute;
+  right: 0;
+  top: 3px;
+  z-index: 3;
+}

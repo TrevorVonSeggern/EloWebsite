@@ -1,0 +1,10 @@
+<div class="tvo-input-select-list">
+    <label>{{vm.label}}</label>
+    <div>
+        <select ng-model="vm.value" ng-options="item.value as item.label for item in vm.list"></select>
+        <div class="carrot-icon">
+            <i class="fa fa-caret-down" aria-hidden="true"></i>
+        </div>
+    </div>
+
+</div>

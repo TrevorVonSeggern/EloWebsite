@@ -27,7 +27,6 @@ export function getOneItem(req, res) { // get
 			} else {
 				mapObjectToObject(item, returnUser);
 			}
-			returnUser.password = '';
 			res.json(returnUser);
 		}
 	}, (error) => {

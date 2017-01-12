@@ -139,7 +139,6 @@ export class Team extends SqlTeam implements TeamModel {
 		});
 	}
 
-
 	static allByGame(gameId?: string, limit?: number, skip?: number) {
 		let item = new Team();
 		return item.allByGame(gameId, limit, skip);

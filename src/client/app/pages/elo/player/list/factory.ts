@@ -11,22 +11,9 @@ export class ListFactory extends BasicListFactory {
 		super();
 	}
 
-	getGameCount(cb: (count) => void): void {
-		this.itemFactory.httpServerCall('/api/game/size', 'get', undefined, (data) => {
+	getItemCount(cb: (count) => void): void {
+		this.itemFactory.httpServerCall('/api/player/size', 'get', undefined, (data) => {
 			cb(data.data.size);
-		});
-	}
-
-	getSelectList(cb: (selectList) => void, fail?: (error) => void): void {
-		this.itemFactory.httpServerCall('/api/elo/game/', 'GET', undefined, (data) => {
-			let list = data.data;
-			let resultList = [];
-			for (let i = 0; i < list.length; i++) {
-				resultList.push(new Object({label: list[i].name, value: list[i]._id}));
-			}
-			cb(resultList);
-		}, (error) => {
-			fail(error);
 		});
 	}
 

@@ -24,6 +24,13 @@ class definition {
 	teamList: IComponent = new IComponent('teamList', 'pages/elo/team/list/multiple');
 	teamListSingle: IComponent = new IComponent('teamListSingle', 'pages/elo/team/list/single');
 
+	player: IComponent = new IComponent('player', 'pages/elo/player/');
+	playerCreate: IComponent = new IComponent('playerCreate', 'pages/elo/player/item/create');
+	playerDetail: IComponent = new IComponent('playerDetail', 'pages/elo/player/item/detail');
+	playerEdit: IComponent = new IComponent('playerEdit', 'pages/elo/player/item/edit');
+	playerList: IComponent = new IComponent('playerList', 'pages/elo/player/list/multiple');
+	playerListSingle: IComponent = new IComponent('playerListSingle', 'pages/elo/player/list/single');
+
 	constructor() {
 	}
 }

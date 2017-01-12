@@ -9,7 +9,7 @@ export class controller extends BasicCreateItemController {
 	static $inject: any[] = [
 		ItemService.serviceName,
 		'$stateParams', '$window',
-		ListFactory.factoryName // This is for GAME, not Team.
+		ListFactory.factoryName, // This is for GAME, not Team.
 	];
 
 	loading: boolean = false;
@@ -21,7 +21,9 @@ export class controller extends BasicCreateItemController {
 		if (this.gameId)
 			this.item.gameId = this.gameId;
 		this.loading = true;
-		gameListFactory.getGameSelectList((list) => {
+
+		let allLoading: boolean = false;
+		gameListFactory.getSelectList((list) => {
 			let resultList = [];
 			for (let i = 0; i < list.length; i++) {
 				resultList.push(new Object({label: list[i].name, value: list[i]._id}));

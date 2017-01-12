@@ -3,10 +3,7 @@ import fs = require('fs');
 import {Connection} from "../Sql/Connection";
 import {PlayerModel} from "../../../models/Elo/player";
 
-/**
- * Created by trevor on 3/21/16.
- */
-let PlayerSchema: PlayerModel = {
+export let PlayerSchema: PlayerModel = {
 	_id: '',
 	name: '',
 	userId: '',
@@ -34,6 +31,8 @@ class SqlPlayer extends SqlModel {
 	}
 
 	protected createScript(modelInstance: PlayerModel): Promise<string> {
+		if (modelInstance.userId === '')
+			modelInstance.userId = undefined;
 		return new Promise<string>((resolve) => {
 			resolve(Connection.format(sqlInsertScript, [
 				modelInstance._id,
@@ -51,6 +50,8 @@ class SqlPlayer extends SqlModel {
 	}
 
 	protected saveScript(modelInstance: PlayerModel): Promise<string> {
+		if (modelInstance.userId === '')
+			modelInstance.userId = undefined;
 		return new Promise<string>((resolve) => {
 			resolve(Connection.format(sqlUpdateScript, [
 				modelInstance.name,
@@ -79,6 +80,39 @@ class SqlPlayer extends SqlModel {
 			resolve(script);
 		});
 	}
+
+
+	protected getAllGameIdScript(gameId: string, limit: number, skip: number): Promise<string> {
+		return new Promise<string>((resolve) => {
+			let script = '' + sqlAllScript; // plus an empty string for mutability.
+			if (gameId) {
+				script = script + " WHERE gameId = '" + gameId + "'";
+			}
+			if (limit && typeof limit === 'number' && limit > 0) {
+				script = script + ' LIMIT ' + limit.toString();
+				if (skip && typeof skip === 'number' && skip > 0)
+					script = script + ' OFFSET ' + skip.toString();
+			}
+			resolve(script);
+		});
+	}
+
+	allByGame(gameId?: string, limit?: number, skip?: number): Promise<any[]> {
+		if (!skip || skip < 0)
+			skip = 0;
+		return new Promise<any[]>((resolve, reject) => {
+			this.getAllGameIdScript(gameId, limit, skip).then((query: string) => {
+				return Connection.query(query).then((data) => {
+					resolve(data);
+				}, (error) => {
+					reject(error);
+				});
+			}, (error) => {
+				console.log('error injecting all script.');
+				reject(error);
+			});
+		});
+	}
 }
 
 export class Player extends SqlPlayer implements PlayerModel {
@@ -89,7 +123,31 @@ export class Player extends SqlPlayer implements PlayerModel {
 	constructor(instance?: any) {
 		super(instance);
 	}
-}
 
-// Export the Mongoose model
-// export let Client = Dynamoose.model('Client', ClientSchema);
+
+	static getOneById(id: string) {
+		let item = new Player();
+		return item.getOneById(id);
+	}
+
+	static getCount() {
+		let item = new Player();
+		return item.getCount();
+	}
+
+	static all(limit?: number, skip?: number): Promise<any[]> {
+		let itemModel = new Player();
+		return new Promise<PlayerModel[]>((resolve, reject) => {
+			itemModel.all(limit, skip).then((data) => {
+				resolve(data);
+			}, (error) => {
+				reject(error);
+			});
+		});
+	}
+
+	static allByGame(gameId?: string, limit?: number, skip?: number) {
+		let item = new Player();
+		return item.allByGame(gameId, limit, skip);
+	}
+}

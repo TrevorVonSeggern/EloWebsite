@@ -10,5 +10,6 @@ export class directive extends BaseDetailItemDirective {
 
 	constructor() {
 		super();
+		this.scope.gameId = '=';
 	}
 }

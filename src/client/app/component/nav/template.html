@@ -22,6 +22,14 @@
 			ng-if="vm.$userFactory.LoggedIn">
 			<span>Event(s)</span>
 		</li>
+		<li ng-click="vm.menuClick('/team')"
+			ng-if="vm.$userFactory.LoggedIn">
+			<span>Team(s)</span>
+		</li>
+		<li ng-click="vm.menuClick('/player')"
+			ng-if="vm.$userFactory.LoggedIn">
+			<span>Player(s)</span>
+		</li>
 
 
 		<li ng-click="vm.menuClick('/administration')"

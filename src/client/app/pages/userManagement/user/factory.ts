@@ -77,6 +77,27 @@ export class UserFactory {
 			this.LoadCredentials();
 	}
 
+	getSelectList(resolve: (list: any[]) => void, reject: (error: string) => void) {
+		this.httpServerCall('/api/user/', 'get', undefined, (data) => {
+			let list = data.data;
+			let resultList = [];
+			for (let i = 0; i < list.length; i++) {
+				resultList.push(new Object({label: list[i].first_name, value: list[i]._id}));
+			}
+			resolve(resultList);
+		}, (error) => {
+			reject(error);
+		});
+	}
+
+	getOneById(id:string, resolve: (list: any) => void, reject: (error: string) => void) {
+		this.httpServerCall('/api/user/' + id, 'get', undefined, (data) => {
+			resolve(data.data);
+		}, (error) => {
+			reject(error);
+		});
+	}
+
 	StoreCredentials(user: UserModel, token: string) {
 		if (!user || !token)
 			return;

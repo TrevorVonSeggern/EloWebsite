@@ -18,9 +18,10 @@
 			<tvo-label-text label="'Scale:'" value="vm.item.scale"></tvo-label-text>
 		</md-card-content>
 
-		<tvo-event-item-multiple ng-if="!vm.loading" filter="vm.item._id"></tvo-event-item-multiple>
+		<tvo-event-item-multiple ng-if="!vm.loading" game-id="vm.item._id"
+								 data-mode="'substitute'"></tvo-event-item-multiple>
 	</div>
 </md-card>
 <div ng-if="vm.eventEditFocused">
-	<tvo-game-management-item-edit id="vm.item._id" open="vm.eventEditFocused"></tvo-game-management-item-edit>
+	<tvo-game-management-item-edit id="vm.item._id"></tvo-game-management-item-edit>
 </div>

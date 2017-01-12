@@ -17,9 +17,14 @@ export class ListFactory extends BasicListFactory {
 		});
 	}
 
-	getGameSelectList(cb: (selectList) => void, fail?: (error) => void): void {
+	getSelectList(cb: (selectList) => void, fail?: (error) => void): void {
 		this.itemFactory.httpServerCall('/api/elo/game/', 'GET', undefined, (data) => {
-			cb(data.data);
+			let list = data.data;
+			let resultList = [];
+			for (let i = 0; i < list.length; i++) {
+				resultList.push(new Object({label: list[i].name, value: list[i]._id}));
+			}
+			cb(resultList);
 		}, (error) => {
 			fail(error);
 		});

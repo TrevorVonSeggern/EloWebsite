@@ -11,5 +11,6 @@ export class directive extends BasicCreateItemDirective {
 
 	constructor() {
 		super();
+		this.scope.gameId = '=';
 	}
 }

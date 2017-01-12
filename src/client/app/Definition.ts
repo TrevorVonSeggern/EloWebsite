@@ -67,6 +67,7 @@ export class DefinitionConfiguration {
 	inputDatetime: IComponent = new IComponent('datetime', 'component/input/datetime');
 	// labeling component
 	labelText: IComponent = new IComponent('label-text', 'component/label/text');
+	labelDatetime: IComponent = new IComponent('label-datetime', 'component/label/datetime');
 	// api component
 	nav: IComponent = new IComponent('nav', 'component/nav/');
 

@@ -3,9 +3,11 @@
  */
 import IModule = angular.IModule;
 import {LabelTextModule} from './text/module';
+import {LabelDatetimeModule} from "./datetime/module";
 
-var module:IModule = angular.module('tvo-label-module', [
+let module: IModule = angular.module('tvo-label-module', [
 	LabelTextModule.name,
+	LabelDatetimeModule.name,
 ]);
 
-export var LabelModule = module;
+export let LabelModule = module;

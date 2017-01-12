@@ -17,7 +17,6 @@ export abstract class BaseDetailItemController extends BaseItemController {
 		});
 	}
 
-
 	itemLoadComplete() {
 		if (this.itemIsEmpty())
 			this.cancel(this.returnUrl);

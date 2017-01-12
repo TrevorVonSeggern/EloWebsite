@@ -13,9 +13,6 @@ import {privateLogs} from "../logs";
 export let api = express();
 api.use(passport.initialize());
 
-// configure the mssql connection
-// var connection = new sql.Connection(config);
-
 api.all('/*', (req: any, res, next: () => void) => {
 	// CORS headers
 	res.header("Access-Control-Allow-Origin", "*"); // restrict it to the required domain
@@ -31,15 +28,11 @@ let router = express.Router();
 
 router.use('/user', UserRouter);
 router.use('/client', ClientRouter);
-
 router.use('/elo', eloRouter);
-
 router.get('/logs', isLoggedIn, function (req, res) {
 	res.json(privateLogs);
 });
-
 router.get('/', function (req, res) {
 	res.json({message: 'You are running dangerously low on beer!'});
 });
-
 api.use('/', router);

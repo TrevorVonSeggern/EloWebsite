@@ -1,13 +1,12 @@
 import IScope = angular.IScope;
 
 class controller {
-	vm:any;
+	value;
 
-	constructor($scope:IScope) {
-		this.vm = $scope;
+	constructor() {
 	}
 }
 
 controller.$inject = ['$scope'];
 
-export var InputSwitchController = controller;
+export let InputSwitchController = controller;

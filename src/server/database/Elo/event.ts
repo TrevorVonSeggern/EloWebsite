@@ -2,6 +2,7 @@ import {SqlModel} from "../Base/SqlModel";
 import fs = require('fs');
 import {Connection} from "../Sql/Connection";
 import {EventModel} from "../../../models/Elo/event";
+import {formatDateTime} from "../Model";
 
 /**
  * Created by trevor on 3/21/16.
@@ -41,8 +42,8 @@ class SqlEvent extends SqlModel {
 			resolve(Connection.format(sqlInsertScript, [
 				modelInstance._id,
 				modelInstance.name,
-				modelInstance.startTime,
-				modelInstance.endTime,
+				formatDateTime(modelInstance.startTime),
+				formatDateTime(modelInstance.endTime),
 				modelInstance.gameId,
 				modelInstance.userId,
 				modelInstance.comment
@@ -60,8 +61,8 @@ class SqlEvent extends SqlModel {
 		return new Promise<string>((resolve) => {
 			resolve(Connection.format(sqlUpdateScript, [
 				modelInstance.name,
-				modelInstance.startTime,
-				modelInstance.endTime,
+				formatDateTime(modelInstance.startTime),
+				formatDateTime(modelInstance.endTime),
 				modelInstance.gameId,
 				modelInstance.userId,
 				modelInstance.comment,

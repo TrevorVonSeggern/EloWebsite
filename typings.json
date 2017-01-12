@@ -2,5 +2,8 @@
   "dependencies": {
     "debug": "registry:npm/debug#2.0.0+20160723033700",
     "gulp": "registry:npm/gulp#4.0.0-alpha.2+20160817105618"
+  },
+  "globalDependencies": {
+    "moment": "registry:dt/moment#2.11.1+20161010105546"
   }
 }

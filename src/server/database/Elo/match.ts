@@ -2,17 +2,18 @@ import {SqlModel} from "../Base/SqlModel";
 import fs = require('fs');
 import {Connection} from "../Sql/Connection";
 import {MatchModel} from "../../../models/Elo/match";
+import {formatDateTime} from "../Model";
 
 /**
  * Created by trevor on 3/21/16.
  */
-let MatchSchema: MatchModel = {
-	_id: '',
-	startTime: new Date(),
-	endTime: new Date(),
-	teamA: '',
-	teamB: '',
-	eventId: '',
+export let MatchSchema: MatchModel = {
+	_id: null,
+	startTime: null,
+	endTime: null,
+	teamA: null,
+	teamB: null,
+	eventId: null,
 	status: 0
 };
 
@@ -37,16 +38,17 @@ class SqlMatch extends SqlModel {
 		});
 	}
 
-	protected createScript(modelInstance: MatchModel): Promise<string> {
+	protected createScript(modelInstance): Promise<string> {
 		return new Promise<string>((resolve) => {
 			resolve(Connection.format(sqlInsertScript, [
 				modelInstance._id,
-				modelInstance.startTime.toUTCString(),
-				modelInstance.endTime.toUTCString(),
+				formatDateTime(modelInstance.startTime),
+				formatDateTime(modelInstance.endTime),
 				modelInstance.teamA,
 				modelInstance.teamB,
 				modelInstance.eventId,
-				modelInstance.status.toString()
+				modelInstance.status.toString(),
+				modelInstance.winner
 			]));
 		});
 	}
@@ -60,12 +62,13 @@ class SqlMatch extends SqlModel {
 	protected saveScript(modelInstance: any): Promise<string> {
 		return new Promise<string>((resolve) => {
 			resolve(Connection.format(sqlUpdateScript, [
-				modelInstance.startTime.toUTCString(),
-				modelInstance.endTime.toUTCString(),
+				formatDateTime(modelInstance.startTime),
+				formatDateTime(modelInstance.endTime),
 				modelInstance.teamA,
 				modelInstance.teamB,
 				modelInstance.eventId,
 				modelInstance.status.toString(),
+				modelInstance.winner,
 				modelInstance._id
 			]));
 		});
@@ -123,11 +126,12 @@ export class Match extends SqlMatch implements MatchModel {
 	teamB: string;
 	eventId: string;
 	status: number;
+	winner: boolean;
 
 	constructor(instance?: any) {
 		super(instance);
+		this.winner = !(!this.winner);
 	}
-
 
 	static setAllStatus(gameId: string) {
 		let item = new Match();

@@ -1,4 +1,3 @@
-
 import {definition} from '../../../Definition';
 export function InputSwitchDirective() {
 	return {

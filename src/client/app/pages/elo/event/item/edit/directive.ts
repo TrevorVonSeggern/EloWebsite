@@ -9,5 +9,6 @@ export class directive extends BasicEditItemDirective {
 
 	constructor() {
 		super();
+		this.scope.gameId = '=';
 	}
 }

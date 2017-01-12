@@ -13,10 +13,13 @@ export class controller extends BasicCreateItemController {
 	];
 
 	loading: boolean = false;
+	gameId: string;
 	gameSelectList: any[] = [];
 
 	constructor(public itemFactory: ItemService, $stateParams, $window, gameListFactory: ListFactory) {
 		super(itemFactory, $stateParams, $window, '/#/event');
+		if (this.gameId)
+			this.item.gameId = this.gameId;
 		this.loading = true;
 		gameListFactory.getGameSelectList((list) => {
 			let resultList = [];

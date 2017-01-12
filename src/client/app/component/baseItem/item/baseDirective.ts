@@ -4,7 +4,7 @@ export class BaseItemDirective {
 	controllerAs:string      = 'vm';
 	bindToController:boolean = true;
 
-	scope = {
+	scope:any = {
 		id: '=',
 		events: '=',
 		open: '=',

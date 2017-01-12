@@ -9,13 +9,20 @@ class definition {
 	gameEdit: IComponent = new IComponent('gameEdit', 'pages/elo/game/item/edit');
 	gameList: IComponent = new IComponent('gameList', 'pages/elo/game/list/multiple');
 	gameListSingle: IComponent = new IComponent('gameListSingle', 'pages/elo/game/list/single');
-	
+
 	event: IComponent = new IComponent('event', 'pages/elo/event/');
 	eventCreate: IComponent = new IComponent('eventCreate', 'pages/elo/event/item/create');
 	eventDetail: IComponent = new IComponent('eventDetail', 'pages/elo/event/item/detail');
 	eventEdit: IComponent = new IComponent('eventEdit', 'pages/elo/event/item/edit');
 	eventList: IComponent = new IComponent('eventList', 'pages/elo/event/list/multiple');
 	eventListSingle: IComponent = new IComponent('eventListSingle', 'pages/elo/event/list/single');
+
+	team: IComponent = new IComponent('team', 'pages/elo/team/');
+	teamCreate: IComponent = new IComponent('teamCreate', 'pages/elo/team/item/create');
+	teamDetail: IComponent = new IComponent('teamDetail', 'pages/elo/team/item/detail');
+	teamEdit: IComponent = new IComponent('teamEdit', 'pages/elo/team/item/edit');
+	teamList: IComponent = new IComponent('teamList', 'pages/elo/team/list/multiple');
+	teamListSingle: IComponent = new IComponent('teamListSingle', 'pages/elo/team/list/single');
 
 	constructor() {
 	}

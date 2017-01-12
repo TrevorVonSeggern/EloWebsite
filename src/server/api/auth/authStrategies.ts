@@ -106,12 +106,16 @@ export function AuthenticationStrategy(req, callback: () => void) {
 }
 
 passport.use('custom', new CustomStrategy((req, callback) => {
-	function deny() {
-		return callback("not authorized", undefined);
+	function deny(error) {
+		return callback(error, false, false);
+	}
+
+	function unauthorized() {
+		return callback(false, false, "unauthorized");
 	}
 
 	function allow() {
-		return callback(null, true);
+		return callback(false, true);
 	}
 
 	function checkAcl(user) {
@@ -132,13 +136,15 @@ passport.use('custom', new CustomStrategy((req, callback) => {
 			}
 
 			acl.isAllowed(userString, url, req.method.toLowerCase(), (err, allowed) => {
-				if (err || !allowed)
-					return deny();
+				if (err)
+					return deny('Internal Server Error');
+				else if (!allowed)
+					unauthorized();
 				else {
 					return allow();
 				}
 			}).error(() => {
-				return deny();
+				return deny('Internal Server Error');
 			}).then(() => {
 				return;
 			});

@@ -6,7 +6,7 @@ import {TeamModel} from "../../../models/Elo/team";
 /**
  * Created by trevor on 3/21/16.
  */
-let TeamSchema: TeamModel = {
+export let TeamSchema: TeamModel = {
 	_id: '',
 	name: '',
 	gameId: ''
@@ -76,6 +76,38 @@ class SqlTeam extends SqlModel {
 			resolve(script);
 		});
 	}
+
+	protected getAllGameIdScript(gameId: string, limit: number, skip: number): Promise<string> {
+		return new Promise<string>((resolve) => {
+			let script = '' + sqlAllScript; // plus an empty string for mutability.
+			if (gameId) {
+				script = script + " WHERE gameId = '" + gameId + "'";
+			}
+			if (limit && typeof limit === 'number' && limit > 0) {
+				script = script + ' LIMIT ' + limit.toString();
+				if (skip && typeof skip === 'number' && skip > 0)
+					script = script + ' OFFSET ' + skip.toString();
+			}
+			resolve(script);
+		});
+	}
+
+	allByGame(gameId?: string, limit?: number, skip?: number): Promise<any[]> {
+		if (!skip || skip < 0)
+			skip = 0;
+		return new Promise<any[]>((resolve, reject) => {
+			this.getAllGameIdScript(gameId, limit, skip).then((query: string) => {
+				return Connection.query(query).then((data) => {
+					resolve(data);
+				}, (error) => {
+					reject(error);
+				});
+			}, (error) => {
+				console.log('error injecting all script.');
+				reject(error);
+			});
+		});
+	}
 }
 
 export class Team extends SqlTeam implements TeamModel {
@@ -85,7 +117,31 @@ export class Team extends SqlTeam implements TeamModel {
 	constructor(instance?: any) {
 		super(instance);
 	}
-}
 
-// Export the Mongoose model
-// export let Client = Dynamoose.model('Client', ClientSchema);
+	static getOneById(id: string) {
+		let item = new Team();
+		return item.getOneById(id);
+	}
+
+	static getCount() {
+		let item = new Team();
+		return item.getCount();
+	}
+
+	static all(limit?: number, skip?: number): Promise<any[]> {
+		let itemModel = new Team();
+		return new Promise<TeamModel[]>((resolve, reject) => {
+			itemModel.all(limit, skip).then((data) => {
+				resolve(data);
+			}, (error) => {
+				reject(error);
+			});
+		});
+	}
+
+
+	static allByGame(gameId?: string, limit?: number, skip?: number) {
+		let item = new Team();
+		return item.allByGame(gameId, limit, skip);
+	}
+}

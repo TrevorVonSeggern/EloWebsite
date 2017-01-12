@@ -1,14 +1,17 @@
 // Created by trevor on 12/31/16.
 
 import IModule = angular.IModule;
-import {GameModule} from "./game/module";
 import {DefinitionRouter} from "../../Definition";
 import {eloDefinition} from "./eloDefinition";
+
 import {EventModule} from "./event/module";
+import {TeamModule} from "./team/module";
+import {GameModule} from "./game/module";
 
 let module: any = angular.module('elo', [
 	EventModule.name,
 	GameModule.name,
+	TeamModule.name,
 ]);
 
 export let EloModule = module;
@@ -18,11 +21,15 @@ export function loadEloRouter(stateProvider) {
 	stateProvider.state('gameEdit', new DefinitionRouter('/game/edit/:id', eloDefinition.gameEdit));
 	stateProvider.state('game', new DefinitionRouter('/game', eloDefinition.game));
 	stateProvider.state('gameDetail', new DefinitionRouter('/game/:id', eloDefinition.gameDetail));
-	
+
 	stateProvider.state('eventCreate', new DefinitionRouter('/event/create', eloDefinition.eventCreate));
 	stateProvider.state('eventEdit', new DefinitionRouter('/event/edit/:id', eloDefinition.eventEdit));
 	stateProvider.state('event', new DefinitionRouter('/event', eloDefinition.event));
 	stateProvider.state('eventDetail', new DefinitionRouter('/event/:id', eloDefinition.eventDetail));
-	
-	
+
+	stateProvider.state('teamCreate', new DefinitionRouter('/team/create', eloDefinition.teamCreate));
+	stateProvider.state('teamEdit', new DefinitionRouter('/team/edit/:id', eloDefinition.teamEdit));
+	stateProvider.state('team', new DefinitionRouter('/team', eloDefinition.team));
+	stateProvider.state('teamDetail', new DefinitionRouter('/team/:id', eloDefinition.teamDetail));
+
 }

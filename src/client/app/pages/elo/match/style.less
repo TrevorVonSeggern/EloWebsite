@@ -1,25 +1,52 @@
+.tvo-match-edit {
+	md-card.player-card-list {
+		display: inline-block;
+		min-width: 300px;
+		vertical-align: top;
+
+		.add-player, .remove-player {
+			display: inline-block;
+			float: right;
+		}
+
+		md-title {
+			padding-bottom: 5px;
+			display: block;
+		}
+		.player-in-team-row {
+			& > div {
+				display:inline-block;
+				vertical-align: bottom;
+			}
+			vertical-align: bottom;
+			min-height: 35px;
+		}
+
+	}
+}
+
 .single-item {
-  min-height: 50px;
+	min-height: 50px;
 }
 
 .match-single-item {
-  padding-left: 8px;
-  margin-right: 35px;
-  border-bottom: #dfdfdf solid 1px;
-  &:hover{
-    border-bottom: #858585 solid 1px;
-  }
+	padding-left: 8px;
+	margin-right: 35px;
+	border-bottom: #dfdfdf solid 1px;
+	&:hover {
+		border-bottom: #858585 solid 1px;
+	}
 }
 
 .heading-2 {
-  font-size: xx-large;
-  font-weight: bold;
+	font-size: xx-large;
+	font-weight: bold;
 }
 
 .create-container {
-  position: absolute;
-  right: 5px;
-  outline: none;
-  cursor: pointer;
-  font-size: large;
+	position: absolute;
+	right: 5px;
+	outline: none;
+	cursor: pointer;
+	font-size: large;
 }

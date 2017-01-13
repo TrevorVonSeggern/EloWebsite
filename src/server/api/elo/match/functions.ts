@@ -15,6 +15,15 @@ export function getList(req, res) { // get
 	}, res.send);
 }
 
+export function getViewList(req, res) { // get
+	let limit: number = CheckNumberParameter(req.query.limit);
+	let skip: number = CheckNumberParameter(req.query.skip);
+
+	Match.viewAll(limit, skip).then((items: MatchModel[]) => {
+		res.json(items);
+	}, res.send);
+}
+
 export function getOneItem(req, res) { // get
 	Match.getOneById(req.params._id).then((item: any) => {
 		if (item === undefined || (item.length && item.length === 0))

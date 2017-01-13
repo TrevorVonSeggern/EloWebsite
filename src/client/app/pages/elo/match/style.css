@@ -1,0 +1,44 @@
+.tvo-match-edit md-card.player-card-list {
+  display: inline-block;
+  min-width: 300px;
+  vertical-align: top;
+}
+.tvo-match-edit md-card.player-card-list .add-player,
+.tvo-match-edit md-card.player-card-list .remove-player {
+  display: inline-block;
+  float: right;
+}
+.tvo-match-edit md-card.player-card-list md-title {
+  padding-bottom: 5px;
+  display: block;
+}
+.tvo-match-edit md-card.player-card-list .player-in-team-row {
+  vertical-align: bottom;
+  min-height: 35px;
+}
+.tvo-match-edit md-card.player-card-list .player-in-team-row > div {
+  display: inline-block;
+  vertical-align: bottom;
+}
+.single-item {
+  min-height: 50px;
+}
+.match-single-item {
+  padding-left: 8px;
+  margin-right: 35px;
+  border-bottom: #dfdfdf solid 1px;
+}
+.match-single-item:hover {
+  border-bottom: #858585 solid 1px;
+}
+.heading-2 {
+  font-size: xx-large;
+  font-weight: bold;
+}
+.create-container {
+  position: absolute;
+  right: 5px;
+  outline: none;
+  cursor: pointer;
+  font-size: large;
+}

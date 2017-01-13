@@ -16,6 +16,16 @@ export function getList(req, res) { // get
 	}, res.send);
 }
 
+export function getViewList(req, res) { // get
+	let limit: number = CheckNumberParameter(req.query.limit);
+	let skip: number = CheckNumberParameter(req.query.skip);
+	let gameId: string = req.query.gameId;
+
+	Event.viewAllByGame(gameId, limit, skip).then((items: EventModel[]) => {
+		res.json(items);
+	}, res.send);
+}
+
 export function getOneItem(req, res) { // get
 	Event.getOneById(req.params._id).then((item: any) => {
 		if (item === undefined || (item.length && item.length === 0))

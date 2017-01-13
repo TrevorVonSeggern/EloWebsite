@@ -7,14 +7,14 @@ import {ListFactory} from "../factory";
 export class controller extends BaseMultipleController {
 
 	static controllerName: string = typeName + 'ListMultipleController';
-	static $inject: any[] = ['$scope', UserFactory.factoryName, '$timeout', ListFactory.factoryName, '$q', '$window'];
+	static $inject: any[] = [UserFactory.factoryName, ListFactory.factoryName, '$window'];
 
 	listenerGUID: string = generateGUID();
 
 	gameId: string;
 
-	constructor($scope, userFactory, $timeout, public factory: ListFactory, $q, public $window) {
-		super(userFactory, $window, '/api/elo/event');
+	constructor(userFactory, public factory: ListFactory, public $window) {
+		super(userFactory, $window, '/api/elo/event/view');
 		this.baseName = typeName;
 	}
 

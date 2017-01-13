@@ -14,7 +14,7 @@ export class controller extends BaseMultipleController {
 	gameId: string;
 
 	constructor($scope, userFactory, $timeout, public factory: ListFactory, $q, public $window) {
-		super(userFactory, $window, '/api/elo/match');
+		super(userFactory, $window, '/api/elo/match/view');
 		this.baseName = typeName;
 	}
 

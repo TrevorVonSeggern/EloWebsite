@@ -1,6 +1,6 @@
 // Created by trevor on 12/31/16.
 import express = require('express');
-import {getSize, newItem, saveItem, getList, getOneItem, deleteItem} from "./functions";
+import {getSize, newItem, saveItem, getList, getOneItem, deleteItem, getViewList} from "./functions";
 import {isLoggedIn} from "../../auth/authStrategies";
 
 export let MatchRouter = express.Router();
@@ -12,6 +12,7 @@ MatchRouter.route('/')
 	.post(isLoggedIn, newItem);
 
 MatchRouter.route('/size').get(getSize);
+MatchRouter.route('/view').get(getViewList);
 
 MatchRouter.route('/:_id')
 	.get(isLoggedIn, getOneItem)

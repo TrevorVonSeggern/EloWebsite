@@ -23,6 +23,7 @@ let sqlInsertScript = fs.readFileSync(sqlBasePath + 'insert.sql', 'utf8');
 let sqlRemoveScript = fs.readFileSync(sqlBasePath + 'remove.sql', 'utf8');
 let sqlUpdateScript = fs.readFileSync(sqlBasePath + 'update.sql', 'utf8');
 let sqlAllScript = fs.readFileSync(sqlBasePath + 'all.sql', 'utf8');
+let sqlViewAllScript = fs.readFileSync(sqlBasePath + 'view.sql', 'utf8');
 let sqlCountScript = fs.readFileSync(sqlBasePath + 'count.sql', 'utf8');
 
 class SqlEvent extends SqlModel {
@@ -121,6 +122,39 @@ class SqlEvent extends SqlModel {
 			});
 		});
 	}
+
+
+	protected getViewAllGameIdScript(gameId: string, limit: number, skip: number): Promise<string> {
+		return new Promise<string>((resolve) => {
+			let script = '' + sqlViewAllScript; // plus an empty string for mutability.
+			if (gameId) {
+				script = script + " WHERE gameId = '" + gameId + "'";
+			}
+			if (limit && typeof limit === 'number' && limit > 0) {
+				script = script + ' LIMIT ' + limit.toString();
+				if (skip && typeof skip === 'number' && skip > 0)
+					script = script + ' OFFSET ' + skip.toString();
+			}
+			resolve(script);
+		});
+	}
+
+	viewAllByGame(gameId?: string, limit?: number, skip?: number): Promise<any[]> {
+		if (!skip || skip < 0)
+			skip = 0;
+		return new Promise<any[]>((resolve, reject) => {
+			this.getViewAllGameIdScript(gameId, limit, skip).then((query: string) => {
+				return Connection.query(query).then((data) => {
+					resolve(data);
+				}, (error) => {
+					reject(error);
+				});
+			}, (error) => {
+				console.log('error injecting all script.');
+				reject(error);
+			});
+		});
+	}
 }
 
 export class Event extends SqlEvent implements EventModel {
@@ -143,6 +177,11 @@ export class Event extends SqlEvent implements EventModel {
 	static allByGame(gameId?: string, limit?: number, skip?: number) {
 		let item = new Event();
 		return item.allByGame(gameId, limit, skip);
+	}
+
+	static viewAllByGame(gameId?: string, limit?: number, skip?: number) {
+		let item = new Event();
+		return item.viewAllByGame(gameId, limit, skip);
 	}
 
 	static getCount() {

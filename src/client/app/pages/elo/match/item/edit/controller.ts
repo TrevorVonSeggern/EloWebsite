@@ -5,14 +5,14 @@ import {ListFactory} from "../../list/factory";
 import * as Event from "../../../event/list/factory";
 import * as Team from "../../../team/list/factory";
 import * as Player from "../../../player/list/factory";
-import {ItemService} from "../service";
+import {MatchPlayerService} from "../matchPlayerService";
 
 export class controller extends BaseEditItemController {
 	static controllerName: string = eloDefinition.matchEdit.controllerName;
 	static $inject: any[] = [
 		'$window',
 		ListFactory.factoryName,
-		ItemService.serviceName,
+		MatchPlayerService.serviceName,
 		'$stateParams',
 		Event.ListFactory.factoryName,
 		Player.ListFactory.factoryName,
@@ -24,30 +24,34 @@ export class controller extends BaseEditItemController {
 	teamSelectList: any[] = [];
 	playerSelectList: any[] = [];
 
-	teamAPlayers = [];
-	teamBPlayers = [];
-	a = 0;
-
 	addPlayerTeamA() {
 		let a = new Object({id: ''});
-		this.teamAPlayers.push(a);
+		this.item.teamAPlayers.push(a);
 	}
 
 	removePlayerTeamA(index: number) {
-		this.teamAPlayers.splice(index, 1);
+		this.item.teamAPlayers.splice(index, 1);
 	}
 
 	addPlayerTeamB() {
 		let a = new Object({id: ''});
-		this.teamBPlayers.push(a);
+		this.item.teamBPlayers.push(a);
 	}
 
 	removePlayerTeamB(index: number) {
-		this.teamBPlayers.splice(index, 1);
+		this.item.teamBPlayers.splice(index, 1);
 	}
+
+	protected itemLoadComplete() {
+		if (!this.item.teamAPlayers)
+			this.item.teamAPlayers = [];
+		if (!this.item.teamBPlayers)
+			this.item.teamBPlayers = [];
+	}
+
 	constructor($window: IWindowService,
 				public Factory: ListFactory,
-				public itemFactory: ItemService,
+				public itemFactory: MatchPlayerService,
 				$stateParams,
 				public eventListFactory: Event.ListFactory,
 				public playerListFactory: Player.ListFactory,

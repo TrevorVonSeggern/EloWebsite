@@ -42,7 +42,7 @@
 						</span>
 				</md-title>
 				<md-content>
-					<div ng-repeat="(key, value) in vm.teamAPlayers track by $index" class="player-in-team-row">
+					<div ng-repeat="(key, value) in vm.item.teamAPlayers track by $index" class="player-in-team-row">
 						<div>
 							<tvo-input-single-select value="value.id"
 													 list="vm.playerSelectList"></tvo-input-single-select>
@@ -65,7 +65,7 @@
 						</span>
 				</md-title>
 				<md-content>
-					<div ng-repeat="(key, value) in vm.teamBPlayers track by $index" class="player-in-team-row">
+					<div ng-repeat="(key, value) in vm.item.teamBPlayers track by $index" class="player-in-team-row">
 						<div>
 							<tvo-input-single-select value="value.id"
 													 list="vm.playerSelectList"></tvo-input-single-select>

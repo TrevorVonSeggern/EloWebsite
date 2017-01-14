@@ -37,7 +37,7 @@ class SqlEloValue extends SqlModel {
 		});
 	}
 
-	protected createScript(modelInstance: any): Promise<string> {
+	public createScript(modelInstance: any): Promise<string> {
 		return new Promise<string>((resolve) => {
 			resolve(Connection.format(sqlInsertScript, [
 				modelInstance._id,

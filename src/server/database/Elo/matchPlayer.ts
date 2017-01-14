@@ -1,20 +1,23 @@
 import {SqlModel} from "../Base/SqlModel";
 import fs = require('fs');
 import {Connection} from "../Sql/Connection";
-import {MatchModel} from "../../../models/Elo/match";
 import {formatDateTime} from "../Model";
+import {MatchPlayerModel, PlayerSelectItem} from "../../../models/Elo/matchPlayer";
+import {EloValue} from "./eloValue";
 
 /**
  * Created by trevor on 3/21/16.
  */
-export let MatchSchema: MatchModel = {
+export let MatchPlayerSchema: MatchPlayerModel = {
 	_id: null,
 	startTime: null,
 	endTime: null,
 	teamA: null,
 	teamB: null,
 	eventId: null,
-	status: 0
+	status: 0,
+	teamAPlayers: [],
+	teamBPlayers: []
 };
 
 let sqlBasePath = './src/server/database/Sql/scripts/Elo/match/';
@@ -28,9 +31,17 @@ let sqlCountScript = fs.readFileSync(sqlBasePath + 'count.sql', 'utf8');
 let sqlSetAllStatusScript = fs.readFileSync(sqlBasePath + 'setAllStatus.sql', 'utf8');
 
 class SqlMatch extends SqlModel {
+	teamAPlayers: PlayerSelectItem[] = [];
+	teamBPlayers: PlayerSelectItem[] = [];
+	teamAPlayersPrevious: PlayerSelectItem[] = [];
+	teamBPlayersPrevious: PlayerSelectItem[] = [];
+	teamA: string;
+	teamB: string;
+	teamAPrevious: string;
+	teamBPrevious: string;
 
 	constructor(instance?: any) {
-		super(instance, Match);
+		super(instance, MatchPlayer);
 	}
 
 	protected getOneByIdScript(id: string): Promise<string> {
@@ -148,14 +159,90 @@ class SqlMatch extends SqlModel {
 		});
 	}
 
+	private getLeftDeltaList(old: PlayerSelectItem[], current: PlayerSelectItem[]): PlayerSelectItem[] {
+		let result = [];
+		if (!current)
+			return;
+		for (let i = 0; i < current.length; ++i) {
+			let contains = false;
+			for (let c = 0; c < old.length; ++c) {
+				if (current[i].value === old[c].value) {
+					contains = true;
+					break;
+				}
+			}
+			if (!contains)
+				result.push(current[i]);
+		}
+		return result;
+	}
 
+	createEloValueInsertQuery(teamId: string, list: PlayerSelectItem[]): string {
+		let eloValue = new EloValue();
+		// eloValue.
+		return '';
+	}
+
+	save(): Promise<SqlModel> {
+		if (!this.existingModel)
+			return this.create();
+
+		return new Promise<SqlModel>((resolve, reject) => {
+			this.presave().then(() => {
+				function finalSave(query: string) {
+					return Connection.query(query).then((data) => {
+						if (data === undefined) {
+							reject('no result from the database');
+						}
+						else if (data.affectedRows === 1 && data.changedRows === 1 && data.serverStatus === 2) {
+							resolve(this);
+						}
+						else
+							resolve(undefined);
+					}, (error) => {
+						reject(error);
+					});
+				}
+
+				this.saveScript(this).then((query: string) => {
+					let script: string = 'START TRANSACTION;';
+
+
+					// get a list of elo values to create
+					let toAddTeamA = this.getLeftDeltaList(this.teamAPlayersPrevious, this.teamAPlayers);
+					let toAddTeamB = this.getLeftDeltaList(this.teamBPlayersPrevious, this.teamBPlayers);
+
+					script += this.createEloValueInsertQuery(this.teamA, toAddTeamA);
+					script += this.createEloValueInsertQuery(this.teamB, toAddTeamB);
+
+					// update the teamId of nonChanging eloValues.
+					if (this.teamA !== this.teamAPrevious) {
+
+					}
+					if (this.teamB !== this.teamBPrevious) {
+
+					}
+
+					// get a list of elo values ot delete
+					let toDeleteTeamA = this.getLeftDeltaList(this.teamAPlayers, this.teamAPlayersPrevious);
+					let toDeleteTeamB = this.getLeftDeltaList(this.teamBPlayers, this.teamBPlayersPrevious);
+
+
+					script += 'COMMIT;'
+				}, (error) => {
+					console.log('error injecting save script.');
+					reject(error);
+				});
+			}, (error) => {
+				reject(error);
+			});
+		});
+	}
 }
 
-export class Match extends SqlMatch implements MatchModel {
+export class MatchPlayer extends SqlMatch implements MatchPlayerModel {
 	startTime: Date;
 	endTime: Date;
-	teamA: string;
-	teamB: string;
 	eventId: string;
 	status: number;
 	winner: boolean;
@@ -166,23 +253,26 @@ export class Match extends SqlMatch implements MatchModel {
 	}
 
 	static setAllStatus(gameId: string) {
-		let item = new Match();
+		let item = new MatchPlayer();
 		return item.setAllStatus(gameId);
 	}
 
 	static getOneById(id: string) {
-		let item = new Match();
-		return item.getOneById(id);
+		let item: any = new MatchPlayer();
+		item = item.getOneById(id);
+		item.teamAPlayersPrevious = item.teamAPlayers;
+		item.teamBPlayersPrevious = item.teamBPlayers;
+		return item;
 	}
 
 	static getCount() {
-		let item = new Match();
+		let item = new MatchPlayer();
 		return item.getCount();
 	}
 
 	static all(limit?: number, skip?: number): Promise<any[]> {
-		let itemModel = new Match();
-		return new Promise<MatchModel[]>((resolve, reject) => {
+		let itemModel = new MatchPlayer();
+		return new Promise<MatchPlayerModel[]>((resolve, reject) => {
 			itemModel.all(limit, skip).then((data) => {
 				resolve(data);
 			}, (error) => {
@@ -192,8 +282,8 @@ export class Match extends SqlMatch implements MatchModel {
 	}
 
 	static viewAll(limit?: number, skip?: number): Promise<any[]> {
-		let itemModel = new Match();
-		return new Promise<MatchModel[]>((resolve, reject) => {
+		let itemModel = new MatchPlayer();
+		return new Promise<MatchPlayerModel[]>((resolve, reject) => {
 			itemModel.viewAll(limit, skip).then((data) => {
 				resolve(data);
 			}, (error) => {

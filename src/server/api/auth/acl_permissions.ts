@@ -71,4 +71,12 @@ export const Permissions = [
 	{role: Roles.admin, url: 'api/elo/match', type: 'put'},
 	{role: Roles.admin, url: 'api/elo/match', type: 'post'},
 
+	{role: Roles.admin, url: 'api/elo/match_player/view', type: 'get'},
+	{role: Roles.admin, url: 'api/elo/match_player/size', type: 'get'},
+	{role: Roles.admin, url: 'api/elo/match_player/:*:', type: 'get'},
+	{role: Roles.admin, url: 'api/elo/match_player/:*:', type: 'delete'},
+	{role: Roles.admin, url: 'api/elo/match_player', type: 'get'},
+	{role: Roles.admin, url: 'api/elo/match_player', type: 'put'},
+	{role: Roles.admin, url: 'api/elo/match_player', type: 'post'},
+
 ];

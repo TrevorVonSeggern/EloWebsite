@@ -43,7 +43,7 @@
 tvo-email md-input-container,
 tvo-phone md-input-container,
 tvo-slider md-input-container,
-tvo-switch md-input-container {
+.tvo-input-switch md-input-container {
   min-width: 169px;
   width: 49%;
   max-width: 240px;
@@ -52,7 +52,7 @@ tvo-switch md-input-container {
 tvo-email md-input-container label,
 tvo-phone md-input-container label,
 tvo-slider md-input-container label,
-tvo-switch md-input-container label {
+.tvo-input-switch md-input-container label {
   color: #696969 !important;
 }
 .tvo-input-select-list input:-webkit-autofill,
@@ -61,7 +61,7 @@ tvo-button input:-webkit-autofill,
 tvo-email input:-webkit-autofill,
 tvo-phone input:-webkit-autofill,
 tvo-slider input:-webkit-autofill,
-tvo-switch input:-webkit-autofill {
+.tvo-input-switch input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0 1000px white inset;
 }
 .tvo-input-select-list label,
@@ -70,13 +70,13 @@ tvo-button label,
 tvo-email label,
 tvo-phone label,
 tvo-slider label,
-tvo-switch label {
+.tvo-input-switch label {
   margin-bottom: 0;
 }
 tvo-slider md-input-container label {
   margin-bottom: 15px;
 }
-tvo-switch md-input-container label {
+md-input-container.tvo-input-switch label {
   margin-bottom: 5px;
 }
 .tvo-input-page-link {

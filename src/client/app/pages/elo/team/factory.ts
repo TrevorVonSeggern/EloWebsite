@@ -5,7 +5,7 @@ import IHttpService = angular.IHttpService;
 
 export class TeamFactory {
 	static factoryName: string = 'TeamFactory';
-	static $inject: string[] = ['bcrypt', '$http'];
+	static $inject: string[] = [];
 
 	static initialized = false;
 

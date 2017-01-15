@@ -1,4 +1,4 @@
 INSERT INTO `Quicksilver`.`Match`
-(`_id`, `startTime`, `endTime`, `teamA`, `teamB`, `eventId`, `status`)
+(`_id`, `startTime`, `endTime`, `teamA`, `teamB`, `eventId`, `status`, `winner`)
 VALUES
-(?, ?, ?, ?, ?, ?, ?);
+(?, ?, ?, ?, ?, ?, ?, ?);

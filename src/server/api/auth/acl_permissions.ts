@@ -42,12 +42,13 @@ export const Permissions = [
 	{role: Roles.user, url: 'api/elo/game', type: 'post'},
 
 	{role: Roles.admin, url: 'api/elo/event/size', type: 'get'},
+	{role: Roles.admin, url: 'api/elo/event/view', type: 'get'},
 	{role: Roles.admin, url: 'api/elo/event/:*:', type: 'get'},
 	{role: Roles.admin, url: 'api/elo/event/:*:', type: 'delete'},
 	{role: Roles.admin, url: 'api/elo/event', type: 'get'},
 	{role: Roles.admin, url: 'api/elo/event', type: 'put'},
 	{role: Roles.admin, url: 'api/elo/event', type: 'post'},
-	
+
 	{role: Roles.admin, url: 'api/elo/team/size', type: 'get'},
 	{role: Roles.admin, url: 'api/elo/team/:*:', type: 'get'},
 	{role: Roles.admin, url: 'api/elo/team/:*:', type: 'delete'},
@@ -62,11 +63,20 @@ export const Permissions = [
 	{role: Roles.admin, url: 'api/elo/player', type: 'put'},
 	{role: Roles.admin, url: 'api/elo/player', type: 'post'},
 
+	{role: Roles.admin, url: 'api/elo/match/view', type: 'get'},
 	{role: Roles.admin, url: 'api/elo/match/size', type: 'get'},
 	{role: Roles.admin, url: 'api/elo/match/:*:', type: 'get'},
 	{role: Roles.admin, url: 'api/elo/match/:*:', type: 'delete'},
 	{role: Roles.admin, url: 'api/elo/match', type: 'get'},
 	{role: Roles.admin, url: 'api/elo/match', type: 'put'},
 	{role: Roles.admin, url: 'api/elo/match', type: 'post'},
+
+	{role: Roles.admin, url: 'api/elo/match_player/view', type: 'get'},
+	{role: Roles.admin, url: 'api/elo/match_player/size', type: 'get'},
+	{role: Roles.admin, url: 'api/elo/match_player/:*:', type: 'get'},
+	{role: Roles.admin, url: 'api/elo/match_player/:*:', type: 'delete'},
+	{role: Roles.admin, url: 'api/elo/match_player', type: 'get'},
+	{role: Roles.admin, url: 'api/elo/match_player', type: 'put'},
+	{role: Roles.admin, url: 'api/elo/match_player', type: 'post'},
 
 ];

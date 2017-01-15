@@ -17,6 +17,19 @@ export class ListFactory extends BasicListFactory {
 		});
 	}
 
+	getSelectList(resolve: (list: any[]) => void, reject: (error: string) => void) {
+		this.itemFactory.httpServerCall('/api/elo/player/', 'get', undefined, (data) => {
+			let list = data.data;
+			let result = [];
+			for (let i = 0; i < list.length; ++i) {
+				result.push(new Object({label: list[i].name, value: list[i]._id}))
+			}
+			resolve(result);
+		}, (error) => {
+			reject(error);
+		});
+	}
+
 	static factory() {
 		let result: any[] = ListFactory.$inject;
 		result.push((itemFactory: UserFactory) =>

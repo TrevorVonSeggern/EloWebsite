@@ -6,7 +6,6 @@ export function InputSliderDirective() {
 			'label': '=',
 			'value': '=',
 			'disabled': '=',
-			'click': '&'
 		},
 		controller: definition.inputSlider.controllerName,
 		controllerAs: "vm",

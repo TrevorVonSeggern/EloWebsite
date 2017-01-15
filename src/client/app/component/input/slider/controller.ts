@@ -1,11 +1,10 @@
 import IScope = angular.IScope;
 
 class controller {
-	constructor(public $scope:any) {
-		$scope.vm = this;
+	constructor() {
 	}
 
-	static $inject:string[];
+	static $inject: string[];
 }
-controller.$inject               = ['$scope'];
-export var InputSliderController = controller;
+controller.$inject = ['$scope'];
+export let InputSliderController = controller;

@@ -4,6 +4,7 @@ import {IBaseModel} from "../Base/baseModel";
 export class EloValueModel implements IBaseModel {
 	_id: string;
 	playerId: string;
+	teamId: string;
 	matchId: string;
 	eloValue: number;
 }

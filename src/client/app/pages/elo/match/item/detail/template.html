@@ -1,0 +1,29 @@
+<md-card ng-if="!vm.eventEditFocused">
+	<div ng-class="{loading: vm.loading}">
+		<md-card-title>
+			<md-card-title-text>
+				<span class="md-headline">Match</span>
+				<span class="md-subhead">Detail</span>
+			</md-card-title-text>
+		</md-card-title>
+		<div class="btn-group card-controls">
+			<span ng-if="vm.error">{{vm.error}}</span>
+			<tvo-button ng-click="vm.cancel('/#/match')" label="'Back'"></tvo-button>
+			<tvo-button ng-click="vm.edit('/#/match/edit')" label="'Edit'"></tvo-button>
+		</div>
+
+		<md-card-content ng-if="!vm.loading">
+			<tvo-label-text label="'TeamA'" value="vm.item.teamAName"></tvo-label-text>
+			<span style="vertical-align: bottom">vs.</span>
+			<tvo-label-text label="'TeamB'" value="vm.item.teamBName"></tvo-label-text>
+			<tvo-label-datetime label="'Start Time'" value="vm.item.startTime"></tvo-label-datetime>
+			<tvo-label-datetime label="'End Time'" value="vm.item.endTime"></tvo-label-datetime>
+			<tvo-label-text label="'Event Name'" value="vm.item.eventName"></tvo-label-text>
+			<tvo-label-text label="'Internal Status'" value="vm.item.status"></tvo-label-text>
+			<tvo-label-text label="'Winner (teamA)'" value="vm.item.winner"></tvo-label-text>
+		</md-card-content>
+	</div>
+</md-card>
+
+<tvo-match-management-item-edit id="vm.item._id" ng-if="vm.eventEditFocused" game-id="vm.gameId"
+								open="vm.eventEditFocused"></tvo-match-management-item-edit>

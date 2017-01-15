@@ -4,6 +4,20 @@
 
 import {IBaseModel} from "../../models/baseModel";
 import * as bcrypt from 'bcrypt-nodejs'
+import moment = require('moment');
+
+export function formatDateTime(date): string {
+	let d;
+	if (typeof(date) === 'string')
+		d = new Date(date);
+	else if (date instanceof Date)
+		d = date;
+
+	if (d === undefined || d === null)
+		return '';
+
+	return moment(d).format("YYYY-MM-DD HH:mm:ss");
+}
 
 export function hashString(input, _salt): Promise<string> {
 	return new Promise<string>((resolve, reject) => {

@@ -4,20 +4,21 @@ import {BaseItemController} from '../baseController';
 
 export abstract class BaseEditItemController extends BaseItemController {
 	// need to populate
-	static controllerName:string;
-	static $inject:any[] = ['$window', BasicItemService.serviceName, '$stateParams'];
+	static controllerName: string;
+	static $inject: any[] = ['$window', BasicItemService.serviceName, '$stateParams'];
 
 
 	constructor($window,
-	            public basicItemService:BasicItemService,
-	            $stateParams,
-				public returnUrl:string) {
+				public basicItemService: BasicItemService,
+				$stateParams,
+				public returnUrl: string) {
 		super(basicItemService, $stateParams, $window, (it) => {
 			return returnUrl + '/' + it._id;
 		});
 	}
 
-	save(returnUrl:string) {
+
+	save(returnUrl: string) {
 		this.loading = true;
 
 		this.basicItemService.saveItem(this.item, () => {
@@ -30,12 +31,12 @@ export abstract class BaseEditItemController extends BaseItemController {
 				this.open = false;
 			}
 		}, (error) => {
-			this.error   = error;
+			this.error = error;
 			this.loading = false;
 		});
 	}
 
-	cancel(returnUrl:string) {
+	cancel(returnUrl: string) {
 		if (this.basicItemService.mode === 'router') {
 			this.$window.location.href = returnUrl + '/' + this.item._id;
 		}

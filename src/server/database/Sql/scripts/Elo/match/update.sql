@@ -5,6 +5,7 @@ SET
 `teamA` = ?,
 `teamB` = ?,
 `eventId` = ?,
-`status` = ?
+`status` = ?,
+`winner` = ?
 WHERE `_id` = ?;
 

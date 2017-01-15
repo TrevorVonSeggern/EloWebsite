@@ -10,9 +10,10 @@ import {EloValueModel} from "../../../models/Elo/eloValue";
 
 // Define our client schema
 let EloValueSchema: EloValueModel = {
-	_id: '',
-	playerId: '',
-	matchId: '',
+	_id: null,
+	playerId: null,
+	teamId: null,
+	matchId: null,
 	eloValue: 400
 };
 
@@ -37,11 +38,12 @@ class SqlEloValue extends SqlModel {
 		});
 	}
 
-	protected createScript(modelInstance: any): Promise<string> {
+	public createScript(modelInstance: any): Promise<string> {
 		return new Promise<string>((resolve) => {
 			resolve(Connection.format(sqlInsertScript, [
 				modelInstance._id,
 				modelInstance.playerId,
+				modelInstance.teamId,
 				modelInstance.matchId,
 				modelInstance.eloValue
 			]));
@@ -58,6 +60,7 @@ class SqlEloValue extends SqlModel {
 		return new Promise<string>((resolve) => {
 			resolve(Connection.format(sqlUpdateScript, [
 				modelInstance.playerId,
+				modelInstance.teamId,
 				modelInstance.matchId,
 				modelInstance.eloValue,
 				modelInstance._id
@@ -112,6 +115,7 @@ class SqlEloValue extends SqlModel {
 
 export class EloValue extends SqlEloValue implements EloValueModel {
 	playerId: string;
+	teamId: string;
 	matchId: string;
 	eloValue: number;
 
@@ -119,8 +123,15 @@ export class EloValue extends SqlEloValue implements EloValueModel {
 		super(instance);
 	}
 
+
 	static getAllByMatchId(matchId: string): Promise<EloValueModel[]> {
 		return SqlEloValue.getAllByMatchId(matchId);
+	}
+
+	static removeById(id: string): Promise<void> {
+		let item = new EloValue();
+		item._id = id;
+		return item.remove();
 	}
 }
 

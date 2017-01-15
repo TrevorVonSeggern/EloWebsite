@@ -2,17 +2,18 @@ import {SqlModel} from "../Base/SqlModel";
 import fs = require('fs');
 import {Connection} from "../Sql/Connection";
 import {MatchModel} from "../../../models/Elo/match";
+import {formatDateTime} from "../Model";
 
 /**
  * Created by trevor on 3/21/16.
  */
-let MatchSchema: MatchModel = {
-	_id: '',
-	startTime: new Date(),
-	endTime: new Date(),
-	teamA: '',
-	teamB: '',
-	eventId: '',
+export let MatchSchema: MatchModel = {
+	_id: null,
+	startTime: null,
+	endTime: null,
+	teamA: null,
+	teamB: null,
+	eventId: null,
 	status: 0
 };
 
@@ -22,6 +23,7 @@ let sqlInsertScript = fs.readFileSync(sqlBasePath + 'insert.sql', 'utf8');
 let sqlRemoveScript = fs.readFileSync(sqlBasePath + 'remove.sql', 'utf8');
 let sqlUpdateScript = fs.readFileSync(sqlBasePath + 'update.sql', 'utf8');
 let sqlAllScript = fs.readFileSync(sqlBasePath + 'all.sql', 'utf8');
+let sqlViewAllScript = fs.readFileSync(sqlBasePath + 'view.sql', 'utf8');
 let sqlCountScript = fs.readFileSync(sqlBasePath + 'count.sql', 'utf8');
 let sqlSetAllStatusScript = fs.readFileSync(sqlBasePath + 'setAllStatus.sql', 'utf8');
 
@@ -37,16 +39,17 @@ class SqlMatch extends SqlModel {
 		});
 	}
 
-	protected createScript(modelInstance: MatchModel): Promise<string> {
+	protected createScript(modelInstance): Promise<string> {
 		return new Promise<string>((resolve) => {
 			resolve(Connection.format(sqlInsertScript, [
 				modelInstance._id,
-				modelInstance.startTime.toUTCString(),
-				modelInstance.endTime.toUTCString(),
+				formatDateTime(modelInstance.startTime),
+				formatDateTime(modelInstance.endTime),
 				modelInstance.teamA,
 				modelInstance.teamB,
 				modelInstance.eventId,
-				modelInstance.status.toString()
+				modelInstance.status.toString(),
+				modelInstance.winner
 			]));
 		});
 	}
@@ -60,12 +63,13 @@ class SqlMatch extends SqlModel {
 	protected saveScript(modelInstance: any): Promise<string> {
 		return new Promise<string>((resolve) => {
 			resolve(Connection.format(sqlUpdateScript, [
-				modelInstance.startTime.toUTCString(),
-				modelInstance.endTime.toUTCString(),
+				formatDateTime(modelInstance.startTime),
+				formatDateTime(modelInstance.endTime),
 				modelInstance.teamA,
 				modelInstance.teamB,
 				modelInstance.eventId,
 				modelInstance.status.toString(),
+				modelInstance.winner,
 				modelInstance._id
 			]));
 		});
@@ -114,6 +118,37 @@ class SqlMatch extends SqlModel {
 			});
 		});
 	}
+
+	protected getViewAllScript(limit?: number, skip?: number): Promise<string> {
+		return new Promise<string>((resolve) => {
+			let script = '' + sqlViewAllScript; // plus an empty string for mutability.
+			if (limit && typeof limit === 'number' && limit > 0) {
+				script = script + ' LIMIT ' + limit.toString();
+				if (skip && typeof skip === 'number' && skip > 0)
+					script = script + ' OFFSET ' + skip.toString();
+			}
+			resolve(script);
+		});
+	}
+
+	viewAll(limit?: number, skip?: number): Promise<any[]> {
+		if (!skip || skip < 0)
+			skip = 0;
+		return new Promise<any[]>((resolve, reject) => {
+			this.getViewAllScript(limit, skip).then((query: string) => {
+				return Connection.query(query).then((data) => {
+					resolve(data);
+				}, (error) => {
+					reject(error);
+				});
+			}, (error) => {
+				console.log('error injecting all script.');
+				reject(error);
+			});
+		});
+	}
+
+
 }
 
 export class Match extends SqlMatch implements MatchModel {
@@ -123,11 +158,12 @@ export class Match extends SqlMatch implements MatchModel {
 	teamB: string;
 	eventId: string;
 	status: number;
+	winner: boolean;
 
 	constructor(instance?: any) {
 		super(instance);
+		this.winner = !(!this.winner);
 	}
-
 
 	static setAllStatus(gameId: string) {
 		let item = new Match();
@@ -148,6 +184,17 @@ export class Match extends SqlMatch implements MatchModel {
 		let itemModel = new Match();
 		return new Promise<MatchModel[]>((resolve, reject) => {
 			itemModel.all(limit, skip).then((data) => {
+				resolve(data);
+			}, (error) => {
+				reject(error);
+			});
+		});
+	}
+
+	static viewAll(limit?: number, skip?: number): Promise<any[]> {
+		let itemModel = new Match();
+		return new Promise<MatchModel[]>((resolve, reject) => {
+			itemModel.viewAll(limit, skip).then((data) => {
 				resolve(data);
 			}, (error) => {
 				reject(error);

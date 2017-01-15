@@ -8,12 +8,14 @@ import {EventModule} from "./event/module";
 import {TeamModule} from "./team/module";
 import {GameModule} from "./game/module";
 import {PlayerModule} from "./player/module";
+import {MatchModule} from "./match/module";
 
 let module: any = angular.module('elo', [
 	EventModule.name,
 	GameModule.name,
 	TeamModule.name,
 	PlayerModule.name,
+	MatchModule.name,
 ]);
 
 export let EloModule = module;
@@ -38,5 +40,10 @@ export function loadEloRouter(stateProvider) {
 	stateProvider.state('playerEdit', new DefinitionRouter('/player/edit/:id', eloDefinition.playerEdit));
 	stateProvider.state('player', new DefinitionRouter('/player', eloDefinition.player));
 	stateProvider.state('playerDetail', new DefinitionRouter('/player/:id', eloDefinition.playerDetail));
+	
+	stateProvider.state('matchCreate', new DefinitionRouter('/match/create', eloDefinition.matchCreate));
+	stateProvider.state('matchEdit', new DefinitionRouter('/match/edit/:id', eloDefinition.matchEdit));
+	stateProvider.state('match', new DefinitionRouter('/match', eloDefinition.match));
+	stateProvider.state('matchDetail', new DefinitionRouter('/match/:id', eloDefinition.matchDetail));
 
 }

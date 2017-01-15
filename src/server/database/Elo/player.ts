@@ -4,10 +4,10 @@ import {Connection} from "../Sql/Connection";
 import {PlayerModel} from "../../../models/Elo/player";
 
 export let PlayerSchema: PlayerModel = {
-	_id: '',
-	name: '',
-	userId: '',
-	gameId: ''
+	_id: null,
+	name: null,
+	userId: null,
+	gameId: null
 };
 
 let sqlBasePath = './src/server/database/Sql/scripts/Elo/player/';

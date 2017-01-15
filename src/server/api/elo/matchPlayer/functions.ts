@@ -26,7 +26,7 @@ export function getViewList(req, res) { // get
 }
 
 export function getOneItem(req, res) { // get
-	Match.getOneById(req.params._id).then((item: any) => {
+	MatchPlayer.getOneById(req.params._id).then((item: any) => {
 		if (item === undefined || (item.length && item.length === 0))
 			res.send({});
 		else {
@@ -53,11 +53,17 @@ export function getSize(req, res) { // get
 }
 
 function validateTeamSelectList(list) {
+	for (let i = 0; i < list.length; ++i) {
+		if (!list[i]['playerId']) {
+			list.splice(i, 1);
+			i--;
+		}
+	}
 	if (Array.isArray(list)) {
 		let good = true;
 		for (let i = 0; i < list.length; ++i) {
 			let item = list[i];
-			if (Object.keys(item).length != 1 || !item['id']) {
+			if (!item['playerId']) { // should remove bad items instead of completely fail.
 				good = false;
 				break;
 			}
@@ -75,10 +81,18 @@ export function saveItem(req, res) {
 	MatchPlayer.getOneById(req.body._id).then((item: MatchPlayer) => {
 		item.startTime = req.body.startTime;
 		item.endTime = req.body.endTime;
+		item.teamAPrevious = item.teamA;
+		item.teamBPrevious = item.teamB;
 		item.teamA = req.body.teamA;
 		item.teamB = req.body.teamB;
 		item.eventId = req.body.eventId;
 		item.winner = req.body.winner === 'true';
+		for (let i = 0; i < item.teamAPlayers.length; ++i) {
+			item.teamAPlayersPrevious.push(item.teamAPlayers[i]);
+		}
+		for (let i = 0; i < item.teamBPlayers.length; ++i) {
+			item.teamBPlayersPrevious.push(item.teamBPlayers[i]);
+		}
 		item.teamAPlayers = validateTeamSelectList(req.body.teamAPlayers);
 		item.teamBPlayers = validateTeamSelectList(req.body.teamBPlayers);
 

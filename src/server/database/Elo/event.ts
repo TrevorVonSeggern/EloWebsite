@@ -3,6 +3,7 @@ import fs = require('fs');
 import {Connection} from "../Sql/Connection";
 import {EventModel} from "../../../models/Elo/event";
 import {formatDateTime} from "../Model";
+import {Game} from "./game";
 
 /**
  * Created by trevor on 3/21/16.
@@ -187,5 +188,14 @@ export class Event extends SqlEvent implements EventModel {
 	static getCount() {
 		let item = new Event();
 		return item.getCount();
+	}
+
+	getGame(): Promise<Game> {
+		return new Promise<Game>((resolve, reject) => {
+			Game.getOneById(this.gameId).then((game) => {
+				resolve(new Game(game));
+			}, reject);
+		});
+
 	}
 }

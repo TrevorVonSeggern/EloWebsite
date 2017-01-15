@@ -25,7 +25,7 @@ export class controller extends BaseEditItemController {
 	playerSelectList: any[] = [];
 
 	addPlayerTeamA() {
-		let a = new Object({id: ''});
+		let a = new Object({playerId: ''});
 		this.item.teamAPlayers.push(a);
 	}
 
@@ -34,7 +34,7 @@ export class controller extends BaseEditItemController {
 	}
 
 	addPlayerTeamB() {
-		let a = new Object({id: ''});
+		let a = new Object({playerId: ''});
 		this.item.teamBPlayers.push(a);
 	}
 

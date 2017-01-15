@@ -1,10 +1,10 @@
 // Created by trevor on 12/31/16.
 
 import {IBaseModel} from "../Base/baseModel";
+import {EloValue} from "../../server/database/Elo/eloValue";
 
 export class PlayerSelectItem {
-	label: string;
-	value: string;
+	id: string;
 }
 export class MatchPlayerModel implements IBaseModel {
 	_id: string;
@@ -14,6 +14,6 @@ export class MatchPlayerModel implements IBaseModel {
 	teamB: string;
 	eventId: string;
 	status: number;
-	teamAPlayers: PlayerSelectItem[];
-	teamBPlayers: PlayerSelectItem[];
+	teamAPlayers: EloValue[];
+	teamBPlayers: EloValue[];
 }

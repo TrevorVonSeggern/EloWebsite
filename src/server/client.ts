@@ -29,8 +29,8 @@ client.use('/src/SystemConfig.ts', express.static('./src/SystemConfig.ts', cache
 client.get('/index.html', getIndex);
 client.get('/', getIndex);
 
-let indexPage = fs.readFileSync('./src/client/index.html', 'utf8');
 
 function getIndex(req, res) {
+	let indexPage = fs.readFileSync('./src/client/index.html', 'utf8');
 	res.send(indexPage);
 }

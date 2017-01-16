@@ -1,56 +1,41 @@
 <!--Company Logo-->
 <!--Menu navigation-->
-<div class="menu">
+<div class="menu" role="navigation">
 	<div class="icon" ng-click="vm.menuClick('/')"></div>
 
-	<ul ng-class="{debounce: vm.debounce}">
-		<!--<li ng-click="vm.menuClick('/category')" class="sub-menu"-->
-		<!--ng-if="vm.$userFactory.LoggedIn && vm.$userFactory.user.role && vm.$userFactory.user.role !== 'guest'">-->
-		<!--<span> - Category - </span>-->
-		<!--<ul ng-if="!vm.debounce">-->
-		<!--<li ng-click="vm.menuClick('/category/subcategory1')">-->
-		<!--<span>subcategory1</span>-->
-		<!--</li>-->
-		<!--</ul>-->
-		<!--</li>-->
+	<ul class="nav nav-pills nav-tabs nav-justified">
 
-		<li ng-click="vm.menuClick('/game')"
-			ng-if="vm.$userFactory.LoggedIn">
-			<span>Game(s)</span>
+		<li ng-show="vm.$userFactory.LoggedIn" ng-class="{active: vm.route === 'game'}">
+			<a href="#/game">Game</a>
 		</li>
-		<li ng-click="vm.menuClick('/event')"
-			ng-if="vm.$userFactory.LoggedIn">
-			<span>Event(s)</span>
+		<li ng-show="vm.$userFactory.LoggedIn" ng-class="{active: vm.route === 'event'}">
+			<a href="#/event">Event</a>
 		</li>
-		<li ng-click="vm.menuClick('/match')"
-			ng-if="vm.$userFactory.LoggedIn">
-			<span>Match(s)</span>
+		<li ng-show="vm.$userFactory.LoggedIn" ng-class="{active: vm.route === 'match'}">
+			<a href="#/match">Match</a>
 		</li>
-		<li ng-click="vm.menuClick('/team')"
-			ng-if="vm.$userFactory.LoggedIn">
-			<span>Team(s)</span>
+		<li ng-show="vm.$userFactory.LoggedIn" ng-class="{active: vm.route === 'team'}">
+			<a href="#/team">Team</a>
 		</li>
-		<li ng-click="vm.menuClick('/player')"
-			ng-if="vm.$userFactory.LoggedIn">
-			<span>Player(s)</span>
+		<li ng-show="vm.$userFactory.LoggedIn" ng-class="{active: vm.route === 'player'}">
+			<a href="#/player">Player</a>
 		</li>
 
-
-		<li ng-click="vm.menuClick('/administration')"
-			ng-if="vm.$userFactory.LoggedIn && vm.$userFactory.user.role === 'Administrator'">
-			<span>Administration</span>
+		<li ng-show="vm.$userFactory.LoggedIn && vm.$userFactory.user.role === 'Administrator'"
+			ng-class="{active: vm.route === 'administration'}">
+			<a href="#/administration">Administration</a>
 		</li>
-		<li ng-click="vm.menuClick('/account')" ng-if="vm.$userFactory.LoggedIn">
-			<span>Account</span>
+		<li ng-show="vm.$userFactory.LoggedIn" ng-class="{active: vm.route === 'account'}">
+			<a href="#/account">Account</a>
 		</li>
-		<li ng-click="vm.menuClick('/logout')" ng-if="vm.$userFactory.LoggedIn">
-			<span>Sign Out</span>
+		<li ng-show="vm.$userFactory.LoggedIn">
+			<a href="#/logout">Logout</a>
 		</li>
-		<li ng-click="vm.menuClick('/login')" ng-if="!vm.$userFactory.LoggedIn">
-			<span>Log in</span>
+		<li ng-show="!vm.$userFactory.LoggedIn" ng-class="{active: vm.route === 'login'}">
+			<a href="#/login">Login</a>
 		</li>
-		<li ng-click="vm.menuClick('/register')" class="registerMenu" ng-if="!vm.$userFactory.LoggedIn">
-			<span>Sign Up</span>
+		<li ng-show="!vm.$userFactory.LoggedIn" ng-class="{active: vm.route === 'register'}">
+			<a href="#/register">Sign Up</a>
 		</li>
 	</ul>
 </div>

@@ -1,6 +1,7 @@
-<div class="tvo-input-text">
-    <label>{{vm.label}}</label>
-    <div>
-        <input type="text" class="form-control" ng-model="vm.value"/>
-    </div>
+<div class="tvo-input-text col-md-4 tvo-input-item">
+	<div class="input-group">
+		<span class="input-group-addon">{{vm.label}}</span>
+		<input type="text" class="form-control" placeholder="{{vm.placeholder}}" aria-describedby="basic-addon1"
+			   ng-model="vm.value">
+	</div>
 </div>

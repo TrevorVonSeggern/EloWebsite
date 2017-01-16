@@ -1,6 +1,3 @@
-<md-input-container class="md-icon-float flex">
-    <label>{{vm.label}}</label>
-    <md-icon md-svg-src="/src/client/images/input/ic_email_24px.svg" class="name"></md-icon>
-    <input ng-model="vm.value" type="text" ng-if="!vm.display">
-    <input ng-model="vm.value" type="text" ng-if="vm.display" readonly="true">
-</md-input-container>
+<div>
+	<tvo-text label="'Email'" value="vm.value"></tvo-text>
+</div>

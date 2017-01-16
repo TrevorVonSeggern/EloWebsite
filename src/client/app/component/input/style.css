@@ -1,61 +1,21 @@
 .tvo-input-select-list {
-  width: 240px;
   display: inline-block;
-  height: 42px;
-  margin: 4px 4px 0 0;
-  padding: 2px 2px 1px 2px;
 }
-.tvo-input-select-list input:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0 1000px white inset;
+.tvo-input-select-list div.tvo-has-label div.bootstrap-select button {
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
 }
-.tvo-input-select-list label {
-  color: gray;
-  font-size: 12px;
+.tvo-input-select-list div.btn-group.bootstrap-select button {
+  min-height: 34px;
+  min-width: 30px;
 }
-.tvo-input-select-list div {
-  position: relative;
-}
-.tvo-input-select-list div select {
-  outline: none;
-  width: 100%;
-  border: 0;
-  border-bottom: #a4a4a4 solid 1px;
-  position: absolute;
-  z-index: 1;
-  margin: 1px 0 0 4px;
-  padding: 2px 0 3px 0;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background: none;
-}
-.tvo-input-select-list div select option {
-  margin-left: -4px;
-}
-.tvo-input-select-list div .carrot-icon {
-  position: absolute;
-  right: 0;
-  top: 3px;
-  z-index: 3;
+.tvo-input-item {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 .tvo-input-phone-readonly {
   color: black !important;
 }
-tvo-email md-input-container,
-tvo-phone md-input-container,
-tvo-slider md-input-container,
-.tvo-input-switch md-input-container {
-  min-width: 169px;
-  width: 49%;
-  max-width: 240px;
-  margin-bottom: 5px !important;
-}
-tvo-email md-input-container label,
-tvo-phone md-input-container label,
-tvo-slider md-input-container label,
-.tvo-input-switch md-input-container label {
-  color: #696969 !important;
-}
-.tvo-input-select-list input:-webkit-autofill,
 .tvo-input-text input:-webkit-autofill,
 tvo-button input:-webkit-autofill,
 tvo-email input:-webkit-autofill,
@@ -64,7 +24,6 @@ tvo-slider input:-webkit-autofill,
 .tvo-input-switch input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0 1000px white inset;
 }
-.tvo-input-select-list label,
 .tvo-input-text label,
 tvo-button label,
 tvo-email label,
@@ -97,69 +56,6 @@ md-input-container.tvo-input-switch label {
   text-decoration: none;
   font-style: italic;
 }
-.tvo-input-select-list {
-  width: 240px;
-  display: inline-block;
-  height: 42px;
-  margin: 4px 4px 0 0;
-  padding: 2px 2px 1px 2px;
-}
-.tvo-input-select-list label {
-  color: gray;
-  font-size: 12px;
-}
-.tvo-input-select-list div {
-  position: relative;
-}
-.tvo-input-select-list div select {
-  outline: none;
-  width: 100%;
-  border: 0;
-  border-bottom: #a4a4a4 solid 1px;
-  position: absolute;
-  z-index: 1;
-  margin: 1px 0 0 4px;
-  padding: 2px 0 3px 0;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background: none;
-}
-.tvo-input-select-list div select option {
-  margin-left: -4px;
-}
-.tvo-input-select-list div .carrot-icon {
-  position: absolute;
-  right: 0;
-  top: 3px;
-  z-index: 3;
-}
 .tvo-input-text {
-  width: 240px;
-  display: inline-block;
-  padding: 2px;
-  margin: 4px 4px 0 0;
-}
-.tvo-input-text label {
-  color: gray;
-  font-size: 12px;
-}
-.tvo-input-text div {
-  margin: 2px 0 2px 4px;
-  padding: 0 -2px 5px 3px;
-  border-bottom: #a4a4a4 solid 1px;
-}
-.tvo-input-text div input {
-  outline: none;
-  border: 0;
-  width: 100%;
-}
-.tvo-input-container-delete {
-  background-color: #8b0000;
-  padding: 2px 5px;
-  height: 30px;
-  border-radius: 4px;
-}
-.tvo-input-container-create {
-  padding: 2px 5px;
   display: inline-block;
 }

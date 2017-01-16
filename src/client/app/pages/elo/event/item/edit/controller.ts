@@ -28,11 +28,7 @@ export class controller extends BaseEditItemController {
 			this.item.gameId = this.gameId;
 		this.loading = true;
 		gameListFactory.getSelectList((list) => {
-			let resultList = [];
-			for (let i = 0; i < list.length; i++) {
-				resultList.push(new Object({label: list[i].name, value: list[i]._id}));
-			}
-			this.gameSelectList = resultList;
+			this.gameSelectList = list;
 			this.loading = false;
 		});
 	}

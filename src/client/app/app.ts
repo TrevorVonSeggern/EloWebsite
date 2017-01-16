@@ -17,6 +17,7 @@ import 'ngInfiniteScroll';
 
 import 'uiBootstrap';
 import 'dateTimePicker';
+import 'bootstrapSelect';
 
 import './appConfig';
 

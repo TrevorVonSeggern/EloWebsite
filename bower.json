@@ -43,11 +43,15 @@
     "ngInfiniteScroll": "1.0.0",
     "commonjs-require-definition": "^0.5.0",
     "bootstrap-ui-datetime-picker": "^2.4.3",
-    "bootstrap": "^3.3.7"
+    "bootstrap": "3.3.7",
+	"angular-bootstrap-select": "dlukez/angular-bootstrap-select#e4e618636372646572b7ffbe7a93a5c6a22d21d4"
   },
   "resolutions": {
     "angular": "1.5.8",
     "angular-mocks": "1.5.8",
-    "angular-bootstrap": "^2.4.0"
+    "angular-bootstrap": "^2.4.0",
+    "bootstrap-select": "1.12.1",
+    "jquery": "1.9.1 - 2",
+    "bootstrap": "3.3.7"
   }
 }

@@ -4,7 +4,7 @@ SELECT
   M.endTime,
   E.name AS eventName,
   TA.name as teamA,
-  TA.name as teamB
+  TB.name as teamB
 FROM `Match` as M
 
 INNER JOIN Event as E on E.`_id` = M.eventId

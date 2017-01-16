@@ -27,10 +27,10 @@ export function loadRouter($stateProvider) {
 	$stateProvider.state('user-change-password', new DefinitionRouter('/account/ChangePassword', definition.accountChangePassword));
 	$stateProvider.state('user-account', new DefinitionRouter('/account', definition.account));
 
-	$stateProvider.state('user-management-create', new DefinitionRouter('/userManagement/create', definition.userManagementCreate));
-	$stateProvider.state('user-management-edit', new DefinitionRouter('/userManagement/edit/:id', definition.userManagementEdit));
-	$stateProvider.state('user-management', new DefinitionRouter('/userManagement', definition.userManagement));
-	$stateProvider.state('user-management-detail', new DefinitionRouter('/userManagement/:id', definition.userManagementDetail));
+	$stateProvider.state('user-management-create', new DefinitionRouter('/administration/userManagement/create', definition.userManagementCreate));
+	$stateProvider.state('user-management-edit', new DefinitionRouter('/administration/userManagement/edit/:id', definition.userManagementEdit));
+	$stateProvider.state('user-management', new DefinitionRouter('/administration/userManagement', definition.userManagement));
+	$stateProvider.state('user-management-detail', new DefinitionRouter('/administration/userManagement/:id', definition.userManagementDetail));
 
 	$stateProvider.state('administration', new DefinitionRouter('/administration', definition.administration));
 

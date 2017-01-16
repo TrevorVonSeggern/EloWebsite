@@ -1,19 +1,13 @@
 .tvo-label-text {
-  width: 240px;
   display: inline-block;
-  padding: 2px;
-  margin: 4px 4px 2px 0;
-}
-.tvo-label-text label {
-  color: gray;
-  font-size: 12px;
-}
-.tvo-label-text div {
-  margin-left: 4px;
-  padding: 3px 0;
-}
-.tvo-label-text div input {
   outline: none;
-  border: 0;
-  width: 100%;
+}
+.tvo-label-text .input-group .value {
+  outline: none;
+  margin-top: 3px;
+  margin-left: 12px;
+  vertical-align: text-bottom;
+}
+.tvo-label-text .input-group .input-group-addon {
+  border-right: 1px solid #ccc;
 }

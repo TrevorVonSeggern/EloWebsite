@@ -1,7 +1,7 @@
 import {definition} from '../../../Definition';
 
 export class controller {
-	static controllerName:string = definition.inputSingleSelect.controllerName;
+	static controllerName: string = definition.inputSingleSelect.controllerName;
 
 	constructor() {
 	}

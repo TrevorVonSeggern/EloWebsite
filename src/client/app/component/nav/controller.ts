@@ -2,23 +2,41 @@ import ILocationService = angular.ILocationService;
 import {UserFactory} from "../../pages/userManagement/user/factory";
 
 export class navController {
-	LoggedIn:boolean = false;
-	debounce:boolean = false;
+	LoggedIn: boolean = false;
+	route: string = '';
 
-	static $inject:any[] = ['$scope', '$location', UserFactory.factoryName];
+	static $inject: any[] = [
+		'$rootScope', // url change events. Mark active nav items
+		UserFactory.factoryName // template uses this to see if users are logged in or not.
+	];
 
-	constructor(public $scope:any, public $location:ILocationService, public $userFactory:UserFactory) {
-	}
+	constructor($rootScope: any, public $userFactory: UserFactory) {
+		let url = '';
+		let checkState = (url) => {
+			let components = url.split('/');
+			if (components.length === 0) {
+				this.route = '';
+				return;
+			}
+			if (components[0] === '/' || components[0] === '') {
+				if (components.length === 1) {
+					this.route = '';
+					return;
+				}
+				if (components[1] === '/' || components[1] === '#') {
+					this.route = '';
+					return;
+				}
+				this.route = components[1];
+			}
+		};
 
-	menuClick(page:string) {
-		if (!this.debounce) {
-			this.$location.path('' + page);
-			this.debounce = true;
-			setTimeout(() => {
-				this.debounce = false;
-				this.$scope.$apply();
-			}, 100)
-		}
+		let name = window.location.hash;
+		name = name.replace('#', '');
+		checkState(name);
+		$rootScope.$on('$stateChangeStart', (event, toState) => {
+			checkState(toState.url);
+		});
 	}
 }
 

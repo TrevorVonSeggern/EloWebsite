@@ -17,7 +17,7 @@ export class controller extends BaseEditItemController {
 				public Factory: ListFactory,
 				public itemFactory: ItemService,
 				$stateParams) {
-		super($window, itemFactory, $stateParams, '/#/userManagement');
+		super($window, itemFactory, $stateParams, '/#/administration/userManagement');
 	}
 
 	roleList = [

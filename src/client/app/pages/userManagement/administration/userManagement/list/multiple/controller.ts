@@ -11,7 +11,7 @@ export class controller extends BaseMultipleController {
 
 	constructor($scope, userFactory, $timeout, public factory:ListFactory, $q, public $window) {
 		super(userFactory, $window, '/api/user');
-		this.baseName = 'userManagement';
+		this.baseName = 'administration/userManagement';
 	}
 }
 

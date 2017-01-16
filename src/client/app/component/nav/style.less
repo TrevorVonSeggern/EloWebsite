@@ -1,111 +1,111 @@
-
-tvo-nav {
-  /*Navigation bar coloring and sizing*/
-  @navTopColor: #4a8df4;
-  @navBottomColor: #4787f4;
-
-  @height: 60px;
-
-  @iconHeight: 50px;
-  @iconWidth: 70px;
-
-  @menuItemColor: #e5e5e5;
-  @menuItemHoverColor: #4b94fc;
-  @menuItemSelectedColor: #3b2e90;
-  @menuItemHeight: 40px;
-  @spacingBetweenMenuItems: 5px;
-  @menuItemFontSize: normal;
-  @menuItemBorderRadius: 0px;
-  @menuItemTextColor: #ffffff;
-
-  .menu {
-    height: @height;
-    background: linear-gradient(to bottom, @navTopColor 0%, @navTopColor 50%, @navTopColor 50%, @navBottomColor 50%, @navBottomColor 100%);
-    .icon {
-      margin-top: ((@height - @iconHeight)/2);
-      margin-left: ((@height - @iconHeight)/2);
-
-      width: @iconWidth;
-      height: @iconHeight;
-      display: inline-block;
-      float: left;
-
-      background-image: url(/src/client/images/icon/5x.gif);
-      background-size: contain;
-      background-repeat: no-repeat;
-
-      &:focus {
-        outline: none;
-      }
-      &:hover {
-        cursor: pointer;
-      }
-    }
-
-    ul {
-
-      float: right;
-      list-style-type: none;
-      height: @menuItemHeight;
-      margin: ((@height - @menuItemHeight) / 2) 15px ((@height - @menuItemHeight) / 2) 0;
-
-      li {
-        z-index: 99;
-
-        display: inline-block;
-        height: @menuItemHeight;
-        border-radius: @menuItemBorderRadius;
-        line-height: @menuItemHeight;
-
-        span {
-          margin: 0 @spacingBetweenMenuItems 0 @spacingBetweenMenuItems;
-          padding: 0 @spacingBetweenMenuItems 0 @spacingBetweenMenuItems;
-        }
-        &:hover {
-          cursor: pointer;
-          box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-          background-color: @menuItemHoverColor;
-        }
-        &:focus {
-          outline: none;
-        }
-        div, a, span {
-          color: @menuItemTextColor;
-        }
-      }
-
-      // Sub Menus
-      li.sub-menu {
-        position: relative;
-        display: inline-block;
-        ul {
-          display: none;
-          position: absolute;
-          padding: 0;
-          width: 100%;
-
-          font-size: .9em;
-          margin: 0;
-          z-index: 2;
-
-          li {
-            &:hover {
-              background-color: @navTopColor;
-            }
-            background-color: @navBottomColor;
-            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-            display: block;
-          }
-        }
-        &:hover ul {
-          display: block;
-        }
-      }
-    }
-
-    ul.debounce li ul {
-      display: none;
-    }
-  }
-
-}
+//
+//tvo-nav {
+//  /*Navigation bar coloring and sizing*/
+//  @navTopColor: #4a8df4;
+//  @navBottomColor: #4787f4;
+//
+//  @height: 60px;
+//
+//  @iconHeight: 50px;
+//  @iconWidth: 70px;
+//
+//  @menuItemColor: #e5e5e5;
+//  @menuItemHoverColor: #4b94fc;
+//  @menuItemSelectedColor: #3b2e90;
+//  @menuItemHeight: 40px;
+//  @spacingBetweenMenuItems: 5px;
+//  @menuItemFontSize: normal;
+//  @menuItemBorderRadius: 0px;
+//  @menuItemTextColor: #ffffff;
+//
+//  .menu {
+//    height: @height;
+//    background: linear-gradient(to bottom, @navTopColor 0%, @navTopColor 50%, @navTopColor 50%, @navBottomColor 50%, @navBottomColor 100%);
+//    .icon {
+//      margin-top: ((@height - @iconHeight)/2);
+//      margin-left: ((@height - @iconHeight)/2);
+//
+//      width: @iconWidth;
+//      height: @iconHeight;
+//      display: inline-block;
+//      float: left;
+//
+//      background-image: url(/src/client/images/icon/5x.gif);
+//      background-size: contain;
+//      background-repeat: no-repeat;
+//
+//      &:focus {
+//        outline: none;
+//      }
+//      &:hover {
+//        cursor: pointer;
+//      }
+//    }
+//
+//    ul {
+//
+//      float: right;
+//      list-style-type: none;
+//      height: @menuItemHeight;
+//      margin: ((@height - @menuItemHeight) / 2) 15px ((@height - @menuItemHeight) / 2) 0;
+//
+//      li {
+//        z-index: 99;
+//
+//        display: inline-block;
+//        height: @menuItemHeight;
+//        border-radius: @menuItemBorderRadius;
+//        line-height: @menuItemHeight;
+//
+//        span {
+//          margin: 0 @spacingBetweenMenuItems 0 @spacingBetweenMenuItems;
+//          padding: 0 @spacingBetweenMenuItems 0 @spacingBetweenMenuItems;
+//        }
+//        &:hover {
+//          cursor: pointer;
+//          box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+//          background-color: @menuItemHoverColor;
+//        }
+//        &:focus {
+//          outline: none;
+//        }
+//        div, a, span {
+//          color: @menuItemTextColor;
+//        }
+//      }
+//
+//      // Sub Menus
+//      li.sub-menu {
+//        position: relative;
+//        display: inline-block;
+//        ul {
+//          display: none;
+//          position: absolute;
+//          padding: 0;
+//          width: 100%;
+//
+//          font-size: .9em;
+//          margin: 0;
+//          z-index: 2;
+//
+//          li {
+//            &:hover {
+//              background-color: @navTopColor;
+//            }
+//            background-color: @navBottomColor;
+//            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+//            display: block;
+//          }
+//        }
+//        &:hover ul {
+//          display: block;
+//        }
+//      }
+//    }
+//
+//    ul.debounce li ul {
+//      display: none;
+//    }
+//  }
+//
+//}

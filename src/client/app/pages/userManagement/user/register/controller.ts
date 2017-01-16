@@ -27,7 +27,7 @@ export class controller {
 		}
 
 		$userFactory.httpServerCall('/api/client?name=google', 'GET', undefined, (data) => {
-			var google:any = data.data[0];
+			let google:any = data.data;
 			if (!google || !google.url) {
 				this.ErrorMessage = 'Google authentication not supported.';
 				return;
@@ -42,10 +42,10 @@ export class controller {
 	}
 
 	private sendRegisterRequest(url:string, type:string) {
-		var user = new User(this.user, this.$userFactory);
+		let user = new User(this.user, this.$userFactory);
 		this.$userFactory.httpServerCall(url, type, user.getBland(), (response) => {
 			// success
-			var data:any = response.data;
+			let data:any = response.data;
 
 			if (data.error) {
 				this.ErrorMessage = data.error;

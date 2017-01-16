@@ -2,7 +2,7 @@ import {SqlModel} from "../Base/SqlModel";
 import fs = require('fs');
 import {Connection} from "../Sql/Connection";
 import {formatDateTime} from "../Model";
-import {MatchPlayerModel, PlayerSelectItem} from "../../../models/Elo/matchPlayer";
+import {MatchPlayerModel} from "../../../models/Elo/matchPlayer";
 import {EloValue} from "./eloValue";
 import {NewUID} from "../Base/Model";
 import {Game} from "./game";
@@ -43,6 +43,7 @@ class SqlMatch extends SqlModel {
 	teamAPrevious: string;
 	teamBPrevious: string;
 	eventId: string;
+	status: number;
 
 	constructor(instance?: any) {
 		super(instance, MatchPlayer);
@@ -215,7 +216,7 @@ class SqlMatch extends SqlModel {
 
 	private static getCenterDeltaList(old: EloValue[], current: EloValue[]): EloValue[] {
 		let result = [];
-		if (!current)
+		if (!current || !old)
 			return;
 		for (let i = 0; i < old.length; ++i) {
 			let contains = false;
@@ -280,7 +281,7 @@ class SqlMatch extends SqlModel {
 			toUpdateTeamB[i].teamId = tBId;
 		}
 
-		return new Promise<EloValue[]>((resolve, reject) => {
+		return new Promise<EloValue[]>((resolve) => {
 			let result = [];
 			result.push.apply(result, toUpdateTeamA);
 			result.push.apply(result, toUpdateTeamB);
@@ -300,6 +301,107 @@ class SqlMatch extends SqlModel {
 		});
 	}
 
+	private saveEloValues(): Promise<boolean> {
+		return new Promise<boolean>((resolve, reject) => {
+			let errorString: string = undefined;
+			let dependencies = 2;
+			let dependencyError: boolean = false;
+			let finalResolve = () => {
+				dependencies--;
+				if (dependencyError || dependencies < 0)
+					return;
+
+				if (errorString) {
+					dependencyError = true;
+					reject(errorString);
+				}
+				else {
+					resolve(true);
+				}
+			};
+
+			this.getEloValueUpdateQuery().then((updateList) => {
+				let updateDependencies = updateList.length;
+				let updateError: boolean = false;
+
+				function updateResolve() {
+					if (updateError)
+						return;
+					updateDependencies--;
+					if (updateDependencies <= 0)
+						finalResolve();
+				}
+
+				if (updateDependencies === 0)
+					finalResolve();
+				for (let i = 0; i < updateDependencies; ++i) {
+					let item = new EloValue(updateList[i]);
+					item.save().then(() => {
+						updateResolve();
+					}, (error) => {
+						console.log(error);
+						updateError = true;
+						updateResolve();
+					});
+				}
+			}, (error) => {
+				errorString = error;
+				finalResolve();
+			});
+
+			this.getEloValueDeleteQuery().then((deleteList) => {
+				let deleteDependencies = deleteList.length;
+				let deleteError: boolean = false;
+
+				let deleteResolve = () => {
+					if (deleteError)
+						return;
+					deleteDependencies--;
+					if (deleteDependencies <= 0) {
+						this.getEloValueCreateQuery().then((createList) => {
+							let createDependencies = createList.length;
+							let createError: boolean = false;
+
+							function createResolve() {
+								if (createError)
+									return;
+								createDependencies--;
+								if (createDependencies === 0)
+									finalResolve();
+							}
+
+							for (let i = 0; i < createDependencies; ++i) {
+								createList[i].save().then(() => {
+									createResolve();
+								}, () => {
+									createError = true;
+									createResolve();
+								});
+							}
+						}, (error) => {
+							errorString = error;
+							finalResolve();
+						});
+					}
+				};
+				if (deleteDependencies === 0)
+					deleteResolve();
+				for (let i = 0; i < deleteDependencies; ++i) {
+					EloValue.removeById(deleteList[i]._id).then(() => {
+						deleteResolve();
+					}, () => {
+						deleteError = true;
+						deleteResolve();
+					});
+				}
+			}, (error) => {
+				errorString = error;
+				finalResolve();
+			});
+
+		});
+	}
+
 	save(): Promise<SqlModel> {
 		if (!this.existingModel)
 			return this.create();
@@ -307,113 +409,45 @@ class SqlMatch extends SqlModel {
 		return new Promise<SqlModel>((resolve, reject) => {
 			this.presave().then(() => {
 				this.saveScript(this).then((query: string) => {
-					let errorString: string = undefined;
-					let dependencies = 3;
-					let dependencyError: boolean = false;
-					let finalResolve = () => {
-						dependencies--;
-						if (dependencyError || dependencies < 0)
-							return;
-
-						if (errorString) {
-							dependencyError = true;
-							reject(errorString);
-						}
-						else {
-							resolve(this);
-						}
-					};
-
 					Connection.query(query).then((data) => {
-						if (data === undefined) {
-							errorString = 'no result from the database';
-						}
-						finalResolve();
+						if (data === undefined)
+							return reject('no result from the database');
+						this.saveEloValues().then(() => {
+							resolve(this);
+						}, (error) => reject(error));
 					}, (error) => {
-						errorString = error;
-						finalResolve();
+						reject(error);
 					});
-
-					// get a list of elo values to create
-
-					this.getEloValueUpdateQuery().then((updateList) => {
-						let updateDependencies = updateList.length;
-						let updateError: boolean = false;
-
-						function updateResolve() {
-							if (updateError)
-								return;
-							updateDependencies--;
-							if (updateDependencies === 0)
-								finalResolve();
-						}
-
-						for (let i = 0; i < updateDependencies; ++i) {
-							let item = new EloValue(updateList[i]);
-							item.save().then(() => {
-								updateResolve();
-							}, (error) => {
-								console.log(error);
-								updateError = true;
-								updateResolve();
-							});
-						}
-					}, (error) => {
-						errorString = error;
-						finalResolve();
-					});
-
-					this.getEloValueDeleteQuery().then((deleteList) => {
-						let deleteDependencies = deleteList.length;
-						let deleteError: boolean = false;
-
-						let deleteResolve = () => {
-							if (deleteError)
-								return;
-							deleteDependencies--;
-							if (deleteDependencies === 0) {
-								this.getEloValueCreateQuery().then((createList) => {
-									let createDependencies = createList.length;
-									let createError: boolean = false;
-
-									function createResolve() {
-										if (createError)
-											return;
-										createDependencies--;
-										if (createDependencies === 0)
-											finalResolve();
-									}
-
-									for (let i = 0; i < createDependencies; ++i) {
-										createList[i].save().then(() => {
-											createResolve();
-										}, () => {
-											createError = true;
-											createResolve();
-										});
-									}
-								}, (error) => {
-									errorString = error;
-									finalResolve();
-								});
-							}
-						};
-
-						for (let i = 0; i < deleteDependencies; ++i) {
-							EloValue.removeById(deleteList[i]._id).then(() => {
-								deleteResolve();
-							}, () => {
-								deleteError = true;
-								deleteResolve();
-							});
-						}
-					}, (error) => {
-						errorString = error;
-						finalResolve();
-					});
-
 				}, (error) => reject(error));
 			}, (error) => reject(error));
+		});
+	}
+
+	create(): Promise<SqlModel> {
+		this._id = NewUID();
+		this.status = 0;
+
+		return new Promise<SqlModel>((resolve, reject) => {
+			this.presave().then(() => {
+				this.createScript(this).then((query: string) => {
+					return Connection.query(query).then((data) => {
+						if (data === undefined) {
+							reject('no result from the database');
+						}
+						this.saveEloValues().then(() => {
+							resolve(this);
+						}, (error) => reject(error));
+					}, (error) => {
+						reject(error);
+					});
+				}, (error) => {
+					console.log('error injecting create script.');
+					console.log(error);
+					reject(error);
+				});
+			}, (error) => {
+				reject(error);
+			});
 		});
 	}
 
@@ -431,7 +465,6 @@ class SqlMatch extends SqlModel {
 export class MatchPlayer extends SqlMatch implements MatchPlayerModel {
 	startTime: Date;
 	endTime: Date;
-	status: number;
 	winner: boolean;
 
 	constructor(instance?: any) {

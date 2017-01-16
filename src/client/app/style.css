@@ -29,6 +29,9 @@ md-card md-card-title md-card-title-text:only-child .md-subhead {
   padding-top: 0;
   margin-left: 10px;
 }
+md-card md-content {
+  overflow: visible;
+}
 div.card-controls {
   position: absolute;
   top: 20px;

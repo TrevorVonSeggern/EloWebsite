@@ -10,7 +10,7 @@ export class controller extends BasicCreateItemController {
 	loading:boolean = false;
 
 	constructor(public itemFactory:ItemService, $stateParams, $window) {
-		super(itemFactory, $stateParams, $window, '/#/userManagement');
+		super(itemFactory, $stateParams, $window, '/#/administration/userManagement');
 	}
 
 	roleList = [

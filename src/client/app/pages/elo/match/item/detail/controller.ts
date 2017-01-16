@@ -16,6 +16,21 @@ export class controller extends BaseDetailItemController {
 		Game.ItemService.serviceName,
 	];
 
+	displayVs(): string {
+		if (!this.item || !this.item.teamAName || !this.item.teamBName)
+			return '';
+		return this.item.teamAName + ' vs ' + this.item.teamBName;
+	}
+
+	winnerText(): string {
+		if (!this.item || !this.item.winner)
+			return '';
+		let winner = this.item.winner; // shorthand
+		if (winner === 1 || winner === true || winner === 'true')
+			return 'TeamA';
+		return 'TeamB';
+	}
+
 	gameId: string;
 	gameName: string = '';
 

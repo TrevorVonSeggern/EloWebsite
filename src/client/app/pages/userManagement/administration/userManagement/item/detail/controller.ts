@@ -18,7 +18,7 @@ export class controller extends BaseDetailItemController {
 				$window: IWindowService,
 				$stateParams,
 				public itemService: ItemService) {
-		super($scope, $window, $stateParams, itemService, '/#/userManagement');
+		super($scope, $window, $stateParams, itemService, '/#/administration/userManagement');
 	}
 }
 controller.$inject.push(controller);

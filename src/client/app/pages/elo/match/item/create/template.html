@@ -1,4 +1,4 @@
-<md-card>
+<md-card class="tvo-match-create">
 	<div ng-class="{loading: vm.loading}">
 		<md-card-title>
 			<md-card-title-text>
@@ -27,6 +27,54 @@
 									 list="vm.eventSelectList"></tvo-input-single-select>
 
 			<tvo-switch label="'Winner (teamA)'" value="vm.item.winner"></tvo-switch>
+
+			<md-card class="player-card-list">
+				<md-title>
+					<span class="md-headline">Team A</span>
+					<span class="md-subhead">Players</span>
+					<span class="btn-group add-player card-controls">
+							<input type="button" class="btn btn-default btn-success" value="Add"
+								   ng-click="vm.addPlayerTeamA()"/>
+						</span>
+				</md-title>
+				<md-content>
+					<div ng-repeat="(key, value) in vm.item.teamAPlayers track by $index" class="player-in-team-row row">
+						<div>
+							<tvo-input-single-select value="value.playerId"
+													 list="vm.playerSelectList"></tvo-input-single-select>
+						</div>
+						<span class="btn-group remove-player">
+							<input type="button" class="btn btn-default btn-danger" value="x"
+								   ng-click="vm.removePlayerTeamA(key)"/>
+						</span>
+					</div>
+
+				</md-content>
+			</md-card>
+			<md-card class="player-card-list">
+				<md-title>
+					<span class="md-headline">Team B</span>
+					<span class="md-subhead">Players</span>
+					<span class="btn-group add-player card-controls">
+							<input type="button" class="btn btn-default btn-success" value="Add"
+								   ng-click="vm.addPlayerTeamB()"/>
+						</span>
+				</md-title>
+				<md-content>
+					<div ng-repeat="(key, value) in vm.item.teamBPlayers track by $index" class="player-in-team-row row">
+						<div>
+							<tvo-input-single-select value="value.playerId"
+													 list="vm.playerSelectList"></tvo-input-single-select>
+						</div>
+						<span class="btn-group remove-player">
+							<input type="button" class="btn btn-default btn-danger" value="x"
+								   ng-click="vm.removePlayerTeamB(key)"/>
+						</span>
+					</div>
+
+				</md-content>
+
+			</md-card>
 		</md-card-content>
 
 	</div>

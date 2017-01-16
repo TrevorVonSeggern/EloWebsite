@@ -3,23 +3,18 @@
 @import 'button/style.less';
 @import 'singleSelect/style.less';
 
+.tvo-input-item {
+	@marginTopBottom: 10px;
+	margin-top: @marginTopBottom;
+	margin-bottom: @marginTopBottom;
+}
+
 .tvo-input-phone-readonly {
 	color: black !important;
 }
 
-tvo-email, tvo-phone, tvo-slider, .tvo-input-switch {
-	md-input-container {
-		min-width: 169px;
-		width: 49%;
-		max-width: 240px;
-		margin-bottom: 5px !important;
-		label {
-			color: #696969 !important;
-		}
-	}
-}
 
-.tvo-input-select-list, .tvo-input-text, tvo-button, tvo-email, tvo-phone, tvo-slider, .tvo-input-switch {
+.tvo-input-text, tvo-button, tvo-email, tvo-phone, tvo-slider, .tvo-input-switch {
 	input:-webkit-autofill {
 		-webkit-box-shadow: 0 0 0 1000px white inset;
 	}
@@ -56,77 +51,6 @@ md-input-container.tvo-input-switch label {
 	}
 }
 
-.tvo-input-select-list {
-	width: 240px;
-	display: inline-block;
-	height: 42px;
-
-	margin: 4px 4px 0 0;
-	padding: 2px 2px 1px 2px;
-
-	label {
-		color: gray;
-		font-size: 12px;
-	}
-
-	div {
-		position: relative;
-		select {
-			outline: none;
-			width: 100%;
-			border: 0;
-			border-bottom: @underLineColor solid 1px;
-			position: absolute;
-			z-index: 1;
-			margin: 1px 0 0 4px;
-			padding: 2px 0 3px 0;
-
-			-webkit-appearance: none;
-			-moz-appearance: none;
-			background: none;
-
-			option {
-				margin-left: -4px;
-			}
-		}
-		.carrot-icon {
-			position: absolute;
-			right: 0;
-			top: 3px;
-			z-index: 3;
-		}
-	}
-}
-
 .tvo-input-text {
-	width: 240px;
-	display: inline-block;
-	padding: 2px;
-	margin: 4px 4px 0 0;
-	label {
-		color: gray;
-		font-size: 12px;
-	}
-	div {
-		margin: 2px 0 2px 4px;
-		padding: 0 -2px 5px 3px;
-		border-bottom: @underLineColor solid 1px;
-		input {
-			outline: none;
-			border: 0;
-			width: 100%;
-		}
-	}
-}
-
-.tvo-input-container-delete {
-	background-color: #8b0000;
-	padding: 2px 5px;
-	height: 30px;
-	border-radius: 4px;
-}
-
-.tvo-input-container-create {
-	padding: 2px 5px;
 	display: inline-block;
 }

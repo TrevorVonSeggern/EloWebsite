@@ -15,6 +15,7 @@ let config = {
 			'bcrypt',
 			'ngTooltips',
 			'datetimepicker',
+			'bootstrapSelect',
 		],
 		'startApp': [
 			'src/client/app/app'
@@ -45,6 +46,7 @@ let config = {
 
 		uiBootstrap: 'bower_components/bootstrap-ui-datetime-picker/dist/datetime-picker.min',
 		dateTimePicker: 'bower_components/angular-bootstrap/ui-bootstrap-tpls',
+		bootstrapSelect: 'bower_components/angular-bootstrap-select/angular-bootstrap-select',
 	},
 	meta: {
 		jquery: {exports: "$", global: 'angular', format: 'global'},
@@ -52,6 +54,7 @@ let config = {
 		ngCookie: {deps: ['angular']},
 		uiBootstrap: {deps: ['angular']},
 		dateTimePicker: {deps: ['angular', 'uiBootstrap']},
+		bootstrapSelect: {deps: ['angular']},
 		ngAnimate: {deps: ['angular']},
 		ngAria: {deps: ['angular']},
 		ngMaterial: {deps: ['angular']},

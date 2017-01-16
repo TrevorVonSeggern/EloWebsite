@@ -1,4 +1,3 @@
-
 import {definition} from '../../../Definition';
 export function InputDatetimeDirective() {
 	return {
@@ -8,8 +7,10 @@ export function InputDatetimeDirective() {
 			'display': '='
 		},
 		controller: definition.inputDatetime.controllerName,
-		controllerAs: "vm",
 		bindToController: true,
-		templateUrl: definition.inputDatetime.templateUrl
+		controllerAs: 'vm',
+		templateUrl: definition.inputDatetime.templateUrl,
+		replace: true
+
 	};
 }

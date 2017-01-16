@@ -53,6 +53,8 @@ export function getSize(req, res) { // get
 }
 
 function validateTeamSelectList(list) {
+	if (!list)
+		return [];
 	for (let i = 0; i < list.length; ++i) {
 		if (!list[i]['playerId']) {
 			list.splice(i, 1);
@@ -106,19 +108,22 @@ export function saveItem(req, res) {
 
 export function newItem(req, res) {
 	// post
-	let item = new Match();
+	let item = new MatchPlayer();
 	item.startTime = req.body.startTime;
 	item.endTime = req.body.endTime;
+	item.teamAPrevious = '';
+	item.teamBPrevious = '';
 	item.teamA = req.body.teamA;
 	item.teamB = req.body.teamB;
 	item.eventId = req.body.eventId;
-	item.status = 0;
 	item.winner = req.body.winner === 'true';
+	item.teamAPlayersPrevious = [];
+	item.teamBPlayersPrevious = [];
+	item.teamAPlayers = validateTeamSelectList(req.body.teamAPlayers);
+	item.teamBPlayers = validateTeamSelectList(req.body.teamBPlayers);
 
 	item.save().then((savedItem: Match) => {
-		let prepareToSend = <MatchModel>{};
-		mapObjectToObject(savedItem, prepareToSend);
-		res.json(prepareToSend);
+		res.json(savedItem);
 	}, (err) => {
 		res.send(err);
 	});

@@ -1,11 +1,7 @@
 import {NewUID} from "../../../database/Base/Model";
-/**
- * Created by trevor on 5/27/16.
- */
-console.log('client init');
-
 import {Client} from '../../../database/UserManagement/client';
 import * as fs from 'fs';
+let process: any = require('process');
 
 let googleData = JSON.parse(fs.readFileSync('./AuthData.json', 'utf8'));
 
@@ -21,6 +17,10 @@ function loopFunction(obj) {
 		client.name = obj.name;
 		client.url = obj.url;
 		client.redirect_uri = obj.redirect_uri;
+
+		if (client.name.toLowerCase() === 'google' && process.env.GOOGLE_REDIRECT_URI)
+			client.redirect_uri = process.env.GOOGLE_REDIRECT_URI;
+
 		client.response_type = obj.response_type;
 		client.client_id = obj.client_id;
 		client.scope = obj.scope;

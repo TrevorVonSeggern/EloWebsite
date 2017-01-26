@@ -26,6 +26,7 @@ let sqlAllScript = fs.readFileSync(sqlBasePath + 'all.sql', 'utf8');
 let sqlViewAllScript = fs.readFileSync(sqlBasePath + 'view.sql', 'utf8');
 let sqlCountScript = fs.readFileSync(sqlBasePath + 'count.sql', 'utf8');
 let sqlSetAllStatusScript = fs.readFileSync(sqlBasePath + 'setAllStatus.sql', 'utf8');
+let sqlGetOneToProcessScript = fs.readFileSync(sqlBasePath + 'processMatch.sql', 'utf8');
 
 class SqlMatch extends SqlModel {
 
@@ -148,7 +149,25 @@ class SqlMatch extends SqlModel {
 		});
 	}
 
+	protected getProcessScript(): Promise<string> {
+		return new Promise<string>((resolve) => {
+			let script = '' + sqlGetOneToProcessScript;
+			resolve(script);
+		});
+	}
 
+	processOne(): Promise<Boolean> {
+		return new Promise<Boolean>((resolve, reject) => {
+			this.getProcessScript().then((query: string) => {
+				Connection.query(query).then(() => {
+					// TODO: Add logic to see if it is done processing or not.
+					resolve(true);
+				}, (error) => {
+					reject(error);
+				});
+			}, (error) => reject(error));
+		});
+	}
 }
 
 export class Match extends SqlMatch implements MatchModel {
@@ -178,6 +197,11 @@ export class Match extends SqlMatch implements MatchModel {
 	static getCount() {
 		let item = new Match();
 		return item.getCount();
+	}
+
+	static processOne() {
+		let item = new Match();
+		return item.processOne();
 	}
 
 	static all(limit?: number, skip?: number): Promise<any[]> {

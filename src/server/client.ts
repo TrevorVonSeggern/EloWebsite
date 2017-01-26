@@ -1,21 +1,13 @@
-/**
- * Created by trevor on 3/20/16.
- */
-// var jsdom = require('jsdom');
-// var beautify = require('js-beautify');
 import * as express from 'express'
-import * as benv from 'benv'
 import * as fs from 'fs'
 
-export let client = express();
+export let client = express.Router();
 
-benv.setup(function () {
-	document.write(fs.readFileSync('./src/client/index.html'));
-});
+let compression = require('compression');
+client.use(compression());
 
 let cacheOptions = {
 	etag: true,
-	// maxage: '3h',
 };
 
 client.use('/', express.static('./assets', cacheOptions));
@@ -28,7 +20,6 @@ client.use('/src/SystemConfig.ts', express.static('./src/SystemConfig.ts', cache
 
 client.get('/index.html', getIndex);
 client.get('/', getIndex);
-
 
 function getIndex(req, res) {
 	let indexPage = fs.readFileSync('./src/client/index.html', 'utf8');

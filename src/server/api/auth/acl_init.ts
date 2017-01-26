@@ -8,7 +8,6 @@ import {Permissions, Roles} from './acl_permissions';
 
 //noinspection JSPotentiallyInvalidConstructorUsage
 export let acl: any = new AclLib(new AclLib.memoryBackend());
-// export let acl:any = new AclLib(new AclLib.mongodbBackend(mongoose.connection.db, 'acl_', true));
 
 function addAdminUserToAdminRole(): void {
 	// manage the acl for the new user.

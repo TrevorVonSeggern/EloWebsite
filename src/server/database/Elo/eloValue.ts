@@ -1,5 +1,5 @@
-import {SqlModel} from "../Base/SqlModel";
 import fs = require('fs');
+import {SqlModel} from "../Base/SqlModel";
 import {Connection} from "../Sql/Connection";
 import {EloValueModel} from "../../../models/Elo/eloValue";
 
@@ -134,6 +134,3 @@ export class EloValue extends SqlEloValue implements EloValueModel {
 		return item.remove();
 	}
 }
-
-// Export the Mongoose model
-// export let Client = Dynamoose.model('Client', ClientSchema);

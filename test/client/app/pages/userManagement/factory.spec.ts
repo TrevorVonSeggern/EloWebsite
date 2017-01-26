@@ -1,7 +1,7 @@
 import {definition} from '../../../../../src/client/app/Definition';
 
 describe('User Management Factory', () => {
-	var factory;
+	let factory;
 
 	beforeEach(angular.mock.module('pages'));
 

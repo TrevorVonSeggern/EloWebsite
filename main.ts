@@ -24,7 +24,7 @@ if (__dirname !== undefined)
 const server = express();
 
 let helmet = require('helmet');
-app.use(helmet());
+app.use(helmet({csp: true}));
 
 if (app) {
 	server.use(app);

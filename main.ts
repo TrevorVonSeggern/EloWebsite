@@ -23,6 +23,9 @@ if (__dirname !== undefined)
 
 const server = express();
 
+let helmet = require('helmet');
+app.use(helmet());
+
 if (app) {
 	server.use(app);
 } else {

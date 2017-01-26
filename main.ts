@@ -1,9 +1,5 @@
 import {logs} from "./src/server/logs";
-/**
- * Created by trevor on 6/16/16.
- */
 let process = require('process');
-let https = require('https');
 let fs = require('fs');
 let express = require('express');
 let helmet = require('helmet');
@@ -33,5 +29,5 @@ server.listen(port); // http on port 3000
 
 // start elo processor
 import {processor} from './src/processor/processor';
-logs('processing elo. Checking every ' + pro.checkFrequency + ' seconds');
 let pro = new processor();
+logs('processing elo. Checking every ' + pro.checkFrequency + ' seconds');

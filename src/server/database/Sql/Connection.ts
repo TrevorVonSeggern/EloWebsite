@@ -5,7 +5,8 @@ import {QueryRequest} from "./QueryRequest";
 
 let mysql = require('mysql');
 import {config} from '../../config/database';
-let settings = config.sql;
+let settings: any = config.sql;
+settings.multipleStatements = true;
 
 export class Connection {
 	static pool: any = undefined;

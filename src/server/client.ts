@@ -1,12 +1,10 @@
-/**
- * Created by trevor on 3/20/16.
- */
-// var jsdom = require('jsdom');
-// var beautify = require('js-beautify');
 import * as express from 'express'
 import * as fs from 'fs'
 
-export let client = express();
+export let client = express.Router();
+
+let compression = require('compression');
+client.use(compression());
 
 let cacheOptions = {
 	etag: true,

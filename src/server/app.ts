@@ -6,7 +6,7 @@ import * as bodyParser from 'body-parser'; // Use the body-parser package in our
 import {client} from "./client";
 import {api} from './api/api';
 
-export let app = express(); // expose the app.
+export let app = express.Router(); // expose the app.
 
 app.use(bodyParser.urlencoded({
 	extended: true

@@ -13,7 +13,7 @@ import {PagesModule, loadRouter} from './pages/module';
 import {ComponentsModule} from './component/module';
 
 // api has to be of type :any to compile... registerController and $register are dynamic.
-let app: IModule = angular.module('app', [
+export let app: IModule = angular.module('app', [
 	'ui.router', // angular ui router
 	'googlechart', // google charts
 	'720kb.tooltips', // small lib for tooltips
@@ -75,5 +75,3 @@ app.controller('main-controller', [
 angular.module = function () {
 	return app;
 };
-
-export let App: any = app;

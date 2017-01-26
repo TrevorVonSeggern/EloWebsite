@@ -5,12 +5,10 @@
     "acl": "^0.4.9",
     "activedirectory": "^0.7.2",
     "bcrypt-nodejs": "0.0.3",
-    "benv": "3.0.0",
     "body-parser": "1.15.2",
     "bower": "1.7.9",
     "compression": "^1.6.2",
     "express": "^4.14.0",
-    "fast-stats": "0.0.3",
     "gulp": "3.9.1",
     "gulp-add-src": "^0.2.0",
     "gulp-bump": "2.2.0",
@@ -22,8 +20,8 @@
     "gulp-task-listing": "1.0.1",
     "gulp-util": "3.0.7",
     "gulp-zip": "^3.2.0",
+    "helmet": "^3.4.0",
     "https": "^1.0.0",
-    "jsdom": "9.4.1",
     "moment": "^2.17.1",
     "mysql": "2.12.0",
     "node": "0.0.0",
@@ -51,9 +49,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/TrevorVonSeggern/WebsiteTemplate"
+    "url": "https://github.com/TrevorVonSeggern/EloWebsite"
   },
-  "name": "website",
+  "name": "EloProcessor",
+  "description": "Elo website and prcoessor for team analysis.",
+  "license": "MIT",
   "private": true,
   "scripts": {
     "start": "node main.js",

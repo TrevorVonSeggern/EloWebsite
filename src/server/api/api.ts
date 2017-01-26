@@ -13,17 +13,6 @@ import {privateLogs} from "../logs";
 export let api = express();
 api.use(passport.initialize());
 
-api.all('/*', (req: any, res, next: () => void) => {
-	// CORS headers
-	res.header("Access-Control-Allow-Origin", "*"); // restrict it to the required domain
-	res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-	res.header('Access-Control-Allow-Headers', 'Content-type,Accept,X-Access-Token,X-Key');
-
-	if (req.method == 'OPTIONS')
-		return res.status(200).end();
-	next();
-});
-
 let router = express.Router();
 
 router.use('/user', UserRouter);

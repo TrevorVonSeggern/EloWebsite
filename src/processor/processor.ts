@@ -6,26 +6,27 @@ export class processor {
 	// in seconds.
 	checkFrequency: number = 10;
 
-	inProgress: boolean = false;
+	static inProgress: boolean = false;
 
 	constructor() {
-		// this.checkElo();
+		processor.checkElo();
 		setInterval(() => {
-			if (!this.inProgress) {
-				// this.checkElo();
+			if (!processor.inProgress) {
+				// processor.checkElo();
 			}
 			//code goes here that will be run every 5 seconds.
 		}, 1000 * this.checkFrequency);
 	}
 
-	checkElo() {
+	static checkElo() {
 		this.inProgress = true;
 
-		Match.processOne().then((finished: boolean) => {
-			// processed one.
-			logs('processed one.');
+		// processed one match.
+		Match.processOne().then((matchProcessed: boolean) => {
+			if(matchProcessed) // process the rest of the matches.
+				processor.checkElo();
+			else
+				this.inProgress = false;
 		}, (error) => logs(error));
-
-		this.inProgress = false;
 	}
 }

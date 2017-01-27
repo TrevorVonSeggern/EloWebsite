@@ -5,6 +5,7 @@ import {CheckNumberParameter} from "../../commonFunctions";
 import {Match} from "../../../database/Elo/match";
 import {MatchModel} from "../../../../models/Elo/match";
 import {mapObjectToObject} from "../../../database/Base/Model";
+import {processor} from "../../../../processor/processor";
 
 export function getList(req, res) { // get
 	let limit: number = CheckNumberParameter(req.query.limit);
@@ -62,6 +63,7 @@ export function saveItem(req, res) {
 		item.winner = req.body.winner === 'true';
 
 		item.save().then(() => {
+			processor.checkElo();
 			res.json({message: item._id + ' updated'});
 		}, (error) => {
 			res.send(error);

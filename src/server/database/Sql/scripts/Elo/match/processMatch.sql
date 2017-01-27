@@ -1,4 +1,6 @@
 # get the match id, teamA, and teamB values.
+START TRANSACTION;
+
 SET @MatchId = NULL;
 SET @MatchEndTime = NULL;
 SET @TeamAId = NULL;
@@ -49,15 +51,18 @@ INSERT INTO ps (eloId, playerId, teamId)
 UPDATE ps
 SET ps.eloValue = COALESCE(
     (
-      SELECT E.eloValue
-      FROM EloValue AS E
-        INNER JOIN `Match` AS M ON M.`_id` != @MatchId
-      WHERE E.playerId = ps.playerId AND M.status LIKE 1 AND M.endTime < @MatchEndTime
-      ORDER BY M.endTime DESC
+      SELECT
+        E.eloValue
+      FROM `Match` AS M
+        INNER JOIN `EloValue` AS E ON E.matchId LIKE M._id
+      WHERE
+        E.playerId = ps.playerId  # get the same player
+        AND M.status LIKE 1       # with a finished match status
+        AND M.endTime < @MatchEndTime # that has happened before the current match
+        AND M.`_id` != @MatchId   # and is not the same match as the current one.
+      ORDER BY M.endTime DESC # most previous match in history.
       LIMIT 1
     ), @DefaultElo);
-
-SELECT * FROM ps;
 
 # update team a skill value
 SET @TeamASkill = (SELECT SUM(eloValue)
@@ -70,7 +75,7 @@ SET @TeamATransform = POW(10, (@TeamASkill) / 400);
 SET @TeamBTransform = POW(10, (@TeamBSkill) / 400);
 SET @TeamAExpectedScore = @TeamATransform / (@TeamATransform + @TeamBTransform);
 SET @TeamBExpectedScore = @TeamBTransform / (@TeamBTransform + @TeamATransform);
-SET @TeamAScore = CAST(COALESCE(@Winner, 0.5) AS DECIMAL(8,2));
+SET @TeamAScore = CAST(COALESCE(@Winner, 0.5) AS DECIMAL(8, 2));
 SET @TeamBScore = 1 - @TeamAScore;
 SET @TeamASkillChange = @ScaleElo * (@TeamAScore - @TeamAExpectedScore);
 SET @TeamBSkillChange = @ScaleElo * (@TeamBScore - @TeamBExpectedScore);
@@ -86,16 +91,16 @@ SET @PlayerAChange = @TeamASkillChange / @TeamASize;
 SET @PlayerBChange = @TeamBSkillChange / @TeamBSize;
 
 # update the elo values.
-UPDATE EloValue as E, ps
-    SET E.eloValue = ps.eloValue + @PlayerAChange
+UPDATE EloValue AS E, ps
+SET E.eloValue = ps.eloValue + @PlayerAChange
 WHERE E.matchId = @MatchId AND E.teamId = @TeamAId AND ps.eloId = E.`_id`;
-UPDATE EloValue as E, ps
-    SET E.eloValue = ps.eloValue + @PlayerBChange
+UPDATE EloValue AS E, ps
+SET E.eloValue = ps.eloValue + @PlayerBChange
 WHERE E.matchId = @MatchId AND E.teamId = @TeamBId AND ps.eloId = E.`_id`;
 
 # update the match status
-UPDATE `Match` as M
-  SET M.status = 1
+UPDATE `Match` AS M
+SET M.status = 1
 WHERE M.`_id` = @MatchId;
 
-SELECT @PlayerAChange;
+COMMIT;

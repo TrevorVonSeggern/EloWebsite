@@ -159,9 +159,12 @@ class SqlMatch extends SqlModel {
 	processOne(): Promise<Boolean> {
 		return new Promise<Boolean>((resolve, reject) => {
 			this.getProcessScript().then((query: string) => {
-				Connection.query(query).then(() => {
+				Connection.query(query).then((response:any) => {
 					// TODO: Add logic to see if it is done processing or not.
-					resolve(true);
+					if(response.length && response.length === 35 && response[33].affectedRows === 1 && response[33].changedRows === 1)
+						resolve(true);
+					else
+						resolve(false);
 				}, (error) => {
 					reject(error);
 				});

@@ -6,6 +6,7 @@ import {Match} from "../../../database/Elo/match";
 import {MatchModel} from "../../../../models/Elo/match";
 import {mapObjectToObject} from "../../../database/Base/Model";
 import {MatchPlayer} from "../../../database/Elo/matchPlayer";
+import {processor} from "../../../../processor/processor";
 
 export function getList(req, res) { // get
 	let limit: number = CheckNumberParameter(req.query.limit);
@@ -123,6 +124,7 @@ export function newItem(req, res) {
 	item.teamBPlayers = validateTeamSelectList(req.body.teamBPlayers);
 
 	item.save().then((savedItem: Match) => {
+		processor.checkElo();
 		res.json(savedItem);
 	}, (err) => {
 		res.send(err);

@@ -6,6 +6,7 @@ import {GameModel} from "../../../../models/Elo/game";
 import {mapObjectToObject} from "../../../database/Base/Model";
 import {Match} from "../../../database/Elo/match";
 import {logs} from "../../../logs";
+import {processor} from "../../../../processor/processor";
 
 export function getList(req, res) { // get
 	let limit: number = CheckNumberParameter(req.query.limit);
@@ -39,11 +40,9 @@ export function processEloGame(req, res) { // get
 	Game.getOneById(req.params._id).then((game: Game) => {
 		if (game === undefined)
 			return res.send({error: true, message: 'Could not retrieve the game.'});
-
+		processor.checkElo();
 
 		res.json({error: false, message: 'updated elo for gameId: ' + game._id});
-
-
 	}, (error) => {
 		logs(error);
 		req.send(error);
@@ -68,6 +67,7 @@ export function saveItem(req, res) {
 			item.scale = req.body.scale;
 			// set all the match statuses to 0 for processing purposes.
 			Match.setAllStatus(item._id).then(() => {
+				processor.checkElo();
 			}, (error: string) => {
 				console.log(error);
 			});

@@ -109,7 +109,7 @@ function RegisterNewUser(req, res) {
 	user.first_name = req.body.first_name;
 	user.last_name = req.body.last_name;
 	user.email = req.body.email;
-	user.role = Roles.guest;
+	user.role = Roles.user;
 	ServerUser.getOneByUsername(user.username).then((dbUser: ServerUser) => {
 		if (!dbUser) {
 			user.save().then(() => {

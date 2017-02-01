@@ -1,8 +1,5 @@
 // Created by trevor on 5/20/16.
 
-import IModule = angular.IModule;
-import IHttpService = angular.IHttpService;
-
 export class GameFactory {
 	static factoryName: string = 'GameFactory';
 	static $inject: string[] = ['bcrypt', '$http'];

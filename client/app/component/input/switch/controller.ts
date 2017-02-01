@@ -1,5 +1,3 @@
-import IScope = angular.IScope;
-
 class controller {
 	value;
 
@@ -7,6 +5,6 @@ class controller {
 	}
 }
 
-controller.$inject = ['$scope'];
+controller.$inject = [];
 
 export let InputSwitchController = controller;

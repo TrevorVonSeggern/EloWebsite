@@ -1,6 +1,3 @@
-import IHttpService = angular.IHttpService;
-import IWindowService = angular.IWindowService;
-import IScope = angular.IScope;
 import {ItemService} from '../service';
 import {BaseDetailItemController} from "../../../../../component/baseItem/item/detail/controller";
 import {eloDefinition} from "../../../eloDefinition";

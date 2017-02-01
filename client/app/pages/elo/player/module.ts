@@ -1,7 +1,6 @@
 /**
  * Created by trevor on 5/31/16.
  */
-import IModule = angular.IModule;
 import {definition} from '../../Definition';
 import {controller} from './controller';
 import {ListModule} from './list/module';

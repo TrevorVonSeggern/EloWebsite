@@ -1,6 +1,4 @@
-import IHttpService = angular.IHttpService;
-import IWindowService = angular.IWindowService;
-
+import {IWindowService} from "angular";
 export function generateGUID() {
 	function s4() {
 		return Math.floor((1 + Math.random()) * 0x10000)

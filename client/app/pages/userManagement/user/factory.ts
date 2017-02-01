@@ -1,7 +1,5 @@
 // Created by trevor on 5/20/16.
 
-import IModule = angular.IModule;
-import IHttpService = angular.IHttpService;
 import {UserModel, ClientSalt} from "../../../../../models/UserManagement/user";
 
 export class User implements UserModel {

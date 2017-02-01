@@ -1,3 +1,3 @@
-/// <reference path="globals/moment/index.d.ts" />
-/// <reference path="modules/debug/index.d.ts" />
-/// <reference path="modules/gulp/index.d.ts" />
+/// <reference path="globals/node/index.d.ts" />
+/// <reference path="modules/angular/index.d.ts" />
+/// <reference path="modules/webpack/index.d.ts" />

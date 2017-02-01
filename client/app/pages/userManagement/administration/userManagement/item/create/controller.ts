@@ -1,4 +1,3 @@
-import IHttpService = angular.IHttpService;
 import {ItemService} from '../service';
 import {BasicCreateItemController} from "../../../../../../component/baseItem/item/create/controller";
 import {definition} from "../../../../../../Definition";

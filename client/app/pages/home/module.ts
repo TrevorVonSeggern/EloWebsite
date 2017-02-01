@@ -3,7 +3,6 @@
  */
 import {definition} from '../../Definition';
 import {HomeController} from './controller';
-import IModule = angular.IModule;
 
 var module:IModule = angular.module(definition.home.moduleName, []);
 

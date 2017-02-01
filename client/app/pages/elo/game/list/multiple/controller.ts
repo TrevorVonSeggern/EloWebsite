@@ -1,4 +1,3 @@
-import IHttpService = angular.IHttpService;
 import {BaseMultipleController, generateGUID} from "../../../../../component/baseItem/list/multiple/controller";
 import {typeName} from "../../typeName";
 import {UserFactory} from "../../../../userManagement/user/factory";

@@ -1,4 +1,3 @@
-import IHttpService = angular.IHttpService;
 import {definition} from "../../../../../../Definition";
 import {ListFactory} from '../factory';
 import {BaseMultipleController, generateGUID} from "../../../../../../component/baseItem/list/multiple/controller";

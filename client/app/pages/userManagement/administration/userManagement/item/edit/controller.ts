@@ -1,8 +1,8 @@
-import IWindowService = angular.IWindowService;
 import {ItemService} from '../service';
 import {ListFactory} from '../../list/factory';
 import {BaseEditItemController} from "../../../../../../component/baseItem/item/edit/controller";
 import {definition} from "../../../../../../Definition";
+import {IWindowService} from "angular";
 
 export class controller extends BaseEditItemController {
 	static controllerName: string = definition.userManagementEdit.controllerName;

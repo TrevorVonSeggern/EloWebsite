@@ -1,8 +1,5 @@
 // Created by trevor on 5/20/16.
 
-import IModule = angular.IModule;
-import IHttpService = angular.IHttpService;
-
 export class EventFactory {
 	static factoryName: string = 'EventFactory';
 	static $inject: string[] = ['bcrypt', '$http'];

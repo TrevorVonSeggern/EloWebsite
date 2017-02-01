@@ -1,7 +1,7 @@
-import IModule = angular.IModule;
 import {definition} from '../../../Definition';
 import {InputDatetimeController} from "./controller";
 import {InputDatetimeDirective} from "./directive";
+import {IModule} from "angular";
 
 let module:IModule = angular.module(definition.inputDatetime.moduleName, []);
 module.controller(definition.inputDatetime.controllerName, ['$scope', InputDatetimeController]);

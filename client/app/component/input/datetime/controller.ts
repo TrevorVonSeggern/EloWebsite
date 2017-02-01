@@ -1,4 +1,3 @@
-import IScope = angular.IScope;
 
 class controller {
 	isOpen: boolean = false;

@@ -1,4 +1,3 @@
-import IModule = angular.IModule;
 import {definition} from '../../Definition';
 import './pageLink/module'
 import './datetime/module'
@@ -6,6 +5,7 @@ import './switch/module'
 import './phone/module'
 import './slider/module'
 import {SingleSelectModule} from './singleSelect/module';
+import {IModule} from "angular";
 
 let conf = definition;
 export let InputSuiteModule: IModule = angular.module('tvo-input-suite-module',

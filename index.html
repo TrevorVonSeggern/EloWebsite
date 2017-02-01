@@ -1,38 +1,35 @@
-<html class="no-js" lang="en-us" ng-controller="main-controller">
+<html>
 <head>
 	<title>Elo Processor</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="shortcut icon" href="/src/client/images/icon/5x.gif">
+	<link rel="shortcut icon" href="/client/images/icon/5x.gif">
 
-	<script src="/bower_components/system.js/dist/system.src.js"></script>
-	<script src="/src/SystemConfig.js"></script>
+	<script src="bower_components/angular/angular.min.js"></script>
 
-	<script>
-		System.import('src/client/app/app');
-	</script>
+	<script src="bundle.js"></script>
+	<script src="/client/index.js"></script>
 
-	<link rel="stylesheet" type="text/css" href="/bower_components/font-awesome/css/font-awesome.min.css"/>
-	<link rel="stylesheet" type="text/css" href="/bower_components/angular-material/angular-material.css"/>
-	<link rel="stylesheet" type="text/css" href="/bower_components/angular-bootstrap/ui-bootstrap-csp.css">
-	<link rel="stylesheet" type="text/css" href="/bower_components/bootstrap/dist/css/bootstrap.css">
-	<link rel="stylesheet" type="text/css" href="/bower_components/angular-tooltips/dist/angular-tooltips.min.css"/>
-	<link rel="stylesheet" type="text/css" href="/bower_components/web-input-text/dist/style.css"/>
 
-	<link rel="stylesheet" type="text/css" href="/src/client/style.css"/>
-	<link rel="stylesheet" type="text/css" href="/src/client/app/component/nav/style.css"/>
-	<link rel="stylesheet" type="text/css" href="/src/client/app/component/input/style.css"/>
-	<link rel="stylesheet" type="text/css" href="/src/client/app/component/label/style.css"/>
-	<link rel="stylesheet" type="text/css" href="/src/client/app/component/input/datetime/style.css">
-	<link rel="stylesheet" type="text/css" href="/src/client/app/pages/home/style.css"/>
-	<link rel="stylesheet" type="text/css" href="/src/client/app/pages/userManagement/user/style.css"/>
-	<link rel="stylesheet" type="text/css"
-		  href="/src/client/app/pages/userManagement/administration/userManagement/style.css"/>
+	<link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css">
+	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
 
-	<link rel="stylesheet" type="text/css" href="/src/client/app/pages/elo/game/style.css">
-	<link rel="stylesheet" type="text/css" href="/src/client/app/pages/elo/match/style.css">
+	<link rel="stylesheet" href="bower_components/web-input-text/dist/style.css">
+	<link rel="stylesheet" href="bower_components/web-datetime/style.css">
+
 </head>
-<body>
-<tvo-nav></tvo-nav>
+<body ng-app="app">
+{{ 1 + 1 }}
+<div ng-controller="ctrl">
+	{{asdfvar}}
+</div>
+
+<tvo-text label="'input text'" value="text"></tvo-text>
+<tvo-password label="'password'" value="text"></tvo-password>
+<tvo-email label="'label'" value="text"></tvo-email>
+
+<tvo-datetime value="value" label="'input'"></tvo-datetime>
+<tvo-label-datetime value="value" label="'label'"></tvo-label-datetime>
+<!--<tvo-nav></tvo-nav>-->
 <div ui-view class="view ng-scope"></div>
 </body>
 </html>

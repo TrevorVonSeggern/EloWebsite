@@ -1,6 +1,3 @@
-import IHttpService = angular.IHttpService;
-import IWindowService = angular.IWindowService;
-import IScope = angular.IScope;
 import {BaseDetailItemController} from "../../../../../../component/baseItem/item/detail/controller";
 import {definition} from "../../../../../../Definition";
 import {ItemService} from "../service";
@@ -14,8 +11,8 @@ export class controller extends BaseDetailItemController {
 		ItemService.serviceName
 	];
 
-	constructor($scope: IScope,
-				$window: IWindowService,
+	constructor($scope,
+				$window,
 				$stateParams,
 				public itemService: ItemService) {
 		super($scope, $window, $stateParams, itemService, '/#/administration/userManagement');

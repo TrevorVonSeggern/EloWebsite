@@ -1,4 +1,3 @@
-import IHttpService = angular.IHttpService;
 import {BasicItemService} from '../service';
 import {BaseItemController} from '../baseController';
 

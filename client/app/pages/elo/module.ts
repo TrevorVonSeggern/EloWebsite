@@ -1,6 +1,5 @@
 // Created by trevor on 12/31/16.
 
-import IModule = angular.IModule;
 import {DefinitionRouter} from "../../Definition";
 import {eloDefinition} from "./eloDefinition";
 

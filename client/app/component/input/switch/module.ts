@@ -1,8 +1,8 @@
-import IModule = angular.IModule;
 import {definition} from '../../../Definition';
 import {InputSwitchController} from './controller';
 import {InputSwitchDirective} from './directive';
+import {IModule} from "angular";
 
-var module:IModule = angular.module(definition.inputSwitch.moduleName, []);
+let module:IModule = angular.module(definition.inputSwitch.moduleName, []);
 module.controller(definition.inputSwitch.controllerName, ['$scope', InputSwitchController]);
 module.directive(definition.inputSwitch.directiveName, InputSwitchDirective);

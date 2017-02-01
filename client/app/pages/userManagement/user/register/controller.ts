@@ -2,12 +2,9 @@
  * Created by Trevor Von Seggern on 11/30/2015.
  */
 
-import IHttpService = angular.IHttpService;
 import {User, UserFactory} from '../factory';
 import IWindowService = angular.IWindowService;
-import ILocationService = angular.ILocationService;
 import {definition} from "../../../../Definition";
-
 export class controller {
 	static controllerName = definition.register.controllerName;
 	static $inject:any[]  = ['$location', '$window', 'UserFactory'];

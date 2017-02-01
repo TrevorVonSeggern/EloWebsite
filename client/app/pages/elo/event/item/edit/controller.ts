@@ -1,9 +1,9 @@
-import IWindowService = angular.IWindowService;
 import {BaseEditItemController} from "../../../../../component/baseItem/item/edit/controller";
 import {eloDefinition} from "../../../eloDefinition";
 import {ListFactory} from "../../list/factory";
 import * as Game from "../../../game/list/factory";
 import {ItemService} from "../service";
+import {IWindowService} from "angular";
 
 export class controller extends BaseEditItemController {
 	static controllerName: string = eloDefinition.eventEdit.controllerName;

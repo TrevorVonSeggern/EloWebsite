@@ -1,8 +1,8 @@
 /**
  * Created by trevor on 3/20/16.
  */
-import express = require('express');
-import * as passport from 'passport';
+let express = require('express');
+let passport = require('passport');
 import {ClientRouter} from './auth/client/controller';
 import {UserRouter} from './auth/user/controller';
 import {isLoggedIn} from './auth/authStrategies';

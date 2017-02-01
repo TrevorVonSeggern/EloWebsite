@@ -1,15 +1,9 @@
-import RouteDefinition = angular.RouteDefinition;
-import IControllerProvider = angular.IControllerProvider;
-import IProvideService = angular.auto.IProvideService;
-import ICompileProvider = angular.ICompileProvider;
-import IFilterProvider = angular.IFilterProvider;
-import IQService = angular.IQService;
-import IModule = angular.IModule;
 import {UserFactory, User} from './pages/userManagement/user/factory';
 import {DefinitionRouter, definition} from './Definition';
 import {AppController} from './appController';
 import {PagesModule, loadRouter} from './pages/module';
 import {ComponentsModule} from './component/module';
+import {IModule} from "angular";
 
 // api has to be of type :any to compile... registerController and $register are dynamic.
 export let app: IModule = angular.module('app', [

@@ -1,10 +1,8 @@
-import IScope = angular.IScope;
-
 class controller {
 	constructor() {
 	}
 
 	static $inject: string[];
 }
-controller.$inject = ['$scope'];
+controller.$inject = [];
 export let InputSliderController = controller;

@@ -1,6 +1,3 @@
-import IHttpService = angular.IHttpService;
-import IWindowService = angular.IWindowService;
-import IScope = angular.IScope;
 import {ItemService} from '../service';
 import * as Game from '../../../game/item/service';
 import {BaseDetailItemController} from "../../../../../component/baseItem/item/detail/controller";

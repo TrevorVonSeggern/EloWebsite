@@ -1,1 +1,0 @@
-export let typeName: string = 'match';

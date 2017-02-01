@@ -1,5 +1,4 @@
 import {controller} from './controller';
-import IModule = angular.IModule;
 import {definition} from "../../../../Definition";
 
 var module:IModule = angular.module(definition.register.moduleName, ['dtrw.bcrypt']);

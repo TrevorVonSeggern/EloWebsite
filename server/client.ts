@@ -1,27 +1,39 @@
-import * as express from 'express'
-import * as fs from 'fs'
+let express = require('express');
+let path = require('path');
+import process = require('process')
 
-export let client = express.Router();
+import webpackConfig = require('../webpack.config');
 
-let compression = require('compression');
-client.use(compression());
+export let client = new express();
+let env = process.env.NODE_ENV || 'dev';
 
-let cacheOptions = {
-	etag: true,
-};
+if (env === 'dev') {
+	let webpack = require('webpack');
+	let webpackDevMiddleware = require('webpack-dev-middleware');
+	let webpackHotMiddleware = require('webpack-hot-middleware');
 
-client.use('/', express.static('./assets', cacheOptions));
-client.use('/bower_components', express.static('./bower_components/', cacheOptions));
-client.use('/node_modules', express.static('./node_modules/', cacheOptions));
-client.use('/src/client', express.static('./src/client/', cacheOptions));
-client.use('/src/models', express.static('./src/models/', cacheOptions));
-client.use('/src/SystemConfig.js', express.static('./src/SystemConfig.js', cacheOptions));
-client.use('/src/SystemConfig.ts', express.static('./src/SystemConfig.ts', cacheOptions));
+	client.set('views', process.cwd());
+	client.engine('html', require('ejs').renderFile);
+	client.set('view engine', 'html');
+	client.get('/', (req, res, next) => res.render('index'));
 
-client.get('/index.html', getIndex);
-client.get('/', getIndex);
+	let compiler = webpack(webpackConfig);
 
-function getIndex(req, res) {
-	let indexPage = fs.readFileSync('./src/client/index.html', 'utf8');
-	res.send(indexPage);
+	client.use(webpackDevMiddleware(compiler, {
+		publicPath: webpackConfig.output.publicPath,
+		stats: {colors: true}
+	}));
+	client.use(webpackHotMiddleware(compiler, {
+		log: console.log,
+		noInfo: true,
+		reload: true,
+	}));
+
 }
+else {
+	console.log('Production env');
+}
+
+client.use('/', express.static(process.cwd()));
+
+

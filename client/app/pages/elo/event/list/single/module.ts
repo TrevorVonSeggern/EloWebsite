@@ -1,10 +1,10 @@
 /**
  * Created by trevor on 5/31/16.
  */
-import IModule = angular.IModule;
 import {controller} from './controller';
 import {directive} from './directive';
 import {typeName} from "../../typeName";
+import {IModule} from "angular";
 
 let module: IModule = angular.module(typeName + 'ListSingleModule', []);
 

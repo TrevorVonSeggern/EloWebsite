@@ -1,7 +1,6 @@
 /**
  * Created by trevor on 5/31/16.
  */
-import IModule = angular.IModule;
 import {controller} from './controller';
 import {directive} from './directive';
 import {definition} from "../../../../../../Definition";

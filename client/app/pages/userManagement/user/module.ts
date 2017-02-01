@@ -2,7 +2,6 @@
  * Created by trevor on 6/29/2016.
  */
 
-import IModule = angular.IModule;
 import {AccountModule} from './account/module';
 import {LoginModule} from './login/module';
 import {RegisterModule} from './register/module';

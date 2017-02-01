@@ -1,4 +1,3 @@
-import IWindowService = angular.IWindowService;
 import {BaseEditItemController} from "../../../../../component/baseItem/item/edit/controller";
 import {eloDefinition} from "../../../eloDefinition";
 import {ListFactory} from "../../list/factory";

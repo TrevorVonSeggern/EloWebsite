@@ -2,7 +2,6 @@
  * Created by Trevor Von Seggern on 11/30/2015.
  */
 
-import IHttpService = angular.IHttpService;
 import {UserFactory, User} from '../factory';
 import {definition} from "../../../../Definition";
 

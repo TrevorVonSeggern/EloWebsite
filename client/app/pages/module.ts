@@ -1,7 +1,6 @@
 /**
  * Created by trevor on 7/14/2016.
  */
-import IModule = angular.IModule;
 
 import {UserModule} from './userManagement/user/module'
 import {AdministrationModule} from './userManagement/administration/module'

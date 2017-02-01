@@ -1,7 +1,6 @@
 /**
  * Created by trevor on 5/31/16.
  */
-import IModule = angular.IModule;
 import {UserManagementController} from './controller';
 import {ItemModule} from './item/module';
 import {ListModule} from './list/module';

@@ -1,6 +1,3 @@
-import IHttpService = angular.IHttpService;
-import IWindowService = angular.IWindowService;
-import IScope = angular.IScope;
 import {ItemService} from '../service';
 import * as Game from '../../../game/item/service';
 import {BaseDetailItemController} from "../../../../../component/baseItem/item/detail/controller";
@@ -19,8 +16,8 @@ export class controller extends BaseDetailItemController {
 	gameId: string;
 	gameName: string = '';
 
-	constructor($scope: IScope,
-				$window: IWindowService,
+	constructor($scope,
+				$window,
 				$stateParams,
 				public itemService: ItemService,
 				public gameItemService: Game.ItemService) {

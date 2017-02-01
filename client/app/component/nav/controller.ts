@@ -1,4 +1,3 @@
-import ILocationService = angular.ILocationService;
 import {UserFactory} from "../../pages/userManagement/user/factory";
 
 export class navController {

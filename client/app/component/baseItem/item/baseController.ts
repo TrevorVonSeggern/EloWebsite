@@ -1,5 +1,4 @@
 // Created by trevor on 7/29/2016.
-import IHttpService = angular.IHttpService;
 import {BasicItemService} from './service';
 
 export abstract class BaseItemController {

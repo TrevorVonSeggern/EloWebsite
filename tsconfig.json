@@ -9,6 +9,8 @@
     "sourceMap": true
   },
   "exclude": [
+	"processor",
+	"models",
     "node_modules",
     "bower_components"
   ]

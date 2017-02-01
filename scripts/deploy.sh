@@ -1,3 +1,9 @@
+#!/usr/bin/env bash
+ECHO ONLY RUN FROM ROOT PROJECT DIRECTORY!
+
+wait 10;
+
+
 LOGIN="$(aws ecr get-login --region us-west-1)"
 sudo $LOGIN
 docker build -t desklight .

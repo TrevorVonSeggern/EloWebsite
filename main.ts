@@ -3,6 +3,7 @@ let process = require('process');
 let fs = require('fs');
 let express = require('express');
 let helmet = require('helmet');
+let env = process.env.NODE_ENV || 'dev';
 
 import {app} from './src/server/app';
 

@@ -1,0 +1,41 @@
+<!--Company Logo-->
+<!--Menu navigation-->
+<div class="menu" role="navigation">
+	<div class="icon" ng-click="vm.menuClick('/')"></div>
+
+	<ul class="nav nav-pills nav-tabs nav-justified">
+
+		<li ng-show="vm.$userFactory.LoggedIn" ng-class="{active: vm.route === 'game'}">
+			<a href="#/game">Game</a>
+		</li>
+		<li ng-show="vm.$userFactory.LoggedIn" ng-class="{active: vm.route === 'event'}">
+			<a href="#/event">Event</a>
+		</li>
+		<li ng-show="vm.$userFactory.LoggedIn" ng-class="{active: vm.route === 'match'}">
+			<a href="#/match">Match</a>
+		</li>
+		<li ng-show="vm.$userFactory.LoggedIn" ng-class="{active: vm.route === 'team'}">
+			<a href="#/team">Team</a>
+		</li>
+		<li ng-show="vm.$userFactory.LoggedIn" ng-class="{active: vm.route === 'player'}">
+			<a href="#/player">Player</a>
+		</li>
+
+		<li ng-show="vm.$userFactory.LoggedIn && vm.$userFactory.user.role === 'Administrator'"
+			ng-class="{active: vm.route === 'administration'}">
+			<a href="#/administration">Administration</a>
+		</li>
+		<li ng-show="vm.$userFactory.LoggedIn" ng-class="{active: vm.route === 'account'}">
+			<a href="#/account">Account</a>
+		</li>
+		<li ng-show="vm.$userFactory.LoggedIn">
+			<a href="#/logout">Logout</a>
+		</li>
+		<li ng-show="!vm.$userFactory.LoggedIn" ng-class="{active: vm.route === 'login'}">
+			<a href="#/login">Login</a>
+		</li>
+		<li ng-show="!vm.$userFactory.LoggedIn" ng-class="{active: vm.route === 'register'}">
+			<a href="#/register">Sign Up</a>
+		</li>
+	</ul>
+</div>

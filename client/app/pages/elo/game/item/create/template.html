@@ -1,0 +1,21 @@
+<md-card>
+	<div ng-class="{loading: vm.loading}">
+		<md-card-title>
+			<md-card-title-text>
+				<span class="md-headline">Game</span>
+				<span class="md-subhead">Create</span>
+			</md-card-title-text>
+		</md-card-title>
+		<div class="btn-group card-controls">
+			<span ng-if="vm.error">{{vm.error}}</span>
+			<tvo-button ng-click="vm.cancel()" label="'Cancel'"></tvo-button>
+			<tvo-button ng-click="vm.save()" label="'Save'"></tvo-button>
+		</div>
+
+		<md-card-content>
+			<tvo-text label="'Name'" value="vm.item.name"></tvo-text>
+			<tvo-text label="'StartValue'" value="vm.item.startValue"></tvo-text>
+			<tvo-text label="'Scale'" value="vm.item.scale"></tvo-text>
+		</md-card-content>
+	</div>
+</md-card>

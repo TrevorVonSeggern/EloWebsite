@@ -1,0 +1,25 @@
+<md-card>
+	<div ng-class="{loading: vm.loading}">
+		<md-card-title>
+			<md-card-title-text>
+				<span class="md-headline">User</span>
+				<span class="md-subhead">Edit</span>
+			</md-card-title-text>
+		</md-card-title>
+		<div class="btn-group card-controls">
+			<span ng-if="vm.error">{{vm.error}}</span>
+			<tvo-delete-button ng-click="vm.deleteItem('/#/administration/userManagement')"></tvo-delete-button>
+			<tvo-button ng-click="vm.cancel('/#/administration/userManagement')" label="'Cancel'"></tvo-button>
+			<tvo-button ng-click="vm.save('/#/administration/userManagement')" label="'Save'"></tvo-button>
+		</div>
+
+		<md-card-content>
+			<tvo-text label="'Username:'" value="vm.item.username"></tvo-text>
+			<tvo-text label="'First Name:'" value="vm.item.first_name"></tvo-text>
+			<tvo-text label="'Last Name:'" value="vm.item.last_name"></tvo-text>
+			<tvo-text label="'Email:'" value="vm.item.email"></tvo-text>
+			<tvo-input-single-select label="'Role:'" value="vm.item.role" list="vm.roleList"></tvo-input-single-select>
+			<tvo-password label="'Password:'" value="vm.item.password"></tvo-password>
+		</md-card-content>
+	</div>
+</md-card>

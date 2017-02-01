@@ -5,10 +5,10 @@
 	<link rel="shortcut icon" href="/client/images/icon/5x.gif">
 
 	<script src="bower_components/angular/angular.min.js"></script>
+	<script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
 
 	<script src="bundle.js"></script>
 	<script src="/client/index.js"></script>
-
 
 	<link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css">
 	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
@@ -17,19 +17,15 @@
 	<link rel="stylesheet" href="bower_components/web-datetime/style.css">
 
 </head>
-<body ng-app="app">
-{{ 1 + 1 }}
-<div ng-controller="ctrl">
-	{{asdfvar}}
-</div>
+<body ng-app="app" ng-controller="ctrl">
 
-<tvo-text label="'input text'" value="text"></tvo-text>
-<tvo-password label="'password'" value="text"></tvo-password>
-<tvo-email label="'label'" value="text"></tvo-email>
+<tvo-nav
+		x-user-role="root.userRole"
+		x-menu="menu"
+		x-logged-in="root.loggedIn"
+></tvo-nav>
 
-<tvo-datetime value="value" label="'input'"></tvo-datetime>
-<tvo-label-datetime value="value" label="'label'"></tvo-label-datetime>
-<!--<tvo-nav></tvo-nav>-->
 <div ui-view class="view ng-scope"></div>
+
 </body>
 </html>

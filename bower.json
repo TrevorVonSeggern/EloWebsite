@@ -28,7 +28,8 @@
     "web-input-button": "https://github.com/TrevorVonSeggern/web-input-button.git#1.1.1",
     "web-input-text": "https://github.com/TrevorVonSeggern/web-input-text.git#1.1.3",
     "web-loading": "https://github.com/TrevorVonSeggern/web-loading.git#1.1.1",
-    "web-datetime": "https://github.com/TrevorVonSeggern/web-datetime.git#1.1.0"
+    "web-datetime": "https://github.com/TrevorVonSeggern/web-datetime.git#1.1.0",
+    "web-nav": "https://github.com/TrevorVonSeggern/web-nav.git#^1.0.0"
   },
   "resolutions": {
     "angular": "1.5.8",

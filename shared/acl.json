@@ -1,0 +1,29 @@
+{
+  "roles": [
+	{"name":"Administrator"},
+	{"name":"User"},
+	{"name":"Guest"}
+  ],
+  "resources": [
+	{"value":"get_/api", "description": "API Root. Displays index of endpoints.", "id": 1},
+	{"value":"get_/api/logs", "description": "Requests a list of the logs.", "id": 2 },
+	{"value":"put_/api/user/ChangePassword", "description": "Change password for self.", "id": 3 },
+	{"value":"put_/api/user/ChangePassword:*:", "description": "Change other peoples passwords.", "id": 4 },
+	{"value":"get_/api/user", "description": "get a list of users.", "id": 5 },
+	{"value":"get_/api/user:*:", "description": "get a information on a user with the given id.", "id": 6 },
+	{"value":"get_/api/user/size", "description": "get a size of all users.", "id": 7 },
+	{"value":"delete_/api/user:*:", "description": "delete a user of a given id.", "id": 8 },
+	{"value":"put_/api/user", "description": "save/update users.", "id": 9 },
+	{"value":"post_/api/user", "description": "create users.", "id": 10},
+	{"value":"get_/api/user/login", "description": "login a user.", "id": 11},
+	{"value":"get_/api/user/register", "description": "registers a user.", "id": 12}
+  ],
+  "permissions": [
+	{"roleId":2, "resourceId":1},
+	{"roleId":2, "resourceId":3},
+	{"roleId":2, "resourceId":7},
+	{"roleId":2, "resourceId":10},
+	{"roleId":3, "resourceId": 11},
+	{"roleId":3, "resourceId": 12}
+  ]
+}

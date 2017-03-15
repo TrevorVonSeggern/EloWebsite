@@ -1,81 +1,31 @@
-@keyframes loading {
-  to {
-    transform: rotate(360deg);
-  }
-}
-@-webkit-keyframes loading {
-  to {
-    -webkit-transform: rotate(360deg);
-  }
-}
-.loading {
-  position: relative;
-  visibility: hidden;
-}
-.loading:before {
-  content: '';
-  position: absolute;
-  visibility: visible;
-  background-size: contain;
-  background: url('/bower_components/web-loading/img/l-default.gif') no-repeat center;
-  height: 90%;
-  width: 100%;
-}
-.col-centered {
-  float: none;
-  margin: 0 auto;
-}
-.tvo-main-content {
-  padding-bottom: 40px;
-  overflow-y: auto;
-}
-div {
+.tvo-match-edit md-card.player-card-list,
+.tvo-match-create md-card.player-card-list {
+  display: inline-block;
+  min-width: 300px;
   vertical-align: top;
 }
-html,
-body {
-  height: 100%;
-  background-color: #f2f2f2;
-}
-md-card {
-  outline-color: #212121;
-  background-color: #ffffff;
-  border: 1px solid #c7c7c7;
-  padding: 5px;
-  position: relative;
-}
-md-card md-card-title {
+.tvo-match-edit md-card.player-card-list .add-player,
+.tvo-match-create md-card.player-card-list .add-player,
+.tvo-match-edit md-card.player-card-list .remove-player,
+.tvo-match-create md-card.player-card-list .remove-player {
   display: inline-block;
-  padding: 5px;
+  float: right;
 }
-md-card md-card-title md-card-title-text:only-child .md-subhead {
-  padding-top: 0;
-  margin-left: 10px;
+.tvo-match-edit md-card.player-card-list md-title,
+.tvo-match-create md-card.player-card-list md-title {
+  padding-bottom: 5px;
+  display: block;
 }
-md-card md-content {
-  overflow: visible;
+.tvo-match-edit md-card.player-card-list .player-in-team-row,
+.tvo-match-create md-card.player-card-list .player-in-team-row {
+  width: 100%;
+  min-height: 35px;
 }
-div.card-controls {
-  position: absolute;
-  top: 20px;
-  right: 20px;
+.match-single-item {
+  padding-left: 8px;
+  margin-right: 35px;
+  border-bottom: #dfdfdf solid 1px;
 }
-h1,
-h2,
-h3,
-h4,
-h5 {
-  padding: 0 5px;
-}
-.heading-1,
-.heading-2 {
-  margin-left: 10px;
-  margin-top: 15px;
-}
-input[type="text"],
-textarea {
-  background-color: transparent;
-}
-#__bs_notify__ {
-  display: none !important;
+.match-single-item:hover {
+  border-bottom: #858585 solid 1px;
 }

@@ -1,0 +1,82 @@
+.tvo-card {
+  margin: 8px;
+  padding: 13px;
+  background-color: white;
+  border-radius: 2px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
+  position: relative;
+}
+.tvo-card .tvo-card-header {
+  font-size: x-large;
+}
+.tvo-card .tvo-card-content {
+  padding: 5px 20px;
+}
+.tvo-card .card-controls {
+  position: absolute;
+  top: 15px;
+  right: 25px;
+}
+div.input-text,
+div.input-label-text {
+  display: inline-block;
+  width: 300px;
+  padding: 4px;
+}
+div.input-text div.input-group span,
+div.input-label-text div.input-group span {
+  height: 34px;
+  width: 85px;
+  display: table-cell;
+}
+div.input-text div.input-group input,
+div.input-label-text div.input-group input {
+  display: table-cell;
+  width: 178px;
+}
+.input-label-text div.input-group .input-group-addon {
+  border-right: 1px solid #ccc;
+}
+.input-label-text div.input-group div.value {
+  padding-top: 4px;
+  padding-left: 3px;
+  width: 200px;
+  overflow: hidden;
+}
+.tvo-link:hover {
+  cursor: pointer;
+}
+.tvo-page-link a.tvo-link:hover {
+  text-decoration: none;
+}
+.tvo-match-edit md-card.player-card-list,
+.tvo-match-create md-card.player-card-list {
+  display: inline-block;
+  min-width: 300px;
+  vertical-align: top;
+}
+.tvo-match-edit md-card.player-card-list .add-player,
+.tvo-match-create md-card.player-card-list .add-player,
+.tvo-match-edit md-card.player-card-list .remove-player,
+.tvo-match-create md-card.player-card-list .remove-player {
+  display: inline-block;
+  float: right;
+}
+.tvo-match-edit md-card.player-card-list md-title,
+.tvo-match-create md-card.player-card-list md-title {
+  padding-bottom: 5px;
+  display: block;
+}
+.tvo-match-edit md-card.player-card-list .player-in-team-row,
+.tvo-match-create md-card.player-card-list .player-in-team-row {
+  width: 100%;
+  min-height: 35px;
+}
+.match-single-item {
+  padding-left: 8px;
+  margin-right: 35px;
+  border-bottom: #dfdfdf solid 1px;
+}
+.match-single-item:hover {
+  border-bottom: #858585 solid 1px;
+}

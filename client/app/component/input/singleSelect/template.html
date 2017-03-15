@@ -1,9 +1,0 @@
-<div class="tvo-input-select-list col-md-4 tvo-input-item">
-	<div ng-if="vm.label && vm.list && vm.list.length > 0" class="input-group tvo-has-label">
-		<span class="input-group-addon">{{vm.label}}</span>
-		<select bootstrap-select ng-options="item.value as item.label for item in vm.list" ng-model="vm.value"></select>
-	</div>
-	<div ng-if="!vm.label && vm.list && vm.list.length > 0" class="input-group no-label">
-		<select bootstrap-select ng-options="item.value as item.label for item in vm.list" ng-model="vm.value"></select>
-	</div>
-</div>

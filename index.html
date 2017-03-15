@@ -4,17 +4,11 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="shortcut icon" href="/client/images/icon/5x.gif">
 
-	<script src="bower_components/angular/angular.min.js"></script>
-	<script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.css">
+	<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
 
-	<script src="bundle.js"></script>
-	<script src="/client/index.js"></script>
-
-	<link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css">
-	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
-
-	<link rel="stylesheet" href="bower_components/web-input-text/dist/style.css">
-	<link rel="stylesheet" href="bower_components/web-datetime/style.css">
+	<script src="/bundle.js"></script>
 
 </head>
 <body ng-app="app" ng-controller="ctrl">
@@ -25,7 +19,7 @@
 		x-logged-in="root.loggedIn"
 ></tvo-nav>
 
-<div ui-view class="view ng-scope"></div>
+<div ui-view></div>
 
 </body>
 </html>

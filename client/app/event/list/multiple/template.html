@@ -1,0 +1,33 @@
+<md-card class="scroll-container" ng-if="!vm.eventDetailFocused && !vm.eventCreateFocused">
+	<div ng-class="{loading: vm.loading}">
+		<md-card-title>
+			<md-card-title-text>
+				<span class="md-headline">Event</span>
+				<span class="md-subhead">List</span>
+			</md-card-title-text>
+		</md-card-title>
+
+		<div class="btn-group card-controls">
+			<tvo-create-button ui-sref="event-create"></tvo-create-button>
+		</div>
+
+		<div class="row">
+			<tvo-label-text value="'Name:'"></tvo-label-text>
+			<tvo-label-text value="'Start Time:'"></tvo-label-text>
+			<tvo-label-text value="'End Time:'"></tvo-label-text>
+			<tvo-label-text value="'Game Name:'"></tvo-label-text>
+		</div>
+
+		<ul infinite-scroll='vm.loadMore()' infinite-scroll-distance="0" class="list-group">
+			<li ng-repeat='item in vm.items' class="list-group-item" ui-sref="event-detail({id: item.id})">
+				<div class="row">
+					<tvo-event-item-single x-item="item" ></tvo-event-item-single>
+				</div>
+			</li>
+		</ul>
+	</div>
+</md-card>
+<tvo-event-item-create game-id="vm.gameId" ng-if="vm.eventCreateFocused" id="placeholder = 'this-is-a-placeholder'"
+					   open="vm.eventCreateFocused"></tvo-event-item-create>
+<tvo-event-item-detail game-id="vm.gameId" ng-if="vm.eventDetailFocused && vm.itemId" id="vm.itemId"
+					   open="vm.eventDetailFocused"></tvo-event-item-detail>

@@ -15,7 +15,7 @@ export class controller extends BaseDetailItemController {
 		UserFactory.factoryName,
 	];
 
-	gameId: string;
+	GameId: string;
 	gameName: string = '';
 	userFirstName: string = '';
 
@@ -26,8 +26,8 @@ export class controller extends BaseDetailItemController {
 				public gameItemService: Game.ItemService,
 				public userFactory: UserFactory) {
 		super($scope, $state, $stateParams, itemService, 'player');
-		if (this.gameId)
-			this.item.gameId = this.gameId;
+		if (this.GameId)
+			this.item.GameId = this.GameId;
 	}
 
 	itemLoadComplete() {
@@ -40,13 +40,20 @@ export class controller extends BaseDetailItemController {
 			if (loadingCounter === 0)
 				this.loading = false;
 		};
-		this.gameItemService.getItem(this.item.gameId, (game) => {
-			this.gameName = game.name;
+
+		if (this.item.GameId) {
+			this.gameItemService.getItem(this.item.GameId, (game) => {
+				this.gameName = game.name;
+				finishLoading();
+			}, (error) => {
+				finishLoading();
+				console.log(error);
+			});
+		}
+		else {
 			finishLoading();
-		}, (error) => {
-			finishLoading();
-			console.log(error);
-		});
+		}
+
 		if (this.item.userId) {
 			this.userFactory.getOneById(this.item.userId, (user: any) => {
 				this.userFirstName = user.first_name;

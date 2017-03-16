@@ -8,9 +8,9 @@
 		</md-card-title>
 		<div class="btn-group card-controls">
 			<span ng-if="vm.error">{{vm.error}}</span>
-			<tvo-delete-button ng-click="vm.deleteItem('/#/team')"></tvo-delete-button>
-			<tvo-button ng-click="vm.cancel('/#/team')" label="'Cancel'"></tvo-button>
-			<tvo-button ng-click="vm.save('/#/team')" label="'Save'"></tvo-button>
+			<tvo-delete-button ng-click="vm.deleteItem('team')"></tvo-delete-button>
+			<tvo-button ui-sref="team-detail({id:vm.item.id})" label="'Cancel'"></tvo-button>
+			<tvo-button ng-click="vm.save('team-detail')" label="'Save'"></tvo-button>
 		</div>
 
 		<md-card-content>

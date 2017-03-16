@@ -12,7 +12,8 @@ export class TeamServer extends ServerBaseModel implements Team {
 		super(instance);
 	}
 
-	static allByGame(gameId, limit, skip): Promise<Team[]> {
+	static allByGame(userId, gameId, limit, skip): Promise<Team[]> {
+		// TODO: limit by userId
 		return new Promise<Team[]>((resolve, reject) => {
 			// TODO: resolve all teams by game id (and user id);
 			resolve();
@@ -66,7 +67,8 @@ export class TeamServer extends ServerBaseModel implements Team {
 		});
 	};
 
-	static all(limit?: number, skip?: number): Promise<any[]> {
+	static all(userId, limit?: number, skip?: number): Promise<any[]> {
+		// TODO: limit by userId.
 		return all(DBTeam, limit, skip);
 	};
 

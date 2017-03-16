@@ -1,18 +1,24 @@
-// Created by trevor on 12/31/16.
-
-
 import {CheckNumberParameter} from 'web-server-database/server/helper';
 import {TeamServer} from '../../database/team';
 import {Team} from '../../../models/models';
+import {sessionUser} from 'web-user-management/server/auth/authStrategies';
 
 export function getList(req, res) { // get
 	let limit: number = CheckNumberParameter(req.query.limit);
 	let skip: number = CheckNumberParameter(req.query.skip);
-	let gameId: string = req.query.gameId;
+	let userId = sessionUser(req).id;
+	if (req.query.GameId) {
+		let gameId: string = req.query.GameId;
 
-	TeamServer.allByGame(gameId, limit, skip).then((items: Team[]) => {
-		res.json(items);
-	}, (error) => res.json({error: true, message: error}));
+		TeamServer.allByGame(userId, gameId, limit, skip).then((items: Team[]) => {
+			res.json(items);
+		}, (error) => res.json({error: true, message: error}));
+	}
+	else {
+		TeamServer.all(userId, limit, skip).then((items: Team[]) => {
+			res.json(items);
+		}, (error) => res.json({error: true, message: error}));
+	}
 }
 
 export function getOneItem(req, res) { // get

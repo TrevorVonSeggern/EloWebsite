@@ -88,7 +88,8 @@ export class MatchServer extends ServerBaseModel implements Match {
 		});
 	};
 
-	static all(limit?: number, skip?: number): Promise<any[]> {
+	static all(userId, limit?: number, skip?: number): Promise<any[]> {
+		// TODO: limit by userID.
 		return all(DBMatch, limit, skip);
 	};
 

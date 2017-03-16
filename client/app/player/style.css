@@ -1,0 +1,22 @@
+.single-item {
+  min-height: 50px;
+}
+.player-single-item {
+  padding-left: 8px;
+  margin-right: 35px;
+  border-bottom: #dfdfdf solid 1px;
+}
+.player-single-item:hover {
+  border-bottom: #858585 solid 1px;
+}
+.heading-2 {
+  font-size: xx-large;
+  font-weight: bold;
+}
+.create-container {
+  position: absolute;
+  right: 5px;
+  outline: none;
+  cursor: pointer;
+  font-size: large;
+}

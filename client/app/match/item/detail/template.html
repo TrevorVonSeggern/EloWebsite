@@ -8,8 +8,8 @@
 		</md-card-title>
 		<div class="btn-group card-controls">
 			<span ng-if="vm.error">{{vm.error}}</span>
-			<tvo-button ng-click="vm.cancel('/#/match')" label="'Back'"></tvo-button>
-			<tvo-button ng-click="vm.edit('/#/match/edit')" label="'Edit'"></tvo-button>
+			<tvo-button ui-sref="match" label="'Back'"></tvo-button>
+			<tvo-button ui-sref="match-edit({id:vm.item.id})" label="'Edit'"></tvo-button>
 		</div>
 
 		<md-card-content ng-if="!vm.loading">

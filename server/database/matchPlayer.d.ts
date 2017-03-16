@@ -21,6 +21,6 @@ export declare class MatchPlayerServer extends ServerBaseModel implements MatchP
     static removeById(id: string): Promise<void>;
     remove(): Promise<void>;
     static getOneById(id: string): Promise<MatchPlayerServer>;
-    static all(limit?: number, skip?: number): Promise<any[]>;
+    static all(userId: any, limit?: number, skip?: number): Promise<any[]>;
     static getCount(): Promise<number>;
 }

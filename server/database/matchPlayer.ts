@@ -70,7 +70,8 @@ export class MatchPlayerServer extends ServerBaseModel implements MatchPlayer {
 		});
 	};
 
-	static all(limit?: number, skip?: number): Promise<any[]> {
+	static all(userId, limit?: number, skip?: number): Promise<any[]> {
+		// TODO, limit by userId
 		return all(DBMatch, limit, skip);
 	};
 

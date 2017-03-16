@@ -17,6 +17,6 @@ export declare class MatchServer extends ServerBaseModel implements Match {
     static removeById(id: string): Promise<void>;
     remove(): Promise<void>;
     static getOneById(id: string): Promise<MatchServer>;
-    static all(limit?: number, skip?: number): Promise<any[]>;
+    static all(userId: any, limit?: number, skip?: number): Promise<any[]>;
     static getCount(): Promise<number>;
 }

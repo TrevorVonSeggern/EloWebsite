@@ -8,8 +8,8 @@
 		</md-card-title>
 		<div class="btn-group card-controls">
 			<span ng-if="vm.error">{{vm.error}}</span>
-			<tvo-button ng-click="vm.cancel('/#/team')" label="'Back'"></tvo-button>
-			<tvo-button ng-click="vm.edit('/#/team/edit')" label="'Edit'"></tvo-button>
+			<tvo-button ui-sref="team" label="'Back'"></tvo-button>
+			<tvo-button ui-sref="team-edit({id:vm.item.id})" label="'Edit'"></tvo-button>
 		</div>
 
 		<md-card-content ng-if="!vm.loading">
@@ -20,4 +20,4 @@
 </md-card>
 
 <tvo-team-management-item-edit id="vm.item._id" ng-if="vm.eventEditFocused" game-id="vm.gameId"
-								open="vm.eventEditFocused"></tvo-team-management-item-edit>
+							   open="vm.eventEditFocused"></tvo-team-management-item-edit>

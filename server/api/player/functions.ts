@@ -1,18 +1,22 @@
-// Created by trevor on 12/31/16.
-
-
 import {CheckNumberParameter} from 'web-server-database/server/helper';
 import {PlayerServer} from '../../database/player';
 import {Player} from '../../../models/models';
+import {sessionUser} from 'web-user-management/server/auth/authStrategies';
 
 export function getList(req, res) { // get
 	let limit: number = CheckNumberParameter(req.query.limit);
 	let skip: number = CheckNumberParameter(req.query.skip);
-	let gameId: string = req.query.gameId;
+	let gameId: string = req.query.GameId;
+	let userId = sessionUser(req);
 
-	PlayerServer.allByGame(gameId, limit, skip).then((items: Player[]) => {
-		res.json(items);
-	}, (error) => res.json({error: true, message: error}));
+	if (gameId)
+		PlayerServer.allByGame(userId, gameId, limit, skip).then((items: Player[]) => {
+			res.json(items);
+		}, (error) => res.json({error: true, message: error}));
+	else
+		PlayerServer.all(userId, limit, skip).then((items: Player[]) => {
+			res.json(items);
+		}, (error) => res.json({error: true, message: error}));
 }
 
 export function getOneItem(req, res) { // get

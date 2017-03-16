@@ -23,7 +23,7 @@ export class controller extends BaseMultipleController {
 			skip: this.items.length,
 			gameId: this.gameId
 		}, (response) => {
-			let nItems = response.data;
+			let nItems = response;
 			for (let i: number = 0; i < nItems.length; ++i) {
 				this.items.push(nItems[i]);
 			}

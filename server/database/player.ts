@@ -13,7 +13,8 @@ export class PlayerServer extends ServerBaseModel implements Player {
 		super(instance);
 	}
 
-	static allByGame(gameId, limit, skip): Promise<Player[]> {
+	static allByGame(userId, gameId, limit, skip): Promise<Player[]> {
+		// TODO: limit by userId
 		return new Promise<Player[]>((resolve, reject) => {
 			// TODO resolve all players by game
 			resolve();
@@ -67,7 +68,8 @@ export class PlayerServer extends ServerBaseModel implements Player {
 		});
 	};
 
-	static all(limit?: number, skip?: number): Promise<any[]> {
+	static all(userId, limit?: number, skip?: number): Promise<any[]> {
+		// TODO: limit by userId.
 		return all(DBPlayer, limit, skip);
 	};
 

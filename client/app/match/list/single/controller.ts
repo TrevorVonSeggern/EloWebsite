@@ -1,13 +1,12 @@
 import {typeName} from "../../typeName";
 
 export class controller {
-
 	item: any;
 
 	displayVs(): string {
-		if (!this.item || !this.item.teamA || !this.item.teamB)
+		if (!this.item || !this.item.TeamAName || !this.item.TeamBName)
 			return '';
-		return this.item.teamA + ' vs ' + this.item.teamB;
+		return this.item.TeamAName + ' vs ' + this.item.TeamBName;
 	}
 
 	constructor($scope) {

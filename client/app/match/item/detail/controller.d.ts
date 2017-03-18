@@ -1,8 +1,8 @@
-import { ItemService } from '../service';
+import { MatchPlayerService } from '../matchPlayerService';
 import * as Game from '../../../game/item/service';
 import { BaseDetailItemController } from 'web-angularjs-crud-base-items/item/detail/controller';
 export declare class controller extends BaseDetailItemController {
-    itemService: ItemService;
+    itemService: MatchPlayerService;
     gameItemService: Game.ItemService;
     static controllerName: string;
     static $inject: any[];
@@ -10,6 +10,6 @@ export declare class controller extends BaseDetailItemController {
     winnerText(): string;
     gameId: string;
     gameName: string;
-    constructor($scope: any, $state: any, $stateParams: any, itemService: ItemService, gameItemService: Game.ItemService);
+    constructor($scope: any, $state: any, $stateParams: any, itemService: MatchPlayerService, gameItemService: Game.ItemService);
     itemLoadComplete(): void;
 }

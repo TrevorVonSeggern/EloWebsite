@@ -1,62 +1,64 @@
 import { BaseModel } from 'web-base-model';
 export declare class EloValue extends BaseModel {
-    id: string;
-    PlayerId: string;
-    TeamId: string;
-    MatchId: string;
+    id: string | number;
+    PlayerId: string | number;
+    TeamId: string | number;
+    MatchId: string | number;
     eloValue: number;
     constructor(instance?: any);
 }
 export declare class Event extends BaseModel {
-    id: string;
+    id: string | number;
     name: string;
     startTime: Date;
     endTime: Date;
-    GameId: string;
+    GameId: string | number;
     comment: string;
     constructor(instance?: any);
 }
 export declare class Game extends BaseModel {
-    id: string;
+    id: string | number;
     name: string;
-    UserId: string;
+    UserId: string | number;
     startValue: number;
     scale: number;
     constructor(instance?: any);
 }
 export declare class Match extends BaseModel {
-    id: string;
+    id: string | number;
     startTime: Date;
     endTime: Date;
-    TeamA: string;
-    TeamB: string;
-    EventId: string;
+    TeamAId: string | number;
+    TeamBId: string | number;
+    EventId: string | number;
     status: number;
     winner: boolean;
     constructor(instance?: any);
 }
-export declare class MatchPlayer extends Match {
-    id: string;
+export declare class MatchPlayer extends Match implements Match {
+    id: string | number;
     startTime: Date;
     endTime: Date;
-    TeamA: string;
-    TeamB: string;
-    EventId: string;
+    TeamAId: string | number;
+    TeamBId: string | number;
+    EventId: string | number;
     status: number;
-    teamAPlayers: EloValue[];
-    teamBPlayers: EloValue[];
+    TeamAPlayers: EloValue[];
+    TeamBPlayers: EloValue[];
+    TeamAPlayersPrevious: EloValue[];
+    TeamBPlayersPrevious: EloValue[];
     constructor(instance?: any);
 }
 export declare class Player extends BaseModel {
-    id: string;
+    id: string | number;
     name: string;
-    GameId: string;
-    UserId: string;
+    GameId: string | number;
+    UserId: string | number;
     constructor(instance?: any);
 }
 export declare class Team extends BaseModel {
-    id: string;
+    id: string | number;
     name: string;
-    GameId: string;
+    GameId: string | number;
     constructor(instance?: any);
 }

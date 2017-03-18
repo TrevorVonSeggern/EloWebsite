@@ -12,13 +12,13 @@ export class controller extends BasicCreateItemController {
 	];
 
 	loading: boolean = false;
-	gameId: string;
+	GameId: string;
 	gameSelectList: any[] = [];
 
 	constructor(public itemFactory: ItemService, $stateParams, $state, gameListFactory: ListFactory) {
 		super(itemFactory, $stateParams, $state, 'team');
-		if (this.gameId)
-			this.item.gameId = this.gameId;
+		if (this.GameId)
+			this.item.GameId = this.GameId;
 		this.loading = true;
 
 		let allLoading: boolean = false;

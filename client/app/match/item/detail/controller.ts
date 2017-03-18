@@ -1,4 +1,4 @@
-import {ItemService} from '../service';
+import {MatchPlayerService} from '../matchPlayerService';
 import * as Game from '../../../game/item/service';
 import {BaseDetailItemController} from 'web-angularjs-crud-base-items/item/detail/controller';
 import {definition} from "../../../../definition";
@@ -9,14 +9,14 @@ export class controller extends BaseDetailItemController {
 		'$scope',
 		'$state',
 		'$stateParams',
-		ItemService.serviceName,
+		MatchPlayerService.serviceName,
 		Game.ItemService.serviceName,
 	];
 
 	displayVs(): string {
-		if (!this.item || !this.item.teamAName || !this.item.teamBName)
+		if (!this.item || !this.item.TeamAName || !this.item.TeamBName)
 			return '';
-		return this.item.teamAName + ' vs ' + this.item.teamBName;
+		return this.item.TeamAName + ' vs ' + this.item.TeamBName;
 	}
 
 	winnerText(): string {
@@ -34,18 +34,18 @@ export class controller extends BaseDetailItemController {
 	constructor($scope,
 				$state,
 				$stateParams,
-				public itemService: ItemService,
+				public itemService: MatchPlayerService,
 				public gameItemService: Game.ItemService) {
 		super($scope, $state, $stateParams, itemService, 'match');
 		if (this.gameId)
-			this.item.gameId = this.gameId;
+			this.item.GameId = this.gameId;
 	}
 
 	itemLoadComplete() {
 		if (this.itemIsEmpty())
 			this.cancel(this.returnUrl);
 		this.loading = true;
-		this.gameItemService.getItem(this.item.gameId, (game) => {
+		this.gameItemService.getItem(this.item.GameId, (game) => {
 			this.gameName = game.name;
 			this.loading = false;
 		}, (error) => {

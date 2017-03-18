@@ -2,6 +2,7 @@ import {DBTeam} from "./sequelize";
 import {ServerBaseModel, all} from "web-base-server-model";
 import {mapObjectToObject} from 'web-base-model';
 import {Team} from "../../models/models";
+import {DBGame} from "./sequelize";
 
 export class TeamServer extends ServerBaseModel implements Team {
 	id: string;
@@ -58,7 +59,7 @@ export class TeamServer extends ServerBaseModel implements Team {
 
 	static getOneById(id: string): Promise<TeamServer> {
 		return new Promise<TeamServer>((resolve, reject) => {
-			DBTeam.findOne({where: {id: id}}).then((item: any) => {
+			DBTeam.findOne({where: {id: id}, include: [DBGame]}).then((item: any) => {
 				if (item && item.dataValues)
 					resolve(new TeamServer(item.dataValues));
 				else

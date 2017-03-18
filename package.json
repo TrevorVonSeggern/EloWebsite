@@ -11,6 +11,7 @@
     "web-angularjs-crud-base-items": "^1.0.23",
     "web-angularjs-user-factory": "*",
     "web-base-model": "*",
+    "web-input-select-list": "*",
     "web-server-database": "*",
     "web-user-management": "*"
   },

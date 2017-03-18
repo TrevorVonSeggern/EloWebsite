@@ -21,16 +21,16 @@
 
 			</div>
 			<div class="row">
-				<tvo-input-single-select label="'TeamA:'" value="vm.item.teamA"
+				<tvo-input-single-select label="'TeamA:'" value="vm.item.TeamAId"
 										 list="vm.teamSelectList"></tvo-input-single-select>
 
-				<tvo-input-single-select label="'TeamB:'" value="vm.item.teamB"
+				<tvo-input-single-select label="'TeamB:'" value="vm.item.TeamBId"
 										 list="vm.teamSelectList"></tvo-input-single-select>
 			</div>
 			<div class="row">
-				<tvo-input-single-select label="'Event:'" value="vm.item.eventId"
+				<tvo-input-single-select label="'Event:'" value="vm.item.EventId"
 										 list="vm.eventSelectList"></tvo-input-single-select>
-				<tvo-switch label="'Winner (teamA)'" value="vm.item.winner"></tvo-switch>
+				<tvo-switch label="'Winner (TeamA)'" value="vm.item.winner"></tvo-switch>
 
 				<tvo-label-text label="'InternalStatus'" value="vm.item.status"></tvo-label-text>
 			</div>
@@ -45,16 +45,12 @@
 						</span>
 					</md-title>
 					<md-content>
-						<div ng-repeat="(key, value) in vm.item.teamAPlayers track by $index"
+						<div ng-repeat="(key, value) in vm.item.TeamAPlayers track by $index"
 							 class="player-in-team-row row">
-							<div>
-								<tvo-input-single-select value="value.playerId"
-														 list="vm.playerSelectList"></tvo-input-single-select>
-							</div>
-							<span class="btn-group remove-player">
-							<input type="button" class="btn btn-default btn-danger" value="x"
+							<tvo-input-single-select value="value.PlayerId"
+													 list="vm.playerSelectList"></tvo-input-single-select>
+							<input type="button" class="btn btn-default btn-danger remove-player" value="x"
 								   ng-click="vm.removePlayerTeamA(key)"/>
-						</span>
 						</div>
 
 					</md-content>
@@ -69,16 +65,12 @@
 						</span>
 					</md-title>
 					<md-content>
-						<div ng-repeat="(key, value) in vm.item.teamBPlayers track by $index"
+						<div ng-repeat="(key, value) in vm.item.TeamBPlayers track by $index"
 							 class="player-in-team-row row">
-							<div>
-								<tvo-input-single-select value="value.playerId"
-														 list="vm.playerSelectList"></tvo-input-single-select>
-							</div>
-							<span class="btn-group remove-player">
-							<input type="button" class="btn btn-default btn-danger" value="x"
+							<tvo-input-single-select value="value.PlayerId"
+													 list="vm.playerSelectList"></tvo-input-single-select>
+							<input type="button" class="btn btn-default btn-danger remove-player" value="x"
 								   ng-click="vm.removePlayerTeamB(key)"/>
-						</span>
 						</div>
 
 					</md-content>

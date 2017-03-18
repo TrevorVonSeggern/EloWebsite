@@ -22,7 +22,7 @@ export class ListFactory extends BasicListFactory {
 			let list = data;
 			let result = [];
 			for (let i = 0; i < list.length; ++i) {
-				result.push(new Object({label: list[i].name, value: list[i]._id}))
+				result.push(new Object({label: list[i].name, value: list[i].id}))
 			}
 			resolve(result);
 		}, (error) => {

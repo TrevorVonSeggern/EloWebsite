@@ -14,15 +14,15 @@ export class controller extends BasicCreateItemController {
 	];
 
 	loading: boolean = false;
-	gameId: string;
+	GameId: string;
 	gameSelectList: any[] = [];
 	userSelectList: any[] = [];
 
 	constructor(public itemFactory: ItemService, $stateParams, $state, gameListFactory: ListFactory, userFactory: UserFactory) {
 		super(itemFactory, $stateParams, $state, 'player');
-		if (this.gameId)
-			this.item.gameId = this.gameId;
-		this.item.userId = null;
+		if (this.GameId)
+			this.item.GameId = this.GameId;
+		this.item.UserId = null;
 
 		this.loading = true;
 

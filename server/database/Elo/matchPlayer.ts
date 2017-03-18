@@ -214,23 +214,7 @@
 // 		return result;
 // 	}
 //
-// 	private static getCenterDeltaList(old: EloValue[], current: EloValue[]): EloValue[] {
-// 		let result = [];
-// 		if (!current || !old)
-// 			return;
-// 		for (let i = 0; i < old.length; ++i) {
-// 			let contains = false;
-// 			for (let c = 0; c < current.length; ++c) {
-// 				if (current[i].playerId === old[c].playerId) {
-// 					contains = true;
-// 					break;
-// 				}
-// 			}
-// 			if (contains)
-// 				result.push(current[i]);
-// 		}
-// 		return result;
-// 	}
+
 //
 // 	private insertTeamEloValueQuery(teamId: string, list: EloValue[]): Promise<EloValue[]> {
 // 		return new Promise<EloValue[]>((resolve) => {

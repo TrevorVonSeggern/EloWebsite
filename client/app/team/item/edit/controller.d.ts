@@ -8,7 +8,7 @@ export declare class controller extends BaseEditItemController {
     gameListFactory: Game.ListFactory;
     static controllerName: string;
     static $inject: any[];
-    gameId: string;
+    GameId: string;
     gameSelectList: any[];
     constructor($state: any, Factory: ListFactory, itemFactory: ItemService, $stateParams: any, gameListFactory: Game.ListFactory);
     deleteItem(returnUrl: string): void;

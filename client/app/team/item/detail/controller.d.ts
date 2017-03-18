@@ -6,8 +6,8 @@ export declare class controller extends BaseDetailItemController {
     gameItemService: Game.ItemService;
     static controllerName: string;
     static $inject: any[];
-    gameId: string;
-    gameName: string;
+    GameId: string;
+    GameName: string;
     constructor($scope: any, $state: any, $stateParams: any, itemService: ItemService, gameItemService: Game.ItemService);
     itemLoadComplete(): void;
 }

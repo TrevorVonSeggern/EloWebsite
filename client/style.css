@@ -1,23 +1,23 @@
-.tvo-match-edit md-card.player-card-list,
-.tvo-match-create md-card.player-card-list {
+.tvo-match-edit .player-card-list,
+.tvo-match-create .player-card-list {
   display: inline-block;
-  min-width: 300px;
+  min-width: 350px;
   vertical-align: top;
 }
-.tvo-match-edit md-card.player-card-list .add-player,
-.tvo-match-create md-card.player-card-list .add-player,
-.tvo-match-edit md-card.player-card-list .remove-player,
-.tvo-match-create md-card.player-card-list .remove-player {
+.tvo-match-edit .player-card-list .add-player,
+.tvo-match-create .player-card-list .add-player,
+.tvo-match-edit .player-card-list .remove-player,
+.tvo-match-create .player-card-list .remove-player {
   display: inline-block;
   float: right;
 }
-.tvo-match-edit md-card.player-card-list md-title,
-.tvo-match-create md-card.player-card-list md-title {
-  padding-bottom: 5px;
+.tvo-match-edit .player-card-list md-title,
+.tvo-match-create .player-card-list md-title {
+  padding-bottom: 20px;
   display: block;
 }
-.tvo-match-edit md-card.player-card-list .player-in-team-row,
-.tvo-match-create md-card.player-card-list .player-in-team-row {
+.tvo-match-edit .player-card-list .player-in-team-row,
+.tvo-match-create .player-card-list .player-in-team-row {
   width: 100%;
   min-height: 35px;
 }

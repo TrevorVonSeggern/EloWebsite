@@ -4,10 +4,10 @@ import {mapObjectToObject} from 'web-base-model';
 import {EloValue} from "../../models/models";
 
 export class EloValueServer extends ServerBaseModel implements EloValue {
-	id: string;
-	PlayerId: string;
-	MatchId: string;
-	TeamId: string;
+	id: string | number;
+	PlayerId: string | number;
+	MatchId: string | number;
+	TeamId: string | number;
 	eloValue: number;
 
 	constructor(instance?) {
@@ -40,7 +40,7 @@ export class EloValueServer extends ServerBaseModel implements EloValue {
 		});
 	};
 
-	static removeById(id: string): Promise<void> {
+	static removeById(id: string | number): Promise<void> {
 		return new Promise<void>((resolve, reject) => {
 			DBEloValue.destroy({where: {id: id}}).then(() => resolve(), reject);
 		});
@@ -50,7 +50,7 @@ export class EloValueServer extends ServerBaseModel implements EloValue {
 		return EloValueServer.removeById(this.id);
 	};
 
-	static getOneById(id: string): Promise<EloValueServer> {
+	static getOneById(id: string | number): Promise<EloValueServer> {
 		return new Promise<EloValueServer>((resolve, reject) => {
 			DBEloValue.findOne({where: {id: id}}).then((item: any) => {
 				if (item && item.dataValues)
@@ -63,6 +63,18 @@ export class EloValueServer extends ServerBaseModel implements EloValue {
 
 	static all(limit?: number, skip?: number): Promise<any[]> {
 		return all(DBEloValue, limit, skip);
+	};
+
+	static allByMatchId(matchId: string| number, limit?: number, skip?: number): Promise<any[]> {
+		return new Promise<any[]>((resolve, reject) => {
+			DBEloValue.all({where: {MatchId: matchId}}).then((items: any[]) => {
+				let result: EloValue [] = [];
+				for (let i = 0; i < items.length; ++i) {
+					result.push(items[i].dataValues);
+				}
+				resolve(result);
+			}, error => reject(error))
+		});
 	};
 
 	static getCount(): Promise<number> {

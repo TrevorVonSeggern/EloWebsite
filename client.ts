@@ -2,10 +2,12 @@ import * as angular from 'angular';
 import {LoadRouter, EloModule} from './client/app';
 import 'angular-ui-router';
 import {UserManagementModule} from 'web-user-management'
+import {SingleSelectModule} from 'web-input-select-list';
 
 angular.module('app', [
 	EloModule.name,
 	UserManagementModule.name,
+	SingleSelectModule.name,
 	'ui.router'
 ]).controller('ctrl', function ($scope, $rootScope) {
 	let vm = $scope;

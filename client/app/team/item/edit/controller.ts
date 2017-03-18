@@ -14,7 +14,7 @@ export class controller extends BaseEditItemController {
 		Game.ListFactory.factoryName // This is for GAME, not Team.
 	];
 
-	gameId: string;
+	GameId: string;
 	gameSelectList: any[] = [];
 
 	constructor($state,
@@ -23,8 +23,8 @@ export class controller extends BaseEditItemController {
 				$stateParams,
 				public gameListFactory: Game.ListFactory) {
 		super($state, itemFactory, $stateParams, 'team');
-		if (this.gameId)
-			this.item.gameId = this.gameId;
+		if (this.GameId)
+			this.item.GameId = this.GameId;
 		this.loading = true;
 		gameListFactory.getSelectList((list) => {
 			this.gameSelectList = list;

@@ -24,33 +24,33 @@ export class controller extends BasicCreateItemController {
 	playerSelectList: any[] = [];
 
 	addPlayerTeamA() {
-		let a = new Object({playerId: ''});
-		this.item.teamAPlayers.push(a);
+		let a = new Object({PlayerId: ''});
+		this.item.TeamAPlayers.push(a);
 	}
 
 	removePlayerTeamA(index: number) {
-		this.item.teamAPlayers.splice(index, 1);
+		this.item.TeamAPlayers.splice(index, 1);
 	}
 
 	addPlayerTeamB() {
-		let a = new Object({playerId: ''});
-		this.item.teamBPlayers.push(a);
+		let a = new Object({PlayerId: ''});
+		this.item.TeamBPlayers.push(a);
 	}
 
 	removePlayerTeamB(index: number) {
-		this.item.teamBPlayers.splice(index, 1);
+		this.item.TeamBPlayers.splice(index, 1);
 	}
 
 	constructor(public itemFactory: MatchPlayerService, $stateParams, $state,
 				eventListFactory: Event.ListFactory, teamListFactory: Team.ListFactory, playerListFactory: Player.ListFactory) {
 		super(itemFactory, $stateParams, $state, 'match');
 		if (this.gameId)
-			this.item.gameId = this.gameId;
+			this.item.GameId = this.gameId;
 		this.loading = true;
 
 		this.item = {
-			teamAPlayers: [],
-			teamBPlayers: [],
+			TeamAPlayers: [],
+			TeamBPlayers: [],
 		};
 
 		let loadingCount: number = 3;

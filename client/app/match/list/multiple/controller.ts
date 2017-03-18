@@ -10,7 +10,7 @@ export class controller extends BaseMultipleController {
 
 
 	constructor(ajaxFactory:AjaxFactory, public factory: ListFactory, $state) {
-		super(ajaxFactory, $state, '/api/match');
+		super(ajaxFactory, $state, '/api/match_player/view');
 	}
 
 	listenerGUID: string = generateGUID();

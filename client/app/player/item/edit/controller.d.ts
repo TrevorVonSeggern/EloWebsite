@@ -10,7 +10,7 @@ export declare class controller extends BaseEditItemController {
     gameListFactory: Game.ListFactory;
     static controllerName: string;
     static $inject: any[];
-    gameId: string;
+    GameId: string;
     gameSelectList: any[];
     userSelectList: any[];
     constructor($scope: any, $state: any, Factory: ListFactory, itemFactory: ItemService, $stateParams: any, gameListFactory: Game.ListFactory, userFactory: UserFactory);

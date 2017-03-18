@@ -37,9 +37,9 @@ let match = sqlize.define('Match', {
 	endTime: {type: Sequelize.DATE},
 	winner: {type: Sequelize.BOOLEAN},
 });
+match.belongsTo(team, {as: 'TeamA'});
+match.belongsTo(team, {as: 'TeamB'});
 match.belongsTo(event);
-match.hasOne(team, {as: 'TeamA', foreignKey: 'fk_match_teamA'});
-match.hasOne(team, {as: 'TeamB', foreignKey: 'fk_match_teamB'});
 
 let eloValue = sqlize.define('EloValue', {
 	eloValue: {type: Sequelize.INTEGER},

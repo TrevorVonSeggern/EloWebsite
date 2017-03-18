@@ -15,10 +15,10 @@ export class controller extends BaseDetailItemController {
 
 	processGame() {
 		this.loading = true;
-		this.ajaxFactory.httpServerCall('/api/game/process/' + this.item._id, 'get', undefined, (data) => {
+		this.ajaxFactory.httpServerCall('/api/game/process/' + this.item.id, 'get', undefined, (data) => {
 			this.loading = false;
-			if (data.data.error)
-				console.log(data.data.message);
+			if (data.error)
+				console.log(data.message);
 		}, (error) => {
 			console.log(error);
 			this.loading = false;

@@ -13,8 +13,8 @@ export class controller extends BaseDetailItemController {
 		Game.ItemService.serviceName,
 	];
 
-	gameId: string;
-	gameName: string = '';
+	GameId: string;
+	GameName: string = '';
 
 	constructor($scope,
 				$state,
@@ -22,21 +22,24 @@ export class controller extends BaseDetailItemController {
 				public itemService: ItemService,
 				public gameItemService: Game.ItemService) {
 		super($scope, $state, $stateParams, itemService, 'team');
-		if (this.gameId)
-			this.item.gameId = this.gameId;
+		if (this.GameId)
+			this.item.GameId = this.GameId;
 	}
 
 	itemLoadComplete() {
 		if (this.itemIsEmpty())
 			this.cancel(this.returnUrl);
 		this.loading = true;
-		this.gameItemService.getItem(this.item.gameId, (game) => {
-			this.gameName = game.name;
+		if (this.item.GameId != null)
+			this.gameItemService.getItem(this.item.GameId, (game) => {
+				this.GameName = game.name;
+				this.loading = false;
+			}, (error) => {
+				this.loading = false;
+				console.log(error);
+			});
+		else
 			this.loading = false;
-		}, (error) => {
-			this.loading = false;
-			console.log(error);
-		});
 	}
 }
 controller.$inject.push(controller);

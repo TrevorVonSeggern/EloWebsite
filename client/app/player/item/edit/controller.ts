@@ -17,7 +17,7 @@ export class controller extends BaseEditItemController {
 		UserFactory.factoryName,
 	];
 
-	gameId: string;
+	GameId: string;
 	gameSelectList: any[] = [];
 	userSelectList: any[] = [];
 
@@ -27,8 +27,8 @@ export class controller extends BaseEditItemController {
 				$stateParams,
 				public gameListFactory: Game.ListFactory, userFactory: UserFactory) {
 		super($state, itemFactory, $stateParams, 'player');
-		if (this.gameId)
-			this.item.gameId = this.gameId;
+		if (this.GameId)
+			this.item.GameId = this.GameId;
 
 		this.loading = true;
 		let loadingCounter = 2;

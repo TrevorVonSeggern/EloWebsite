@@ -24,28 +24,26 @@ export class controller extends BaseEditItemController {
 	playerSelectList: any[] = [];
 
 	addPlayerTeamA() {
-		let a = new Object({playerId: ''});
-		this.item.teamAPlayers.push(a);
+		let a = new Object({PlayerId: ''});
+		this.item.TeamAPlayers.push(a);
 	}
 
 	removePlayerTeamA(index: number) {
-		this.item.teamAPlayers.splice(index, 1);
+		this.item.TeamAPlayers.splice(index, 1);
 	}
 
 	addPlayerTeamB() {
-		let a = new Object({playerId: ''});
-		this.item.teamBPlayers.push(a);
+		let a = new Object({PlayerId: ''});
+		this.item.TeamBPlayers.push(a);
 	}
 
 	removePlayerTeamB(index: number) {
-		this.item.teamBPlayers.splice(index, 1);
+		this.item.TeamBPlayers.splice(index, 1);
 	}
 
 	protected itemLoadComplete() {
-		if (!this.item.teamAPlayers)
-			this.item.teamAPlayers = [];
-		if (!this.item.teamBPlayers)
-			this.item.teamBPlayers = [];
+		this.item.TeamAPlayers = this.item.TeamAPlayers || [];
+		this.item.TeamBPlayers = this.item.TeamBPlayers || [];
 	}
 
 	constructor($state,
@@ -57,7 +55,7 @@ export class controller extends BaseEditItemController {
 				public teamListFactory: Team.ListFactory) {
 		super($state, itemFactory, $stateParams, 'match');
 		if (this.gameId)
-			this.item.gameId = this.gameId;
+			this.item.GameId = this.gameId;
 
 		let loadingCount: number = 3;
 		let finished = () => {

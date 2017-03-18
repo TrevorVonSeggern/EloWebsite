@@ -6,7 +6,7 @@ export declare class controller extends BasicCreateItemController {
     static controllerName: string;
     static $inject: any[];
     loading: boolean;
-    gameId: string;
+    GameId: string;
     gameSelectList: any[];
     constructor(itemFactory: ItemService, $stateParams: any, $state: any, gameListFactory: ListFactory);
 }

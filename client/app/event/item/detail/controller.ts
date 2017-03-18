@@ -13,7 +13,7 @@ export class controller extends BaseDetailItemController {
 		Game.ItemService.serviceName,
 	];
 
-	gameId: string;
+	GameId: string;
 	gameName: string = '';
 
 	constructor($scope,
@@ -22,15 +22,15 @@ export class controller extends BaseDetailItemController {
 				public itemService: ItemService,
 				public gameItemService: Game.ItemService) {
 		super($scope, $state, $stateParams, itemService, 'event');
-		if (this.gameId)
-			this.item.gameId = this.gameId;
+		if (this.GameId)
+			this.item.GameId = this.GameId;
 	}
 
 	itemLoadComplete() {
 		if (this.itemIsEmpty())
 			this.cancel(this.returnUrl);
 		this.loading = true;
-		this.gameItemService.getItem(this.item.gameId, (game) => {
+		this.gameItemService.getItem(this.item.GameId, (game) => {
 			this.gameName = game.name;
 			this.loading = false;
 		}, (error) => {

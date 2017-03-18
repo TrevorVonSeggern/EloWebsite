@@ -4,12 +4,12 @@ import {mapObjectToObject} from 'web-base-model';
 import {Match} from "../../models/models";
 
 export class MatchServer extends ServerBaseModel implements Match {
-	id: string;
+	id: string|number;
 	startTime: Date;
 	endTime: Date;
-	TeamA: string;
-	TeamB: string;
-	EventId: string;
+	TeamAId: string|number;
+	TeamBId: string|number;
+	EventId: string|number;
 	status: number;
 	winner: boolean;
 
@@ -67,7 +67,7 @@ export class MatchServer extends ServerBaseModel implements Match {
 		});
 	};
 
-	static removeById(id: string): Promise<void> {
+	static removeById(id: string| number): Promise<void> {
 		return new Promise<void>((resolve, reject) => {
 			DBMatch.destroy({where: {id: id}}).then(() => resolve(), reject);
 		});
@@ -77,7 +77,7 @@ export class MatchServer extends ServerBaseModel implements Match {
 		return MatchServer.removeById(this.id);
 	};
 
-	static getOneById(id: string): Promise<MatchServer> {
+	static getOneById(id: string | number): Promise<MatchServer> {
 		return new Promise<MatchServer>((resolve, reject) => {
 			DBMatch.findOne({where: {id: id}}).then((item: any) => {
 				if (item && item.dataValues)

@@ -1,12 +1,12 @@
 import { ServerBaseModel } from "web-base-server-model";
 import { Match } from "../../models/models";
 export declare class MatchServer extends ServerBaseModel implements Match {
-    id: string;
+    id: string | number;
     startTime: Date;
     endTime: Date;
-    TeamA: string;
-    TeamB: string;
-    EventId: string;
+    TeamAId: string | number;
+    TeamBId: string | number;
+    EventId: string | number;
     status: number;
     winner: boolean;
     constructor(instance?: any);
@@ -14,9 +14,9 @@ export declare class MatchServer extends ServerBaseModel implements Match {
     static processOne(): Promise<Boolean>;
     save(): Promise<void>;
     create(): Promise<void>;
-    static removeById(id: string): Promise<void>;
+    static removeById(id: string | number): Promise<void>;
     remove(): Promise<void>;
-    static getOneById(id: string): Promise<MatchServer>;
+    static getOneById(id: string | number): Promise<MatchServer>;
     static all(userId: any, limit?: number, skip?: number): Promise<any[]>;
     static getCount(): Promise<number>;
 }

@@ -2,10 +2,10 @@
 import {mapObjectToObject, BaseModel} from 'web-base-model';
 
 export class EloValue extends BaseModel {
-	id: string = null;
-	PlayerId: string = null;
-	TeamId: string = null;
-	MatchId: string = null;
+	id: string | number = null;
+	PlayerId: string | number = null;
+	TeamId: string | number = null;
+	MatchId: string | number = null;
 	eloValue: number = null;
 
 	constructor(instance?) {
@@ -14,11 +14,11 @@ export class EloValue extends BaseModel {
 }
 
 export class Event extends BaseModel {
-	id: string;
+	id: string | number;
 	name: string;
 	startTime: Date;
 	endTime: Date;
-	GameId: string;
+	GameId: string | number;
 	comment: string;
 
 	constructor(instance?) {
@@ -27,9 +27,9 @@ export class Event extends BaseModel {
 }
 
 export class Game extends BaseModel {
-	id: string;
+	id: string | number;
 	name: string;
-	UserId: string;
+	UserId: string | number;
 	startValue: number;
 	scale: number;
 
@@ -39,12 +39,12 @@ export class Game extends BaseModel {
 }
 
 export class Match extends BaseModel {
-	id: string;
+	id: string | number;
 	startTime: Date;
 	endTime: Date;
-	TeamA: string;
-	TeamB: string;
-	EventId: string;
+	TeamAId: string | number;
+	TeamBId: string | number;
+	EventId: string | number;
 	status: number;
 	winner: boolean;
 
@@ -53,16 +53,18 @@ export class Match extends BaseModel {
 	}
 }
 
-export class MatchPlayer extends Match {
-	id: string;
+export class MatchPlayer extends Match implements Match {
+	id: string | number;
 	startTime: Date;
 	endTime: Date;
-	TeamA: string;
-	TeamB: string;
-	EventId: string;
+	TeamAId: string | number;
+	TeamBId: string | number;
+	EventId: string | number;
 	status: number;
-	teamAPlayers: EloValue[];
-	teamBPlayers: EloValue[];
+	TeamAPlayers: EloValue[];
+	TeamBPlayers: EloValue[];
+	TeamAPlayersPrevious: EloValue[];
+	TeamBPlayersPrevious: EloValue[];
 
 	constructor(instance?) {
 		super(instance);
@@ -70,10 +72,10 @@ export class MatchPlayer extends Match {
 }
 
 export class Player extends BaseModel {
-	id: string;
+	id: string | number;
 	name: string;
-	GameId: string;
-	UserId: string;
+	GameId: string | number;
+	UserId: string | number;
 
 	constructor(instance?) {
 		super(instance);
@@ -81,9 +83,9 @@ export class Player extends BaseModel {
 }
 
 export class Team extends BaseModel {
-	id: string;
+	id: string | number;
 	name: string;
-	GameId: string;
+	GameId: string | number;
 
 	constructor(instance?) {
 		super(instance);

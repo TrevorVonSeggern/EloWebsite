@@ -25,7 +25,7 @@ export function getViewList(req, res) {
 }
 
 export function getOneItem(req, res) {
-	MatchServer.getOneById(req.params._id).then((item: MatchServer) => {
+	MatchServer.getOneById(req.params.id).then((item: MatchServer) => {
 		if (!item)
 			res.json({});
 		else
@@ -42,8 +42,8 @@ export function saveItem(req, res) {
 	MatchServer.getOneById(req.body.id).then((item: MatchServer) => {
 		item.startTime = req.body.startTime;
 		item.endTime = req.body.endTime;
-		item.TeamA = req.body.TeamA;
-		item.TeamB = req.body.TeamB;
+		item.TeamAId = req.body.TeamAId;
+		item.TeamBId = req.body.TeamBId;
 		item.EventId = req.body.EventId;
 		item.winner = req.body.winner === 'true';
 
@@ -59,8 +59,8 @@ export function newItem(req, res) {
 	let item = new MatchServer();
 	item.startTime = req.body.startTime;
 	item.endTime = req.body.endTime;
-	item.TeamA = req.body.TeamA;
-	item.TeamB = req.body.TeamB;
+	item.TeamAId = req.body.TeamAId;
+	item.TeamBId = req.body.TeamBId;
 	item.EventId = req.body.EventId;
 	item.status = 0;
 	item.winner = req.body.winner === 'true';

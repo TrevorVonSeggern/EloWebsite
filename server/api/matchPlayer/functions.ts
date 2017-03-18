@@ -1,10 +1,8 @@
-// Created by trevor on 12/31/16.
-
-
 import {CheckNumberParameter} from 'web-server-database/server/helper';
 import {Match} from '../../../models/models';
 import {processor} from '../../processor';
-import {MatchPlayerServer} from "../../database/matchPlayer";
+import {MatchPlayerServer} from '../../database/matchPlayer';
+import {sessionUser} from 'web-user-management/server/auth/authStrategies';
 
 export function getList(req, res) { // get
 	let limit: number = CheckNumberParameter(req.query.limit);
@@ -18,14 +16,14 @@ export function getList(req, res) { // get
 export function getViewList(req, res) { // get
 	let limit: number = CheckNumberParameter(req.query.limit);
 	let skip: number = CheckNumberParameter(req.query.skip);
-
-	MatchPlayerServer.all(limit, skip).then((items: Match[]) => {
+	// let user = sessionUser(req);
+	MatchPlayerServer.viewAll('0', limit, skip).then((items: Match[]) => {
 		res.json(items);
 	}, res.send);
 }
 
 export function getOneItem(req, res) { // get
-	MatchPlayerServer.getOneById(req.params._id).then((item: any) => {
+	MatchPlayerServer.getOneById(req.params.id).then((item: any) => {
 		if (item === undefined || (item.length && item.length === 0))
 			res.send({});
 		else {
@@ -55,7 +53,7 @@ function validateTeamSelectList(list) {
 	if (!list)
 		return [];
 	for (let i = 0; i < list.length; ++i) {
-		if (!list[i]['playerId']) {
+		if (!list[i].hasOwnProperty('PlayerId')) {
 			list.splice(i, 1);
 			i--;
 		}
@@ -64,7 +62,7 @@ function validateTeamSelectList(list) {
 		let good = true;
 		for (let i = 0; i < list.length; ++i) {
 			let item = list[i];
-			if (!item['playerId']) { // should remove bad items instead of completely fail.
+			if (!item.hasOwnProperty('PlayerId')) { // should remove bad items instead of completely fail.
 				good = false;
 				break;
 			}
@@ -82,25 +80,30 @@ export function saveItem(req, res) {
 	MatchPlayerServer.getOneById(req.body.id).then((item: MatchPlayerServer) => {
 		item.startTime = req.body.startTime;
 		item.endTime = req.body.endTime;
-		item.TeamAPrevious = item.TeamA;
-		item.TeamBPrevious = item.TeamB;
-		item.TeamA = req.body.TeamA;
-		item.TeamB = req.body.TeamB;
+		item.TeamAPrevious = item.TeamAId;
+		item.TeamBPrevious = item.TeamBId;
+		item.TeamAId = req.body.TeamAId;
+		item.TeamBId = req.body.TeamBId;
 		item.EventId = req.body.EventId;
 		item.winner = req.body.winner === 'true';
-		for (let i = 0; i < item.teamAPlayers.length; ++i) {
-			item.teamAPlayersPrevious.push(item.teamAPlayers[i]);
+		item.TeamAPlayers = item.TeamAPlayers || [];
+		item.TeamBPlayers = item.TeamBPlayers || [];
+		item.TeamAPlayersPrevious = item.TeamAPlayersPrevious || [];
+		item.TeamBPlayersPrevious = item.TeamBPlayersPrevious || [];
+
+		for (let i = 0; i < item.TeamAPlayers.length; ++i) {
+			item.TeamAPlayersPrevious.push(item.TeamAPlayers[i]);
 		}
-		for (let i = 0; i < item.teamBPlayers.length; ++i) {
-			item.teamBPlayersPrevious.push(item.teamBPlayers[i]);
+		for (let i = 0; i < item.TeamBPlayers.length; ++i) {
+			item.TeamBPlayersPrevious.push(item.TeamBPlayers[i]);
 		}
-		item.teamAPlayers = validateTeamSelectList(req.body.teamAPlayers);
-		item.teamBPlayers = validateTeamSelectList(req.body.teamBPlayers);
+		item.TeamAPlayers = validateTeamSelectList(req.body.TeamAPlayers);
+		item.TeamBPlayers = validateTeamSelectList(req.body.TeamBPlayers);
 
 		item.save().then(() => {
 			res.json({message: 'updated'});
 		}, (error) => {
-			res.send(error);
+			res.json({error: true, message: error});
 		});
 	});
 }
@@ -112,14 +115,16 @@ export function newItem(req, res) {
 	item.endTime = req.body.endTime;
 	item.TeamAPrevious = '';
 	item.TeamBPrevious = '';
-	item.TeamA = req.body.teamA;
-	item.TeamB = req.body.teamB;
-	item.EventId = req.body.eventId;
+	item.TeamAId = req.body.TeamAId;
+	item.TeamBId = req.body.TeamBId;
+	item.EventId = req.body.EventId;
 	item.winner = req.body.winner === 'true';
-	item.teamAPlayersPrevious = [];
-	item.teamBPlayersPrevious = [];
-	item.teamAPlayers = validateTeamSelectList(req.body.teamAPlayers);
-	item.teamBPlayers = validateTeamSelectList(req.body.teamBPlayers);
+	item.TeamAPlayers = [];
+	item.TeamBPlayers = [];
+	item.TeamAPlayersPrevious = [];
+	item.TeamBPlayersPrevious = [];
+	item.TeamAPlayers = validateTeamSelectList(req.body.TeamAPlayers);
+	item.TeamBPlayers = validateTeamSelectList(req.body.TeamBPlayers);
 
 	item.save().then(() => {
 		processor.checkElo();
@@ -130,7 +135,7 @@ export function newItem(req, res) {
 }
 
 export function deleteItem(req, res) { // deleteItem
-	MatchPlayerServer.removeById(req.params._id).then(() => {
+	MatchPlayerServer.removeById(req.params.id).then(() => {
 		res.json({error: false, message: 'item has been deleted.'});
 	}, (error) => {
 		res.json({error: true, message: error});

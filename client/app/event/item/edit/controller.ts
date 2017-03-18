@@ -24,7 +24,7 @@ export class controller extends BaseEditItemController {
 				public gameListFactory: Game.ListFactory) {
 		super($state, itemFactory, $stateParams, 'event');
 		if (this.gameId)
-			this.item.gameId = this.gameId;
+			this.item.GameId = this.gameId;
 		this.loading = true;
 		gameListFactory.getSelectList((list) => {
 			this.gameSelectList = list;

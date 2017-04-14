@@ -4,20 +4,22 @@ import {mapObjectToObject} from 'web-base-model';
 import {Event} from "../../models/models";
 
 export class EventServer extends ServerBaseModel implements Event {
-	id: string;
+	id: string | number;
 	name: string;
 	startTime: Date;
 	endTime: Date;
-	GameId: string;
+	GameId: string | number;
 	comment: string;
 
 	constructor(instance?) {
 		super(instance);
 	}
 
-	static allByGame(gameId, limit, skip): Promise<any[]> {
+	static allByGame(gameId: string | number, limit: number, skip: number): Promise<any[]> {
 		return new Promise<any[]>((resolve, reject) => {
-			resolve();
+			DBEvent.findAll({where: {GameId:gameId}}).then((result) => {
+				resolve(result);
+			}, reject);
 		});
 	}
 
@@ -47,7 +49,7 @@ export class EventServer extends ServerBaseModel implements Event {
 		});
 	};
 
-	static removeById(id: string): Promise<void> {
+	static removeById(id: string|number): Promise<void> {
 		return new Promise<void>((resolve, reject) => {
 			DBEvent.destroy({where: {id: id}}).then(() => resolve(), reject);
 		});
@@ -68,7 +70,7 @@ export class EventServer extends ServerBaseModel implements Event {
 		});
 	};
 
-	static getOneById(id: string): Promise<EventServer> {
+	static getOneById(id: string|number): Promise<EventServer> {
 		return new Promise<EventServer>((resolve, reject) => {
 			DBEvent.findOne({where: {id: id}}).then((item: any) => {
 				if (item && item.dataValues)

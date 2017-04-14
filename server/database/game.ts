@@ -4,7 +4,7 @@ import {mapObjectToObject} from 'web-base-model';
 import {Game} from "../../models/models";
 
 export class GameServer extends ServerBaseModel implements Game {
-	id: string;
+	id: string | number;
 	name: string;
 	UserId: string;
 	startValue: number;
@@ -40,7 +40,7 @@ export class GameServer extends ServerBaseModel implements Game {
 		});
 	};
 
-	static removeById(id: string): Promise<void> {
+	static removeById(id: string | number): Promise<void> {
 		return new Promise<void>((resolve, reject) => {
 			DBGame.destroy({where: {id: id}}).then(() => resolve(), reject);
 		});
@@ -50,7 +50,7 @@ export class GameServer extends ServerBaseModel implements Game {
 		return GameServer.removeById(this.id);
 	};
 
-	static getOneById(id: string): Promise<GameServer> {
+	static getOneById(id: string | number): Promise<GameServer> {
 		return new Promise<GameServer>((resolve, reject) => {
 			DBGame.findOne({where: {id: id}}).then((item: any) => {
 				if (item && item.dataValues)

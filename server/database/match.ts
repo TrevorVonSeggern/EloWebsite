@@ -2,14 +2,16 @@ import {DBMatch} from "./sequelize";
 import {ServerBaseModel, all} from "web-base-server-model";
 import {mapObjectToObject} from 'web-base-model';
 import {Match} from "../../models/models";
+import {GameServer} from "./game";
+import {EventServer} from "./event";
 
 export class MatchServer extends ServerBaseModel implements Match {
-	id: string|number;
+	id: string | number;
 	startTime: Date;
 	endTime: Date;
-	TeamAId: string|number;
-	TeamBId: string|number;
-	EventId: string|number;
+	TeamAId: string | number;
+	TeamBId: string | number;
+	EventId: string | number;
 	status: number;
 	winner: boolean;
 
@@ -26,6 +28,18 @@ export class MatchServer extends ServerBaseModel implements Match {
 
 	static processOne(): Promise<Boolean> {
 		return new Promise<Boolean>((resolve, reject) => {
+			MatchServer.getOneToProcess().then((match) => {
+				// get game
+				match.getGame().then((game: GameServer) => {
+
+				}, reject);
+
+				// get players
+
+				// get elo values
+			}, reject);
+
+
 			// TODO: Add process Logic
 			// this.getProcessScript().then((query: string) => {
 			// 	Connection.query(query).then((response:any) => {
@@ -67,7 +81,7 @@ export class MatchServer extends ServerBaseModel implements Match {
 		});
 	};
 
-	static removeById(id: string| number): Promise<void> {
+	static removeById(id: string | number): Promise<void> {
 		return new Promise<void>((resolve, reject) => {
 			DBMatch.destroy({where: {id: id}}).then(() => resolve(), reject);
 		});
@@ -88,6 +102,17 @@ export class MatchServer extends ServerBaseModel implements Match {
 		});
 	};
 
+	private static getOneToProcess(): Promise<MatchServer> {
+		return new Promise<MatchServer>((resolve, reject) => {
+			DBMatch.findOne({where: {status: null}, order: ['endTime', 'asc']}).then((item: any) => {
+				if (item && item.dataValues)
+					resolve(new MatchServer(item.dataValues));
+				else
+					resolve(undefined);
+			}, reject);
+		});
+	};
+
 	static all(userId, limit?: number, skip?: number): Promise<any[]> {
 		// TODO: limit by userID.
 		return all(DBMatch, limit, skip);
@@ -98,5 +123,26 @@ export class MatchServer extends ServerBaseModel implements Match {
 			DBMatch.count().then((num) => resolve(num), reject);
 		});
 	};
+
+	getEvent(): Promise<EventServer> {
+		return new Promise<EventServer>((resolve, reject) => {
+			if (this.EventId == null)
+				return reject('EventId is null');
+			EventServer.getOneById(this.EventId).then((event) => resolve(event), reject);
+		});
+	}
+
+	getGame(): Promise<GameServer> {
+		return new Promise<GameServer>((resolve, reject) => {
+			this.getEvent().then((event) => {
+				if (event.GameId == null)
+					return reject('GameId is null');
+				GameServer.getOneById(event.GameId).then((game) => {
+					resolve(game);
+				}, reject);
+			}, reject);
+
+		});
+	}
 
 }

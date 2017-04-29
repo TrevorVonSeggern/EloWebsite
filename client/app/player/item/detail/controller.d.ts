@@ -11,6 +11,7 @@ export declare class controller extends BaseDetailItemController {
     GameId: string;
     gameName: string;
     userFirstName: string;
+    eloChartData: any[];
     constructor($scope: any, $state: any, $stateParams: any, itemService: ItemService, gameItemService: Game.ItemService, userFactory: UserFactory);
     itemLoadComplete(): void;
 }

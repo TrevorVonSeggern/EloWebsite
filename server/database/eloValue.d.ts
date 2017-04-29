@@ -17,4 +17,5 @@ export declare class EloValueServer extends ServerBaseModel implements EloValue 
     static allByMatchId(matchId: string | number, limit?: number, skip?: number): Promise<EloValueServer[]>;
     static getCount(): Promise<number>;
     static getPlayerCurrentElo(playerId: string | number, game?: GameServer): Promise<number>;
+    static getPlayerCurrentEloValues(playerId: string | number): Promise<EloValueServer[]>;
 }

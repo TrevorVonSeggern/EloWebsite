@@ -91,11 +91,11 @@ export class EloValueServer extends ServerBaseModel implements EloValue {
 			let whereCondition: any;
 			if (typeof playerId === 'number')
 				whereCondition = new Sequelize.Utils.literal(
-					'EloValue.PlayerId == ' + playerId + ' and Match.status == 1'
+					'EloValue.PlayerId like ' + playerId + ' and Match.status like 1'
 				);
 			else
 				whereCondition = new Sequelize.Utils.literal(
-					'EloValue.PlayerId == `' + playerId + '` and Match.status == 1'
+					'EloValue.PlayerId like `' + playerId + '` and Match.status like 1'
 				);
 			DBEloValue.findOne({where: whereCondition, include: [DBMatch]}).then((item: any) => {
 				if (item && item.dataValues && item.dataValues.eloValue)
@@ -109,6 +109,23 @@ export class EloValueServer extends ServerBaseModel implements EloValue {
 						})
 					}, () => reject('could not find elo value from result.'));
 				}
+			});
+		});
+	}
+
+	static getPlayerCurrentEloValues(playerId: string | number): Promise<EloValueServer[]> {
+		return new Promise<EloValueServer[]>((resolve, reject) => {
+			DBEloValue.findAll({
+				where: {playerId: playerId, MatchId: {$ne: null}},
+				include: [DBMatch]
+			}).then((item: any) => {
+				let result: EloValueServer[] = [];
+				for (let i = 0; i < item.length; ++i) {
+					if (item[i].dataValues) {
+						result.push(new EloValueServer(item[i].dataValues));
+					}
+				}
+				return resolve(result);
 			});
 		});
 	}

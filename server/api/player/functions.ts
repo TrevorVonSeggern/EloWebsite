@@ -2,6 +2,7 @@ import {CheckNumberParameter} from 'web-server-database/server/helper';
 import {PlayerServer} from '../../database/player';
 import {Player} from '../../../models/models';
 import {sessionUser} from 'web-user-management/server/auth/authStrategies';
+import {EloValueServer} from "../../database/eloValue";
 
 export function getList(req, res) { // get
 	let limit: number = CheckNumberParameter(req.query.limit);
@@ -69,5 +70,19 @@ export function deleteItem(req, res) { // deleteItem
 		res.json({error: false, message: 'item has been deleted.'});
 	}, (error) => {
 		res.json({error: true, message: error});
+	});
+}
+
+export function getEloData(req, res) {
+	EloValueServer.getPlayerCurrentEloValues(req.params.id).then((items: EloValueServer[]) => {
+		let values: any[] = [];
+		for (let i = 0; i < items.length; ++i) {
+			let item: any = items[i];
+			values.push({y: item.eloValue, x: new Date(item.Match.endTime || item.Match.createdAt)});
+		}
+		res.json([{
+			key: 'Elo Value',
+			values: values
+		}]);
 	});
 }

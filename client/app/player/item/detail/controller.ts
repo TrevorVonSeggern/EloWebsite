@@ -18,6 +18,15 @@ export class controller extends BaseDetailItemController {
 	GameId: string;
 	gameName: string = '';
 	userFirstName: string = '';
+	eloChartData: any[] = [{
+		key: 'Elo Value',
+		values: [
+			{x: new Date('2014'), y: 0},
+			{x: new Date('2015'), y: 1.1},
+			{x: new Date('2016'), y: 2},
+			{x: new Date('2017'), y: 0.5},
+		]
+	}];
 
 	constructor($scope,
 				$state,
@@ -31,9 +40,18 @@ export class controller extends BaseDetailItemController {
 	}
 
 	itemLoadComplete() {
-		if (this.itemIsEmpty())
-			this.cancel(this.returnUrl);
 		this.loading = true;
+
+		if (this.itemIsEmpty()) {
+			return this.cancel(this.returnUrl);
+		}
+
+		this.itemService.getEloChart(this.item, () => {
+			console.log('get elo chart success');
+		}, () => {
+			console.log('get elo chart failure')
+		});
+
 		let loadingCounter = 2;
 		let finishLoading = () => {
 			loadingCounter--;

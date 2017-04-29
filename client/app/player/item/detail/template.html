@@ -17,9 +17,12 @@
 			<tvo-label-text label="'Elo Value:'" value="vm.item.eloValue"></tvo-label-text>
 			<tvo-label-text ng-if="!vm.gameId" label="'Game:'" value="vm.gameName"></tvo-label-text>
 			<tvo-label-text ng-if="vm.userFirstName" label="'User:'" value="vm.userFirstName"></tvo-label-text>
+			<div>
+				<tvo-line data="vm.item.eloChartData"></tvo-line>
+			</div>
 		</md-card-content>
 	</div>
 </md-card>
 
 <tvo-player-management-item-edit id="vm.item._id" ng-if="vm.eventEditFocused" game-id="vm.gameId"
-								open="vm.eventEditFocused"></tvo-player-management-item-edit>
+								 open="vm.eventEditFocused"></tvo-player-management-item-edit>

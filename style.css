@@ -1,4 +1,5 @@
 @import 'node_modules/angular-bootstrap-toggle-switch/dist/css/bootstrap3/bootstrap-switch.min.css';
+@import 'node_modules/nvd3/build/nv.d3.css';
 .tvo-match-edit .player-card-list,
 .tvo-match-create .player-card-list {
   display: inline-block;

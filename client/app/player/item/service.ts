@@ -11,6 +11,22 @@ export class ItemService extends BasicItemService {
 		super(ajaxFactory, listFactory, '/api/player/');
 	}
 
+	getEloChart(item, cb, failCB) {
+		this.ajaxFactory.httpServerCall('/api/player/' + item.id + '/elo', 'GET', undefined, (response) => {
+			if (response.error)
+				return failCB && failCB(response);
+			if (response.length === 0 || !response[0].values || !response[0].values.length)
+				return cb();
+			for (let i = 0; i < response[0].values.length; ++i) {
+				response[0].values[i].x = new Date(response[0].values[i].x);
+			}
+			item.eloChartData = response;
+			cb && cb();
+		}, () => {
+			failCB && failCB(undefined);
+		});
+	}
+
 	saveItem(item: any, cb: () => void, failCB: (data) => void) {
 		this.ajaxFactory.httpServerCall('/api/player/', 'PUT', item, (response) => {
 			if (response.error)

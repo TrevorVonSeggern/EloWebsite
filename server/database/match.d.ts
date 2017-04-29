@@ -2,6 +2,7 @@ import { ServerBaseModel } from "web-base-server-model";
 import { Match } from "../../models/models";
 import { GameServer } from "./game";
 import { EventServer } from "./event";
+import { PlayerServer } from "./player";
 export declare class MatchServer extends ServerBaseModel implements Match {
     id: string | number;
     startTime: Date;
@@ -12,7 +13,7 @@ export declare class MatchServer extends ServerBaseModel implements Match {
     status: number;
     winner: boolean;
     constructor(instance?: any);
-    static setAllStatus(matchId: any): Promise<void>;
+    static setAllStatus(gameId: string | number): Promise<void>;
     static processOne(): Promise<Boolean>;
     save(): Promise<void>;
     create(): Promise<void>;
@@ -24,4 +25,5 @@ export declare class MatchServer extends ServerBaseModel implements Match {
     static getCount(): Promise<number>;
     getEvent(): Promise<EventServer>;
     getGame(): Promise<GameServer>;
+    getAllPlayers(): Promise<PlayerServer[]>;
 }

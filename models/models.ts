@@ -1,5 +1,5 @@
 // Created by trevor on 12/31/16.
-import {mapObjectToObject, BaseModel} from 'web-base-model';
+import {BaseModel} from 'web-base-model';
 
 export class EloValue extends BaseModel {
 	id: string | number = null;

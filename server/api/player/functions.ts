@@ -20,12 +20,15 @@ export function getList(req, res) { // get
 }
 
 export function getOneItem(req, res) { // get
-	PlayerServer.getOneById(req.params.id).then((item: any) => {
+	PlayerServer.getOneById(req.params.id).then((item: PlayerServer) => {
 		if (!item)
-			res.json({});
-		else
+			return res.json({});
+		item.getCurrentEloValue().then(() => {
+			let result: any = item;
+			result.eloValue = item._currentElo;
 			res.json(item);
-	}, (error) => req.json({error: true, message: error}));
+		}, (error) => res.json({error: true, message: error}));
+	}, (error) => res.json({error: true, message: error}));
 }
 
 export function getSize(req, res) { // get

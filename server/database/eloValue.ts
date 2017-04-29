@@ -1,7 +1,10 @@
-import {DBEloValue} from "./sequelize";
+import {DBEloValue, DBMatch} from "./sequelize";
 import {ServerBaseModel, all} from "web-base-server-model";
 import {mapObjectToObject} from 'web-base-model';
 import {EloValue} from "../../models/models";
+import {GameServer} from "./game";
+import * as Sequelize from "sequelize";
+import {PlayerServer} from "./player";
 
 export class EloValueServer extends ServerBaseModel implements EloValue {
 	id: string | number;
@@ -65,12 +68,12 @@ export class EloValueServer extends ServerBaseModel implements EloValue {
 		return all(DBEloValue, limit, skip);
 	};
 
-	static allByMatchId(matchId: string| number, limit?: number, skip?: number): Promise<any[]> {
+	static allByMatchId(matchId: string | number, limit?: number, skip?: number): Promise<EloValueServer[]> {
 		return new Promise<any[]>((resolve, reject) => {
 			DBEloValue.all({where: {MatchId: matchId}}).then((items: any[]) => {
-				let result: EloValue [] = [];
+				let result: EloValueServer [] = [];
 				for (let i = 0; i < items.length; ++i) {
-					result.push(items[i].dataValues);
+					result.push(new EloValueServer(items[i].dataValues));
 				}
 				resolve(result);
 			}, error => reject(error))
@@ -83,4 +86,30 @@ export class EloValueServer extends ServerBaseModel implements EloValue {
 		});
 	};
 
+	static getPlayerCurrentElo(playerId: string | number, game?: GameServer): Promise<number> {
+		return new Promise<number>((resolve, reject) => {
+			let whereCondition: any;
+			if (typeof playerId === 'number')
+				whereCondition = new Sequelize.Utils.literal(
+					'EloValue.PlayerId == ' + playerId + ' and Match.status == 1'
+				);
+			else
+				whereCondition = new Sequelize.Utils.literal(
+					'EloValue.PlayerId == `' + playerId + '` and Match.status == 1'
+				);
+			DBEloValue.findOne({where: whereCondition, include: [DBMatch]}).then((item: any) => {
+				if (item && item.dataValues && item.dataValues.eloValue)
+					resolve(item.dataValues.eloValue);
+				else if (game && game.startValue)
+					resolve(game.startValue);
+				else {
+					PlayerServer.getOneById(playerId).then((player: PlayerServer) => {
+						player.getGame().then((g: GameServer) => {
+							resolve(g.startValue);
+						})
+					}, () => reject('could not find elo value from result.'));
+				}
+			});
+		});
+	}
 }

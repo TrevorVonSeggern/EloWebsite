@@ -4,6 +4,9 @@ import {mapObjectToObject} from 'web-base-model';
 import {Match} from "../../models/models";
 import {GameServer} from "./game";
 import {EventServer} from "./event";
+import {PlayerServer} from "./player";
+import {EloValueServer} from "./eloValue";
+import {isNullOrUndefined} from "util";
 
 export class MatchServer extends ServerBaseModel implements Match {
 	id: string | number;
@@ -19,39 +22,144 @@ export class MatchServer extends ServerBaseModel implements Match {
 		super(instance);
 	}
 
-	static setAllStatus(matchId): Promise<void> {
+	static setAllStatus(gameId: string | number): Promise<void> {
 		return new Promise<void>((resolve, reject) => {
-			// TODO: Set all match status
-			resolve();
+			DBMatch.update({'status': null}, {where: {id: {$ne: null}}}).then(() => {
+				resolve();
+			}, reject);
 		})
 	}
 
 	static processOne(): Promise<Boolean> {
 		return new Promise<Boolean>((resolve, reject) => {
 			MatchServer.getOneToProcess().then((match) => {
-				// get game
-				match.getGame().then((game: GameServer) => {
+				if (isNullOrUndefined(match)) {
+					return resolve(false);
+				}
 
+				let count = 2;
+
+				// get game
+				let gameInstance;
+				let players = [];
+				match.getGame().then((game: GameServer) => {
+					gameInstance = game;
+					// get players to get their previous skill value
+					match.getAllPlayers().then((playerList: PlayerServer[]) => {
+						players = playerList;
+
+						// get the previous player elo value...
+						let playerDepCount = playerList.length;
+						let playerDepCheck = function () {
+							playerDepCount--;
+							if (playerDepCount <= 0)
+								checkFinished();
+						};
+
+						for (let i = 0; i < playerList.length; ++i) {
+							let getPlayerElo = function (player: PlayerServer) {
+								player.getCurrentEloValue(game).then(() => {
+									playerDepCheck();
+								}, reject);
+							};
+							getPlayerElo(playerList[i]);
+						}
+					}, reject);
 				}, reject);
 
-				// get players
-
 				// get elo values
+				let elos: EloValueServer[] = [];
+				EloValueServer.allByMatchId(match.id).then((eloValues: EloValueServer[]) => {
+					elos = eloValues;
+					checkFinished();
+				}, reject);
+
+				function checkFinished() {
+					count--;
+					if (count <= 0) {
+						process();
+					}
+				}
+
+				let process = () => {
+					if (players.length != elos.length)
+						return reject("incorrect number of eloValues per player.");
+
+					let teamAElo = 0;
+					let teamBElo = 0;
+					let teamACount = 0;
+					let teamBCount = 0;
+
+					for (let i = 0; i < elos.length; ++i) {
+						if (elos[i].TeamId === match.TeamAId) {
+							++teamACount;
+							for (let p = 0; p < players.length; ++p) {
+								if (players[p].id === elos[i].PlayerId) {
+									teamAElo += players[p]._currentElo || elos[i].eloValue;
+									break;
+								}
+							}
+						}
+						else if (elos[i].TeamId === match.TeamBId) {
+							++teamBCount;
+							for (let p = 0; p < players.length; ++p) {
+								if (players[p].id === elos[i].PlayerId) {
+									teamBElo += players[p]._currentElo || elos[i].eloValue;
+									break;
+								}
+							}
+						}
+					}
+					if (teamACount === 0 || teamBCount === 0) {
+						return resolve();
+					}
+					let rA = Math.pow(10, teamAElo / 400);
+					let rB = Math.pow(10, teamBElo / 400);
+					let eA = rA / (rA + rB);
+					let eB = rB / (rA + rB);
+					let sA = match.winner === true ? 1 : (match.winner === false ? 0 : 0.5);
+					let sB = 1 - sA;
+					let aDelta = (gameInstance.scale * (sA - eA)) / teamACount;
+					let bDelta = (gameInstance.scale * (sB - eB)) / teamBCount;
+
+					let dep = 1 /*match*/ + elos.length;
+					// update the elo values to their new score.
+
+					for (let i = 0; i < elos.length; ++i) {
+						if (elos[i].TeamId === match.TeamAId) {
+							for (let p = 0; p < players.length; ++p) {
+								if (players[p].id === elos[i].PlayerId) {
+									elos[i].eloValue = players[p]._currentElo + aDelta;
+									break;
+								}
+							}
+						}
+						else if (elos[i].TeamId === match.TeamBId) {
+							for (let p = 0; p < players.length; ++p) {
+								if (players[p].id === elos[i].PlayerId) {
+									elos[i].eloValue = players[p]._currentElo + bDelta;
+									break;
+								}
+							}
+						}
+						elos[i].save().then(() => {
+							resUpdate();
+						}, reject);
+					}
+
+					// update the match.
+					match.status = 1;
+					match.save().then(() => {
+						resUpdate();
+					}, reject);
+
+					function resUpdate() {
+						--dep;
+						if (dep <= 0)
+							resolve(true);
+					}
+				};
 			}, reject);
-
-
-			// TODO: Add process Logic
-			// this.getProcessScript().then((query: string) => {
-			// 	Connection.query(query).then((response:any) => {
-			// 		// TODO: Add logic to see if it is done processing or not.
-			// 		if(response.length && response.length === 35 && response[33].affectedRows === 1 && response[33].changedRows === 1)
-			// 			resolve(true);
-			// 		else
-			// 			resolve(false);
-			// 	}, (error) => {
-			// 		reject(error);
-			// 	});
-			// }, (error) => reject(error));
 		});
 	}
 
@@ -104,7 +212,7 @@ export class MatchServer extends ServerBaseModel implements Match {
 
 	private static getOneToProcess(): Promise<MatchServer> {
 		return new Promise<MatchServer>((resolve, reject) => {
-			DBMatch.findOne({where: {status: null}, order: ['endTime', 'asc']}).then((item: any) => {
+			DBMatch.findOne({where: {status: null}, order: ['endTime']}).then((item: any) => {
 				if (item && item.dataValues)
 					resolve(new MatchServer(item.dataValues));
 				else
@@ -145,4 +253,7 @@ export class MatchServer extends ServerBaseModel implements Match {
 		});
 	}
 
+	getAllPlayers(): Promise<PlayerServer[]> {
+		return PlayerServer.getAllPlayersInMatch(this.id);
+	}
 }

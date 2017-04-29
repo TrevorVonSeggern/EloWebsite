@@ -20,7 +20,7 @@ export class controller extends BaseDetailItemController {
 	}
 
 	winnerText(): string {
-		if (!this.item || !this.item.winner)
+		if (!this.item || (!this.item.winner && this.item.winner !== false))
 			return '';
 		let winner = this.item.winner; // shorthand
 		if (winner === 1 || winner === true || winner === 'true')

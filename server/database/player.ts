@@ -1,13 +1,17 @@
-import {DBPlayer} from "./sequelize";
+import {DBEloValue, DBPlayer} from "./sequelize";
 import {ServerBaseModel, all} from "web-base-server-model";
 import {mapObjectToObject} from 'web-base-model';
 import {Player} from "../../models/models";
+import {EloValueServer} from "./eloValue";
+import {GameServer} from "./game";
+import * as Sequelize from "sequelize";
 
 export class PlayerServer extends ServerBaseModel implements Player {
 	id: string;
 	name: string;
 	GameId: string;
 	UserId: string;
+	_currentElo: number;
 
 	constructor(instance?) {
 		super(instance);
@@ -21,6 +25,19 @@ export class PlayerServer extends ServerBaseModel implements Player {
 		});
 	}
 
+	static getAllPlayersInMatch(matchId: string | number): Promise<PlayerServer[]> {
+		return new Promise<PlayerServer[]>((resolve, reject) => {
+			let whereCondition: any = new Sequelize.Utils.literal("EloValues.MatchId = " + matchId);
+			DBPlayer.findAll({where: whereCondition, include: [DBEloValue]}).then((result: any[]) => {
+				let players: PlayerServer[] = [];
+				for (let i = 0; i < result.length; ++i) {
+					players.push(new PlayerServer(result[i].dataValues));
+				}
+				resolve(players);
+			}, reject);
+		});
+	}
+
 	save(): Promise<void> {
 		if (this.id !== null)
 			return new Promise<void>((resolve, reject) => {
@@ -31,7 +48,7 @@ export class PlayerServer extends ServerBaseModel implements Player {
 					if (item && item.dataValues)
 						mapObjectToObject(item.dataValues, this);
 					resolve();
-				});
+				}, reject);
 			});
 		else
 			return this.create();
@@ -57,7 +74,7 @@ export class PlayerServer extends ServerBaseModel implements Player {
 		return PlayerServer.removeById(this.id);
 	};
 
-	static getOneById(id: string): Promise<PlayerServer> {
+	static getOneById(id: string | number): Promise<PlayerServer> {
 		return new Promise<PlayerServer>((resolve, reject) => {
 			DBPlayer.findOne({where: {id: id}}).then((item: any) => {
 				if (item && item.dataValues)
@@ -79,4 +96,18 @@ export class PlayerServer extends ServerBaseModel implements Player {
 		});
 	};
 
+	getGame(): Promise<GameServer> {
+		return new Promise<GameServer>((resolve, reject) => {
+			GameServer.getOneById(this.GameId).then((game) => resolve(game), (error) => reject(error));
+		});
+	}
+
+	getCurrentEloValue(game?: GameServer): Promise<number> {
+		return new Promise<number>((resolve, reject) => {
+			EloValueServer.getPlayerCurrentElo(this.id, game).then((value) => {
+				this._currentElo = value;
+				resolve();
+			}, reject);
+		});
+	}
 }

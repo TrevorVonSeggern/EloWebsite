@@ -29,15 +29,21 @@ export function getOneItem(req, res) { // get
 }
 
 export function processEloGame(req, res) { // get
-	GameServer.getOneById(req.params.id).then((game: GameServer) => {
+	GameServer.getOneById(req.params.id).then((game: GameServer) => { //
 		if (game === undefined)
 			return res.send({error: true, message: 'Could not retrieve the game.'});
-		processor.checkElo();
-
-		res.json({error: false, message: 'updated elo for gameId: ' + game.id});
+		// set all the match statuses to 0 for processing purposes.
+		MatchServer.setAllStatus(req.params.id).then(() => {
+			processor.checkElo().then(() => {
+				res.json({error: false, message: 'updated elo for gameId: ' + game.id});
+			}, (error) => res.json({error: true, message: 'Could not process the request.'}));
+		}, (error) => {
+			logs(error);
+			req.send(error);
+		});
 	}, (error) => {
 		logs(error);
-		req.send(error);
+		req.json({error:true, message: "Game does not exist."});
 	});
 }
 

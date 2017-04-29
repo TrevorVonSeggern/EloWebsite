@@ -24,7 +24,7 @@ export class GameServer extends ServerBaseModel implements Game {
 					if (item && item.dataValues)
 						mapObjectToObject(item.dataValues, this);
 					resolve();
-				});
+				}, reject);
 			});
 		else
 			return this.create();

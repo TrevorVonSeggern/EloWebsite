@@ -85,7 +85,7 @@ export function saveItem(req, res) {
 		item.TeamAId = req.body.TeamAId;
 		item.TeamBId = req.body.TeamBId;
 		item.EventId = req.body.EventId;
-		item.winner = req.body.winner === 'true';
+		item.winner = req.body.winner === 'true' || req.body.winner === true;
 		item.TeamAPlayers = item.TeamAPlayers || [];
 		item.TeamBPlayers = item.TeamBPlayers || [];
 		item.TeamAPlayersPrevious = item.TeamAPlayersPrevious || [];

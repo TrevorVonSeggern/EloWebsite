@@ -1,3 +1,35 @@
+@import 'node_modules/angular-bootstrap-toggle-switch/dist/css/bootstrap3/bootstrap-switch.min.css';
+.tvo-match-edit .player-card-list,
+.tvo-match-create .player-card-list {
+  display: inline-block;
+  min-width: 350px;
+  vertical-align: top;
+}
+.tvo-match-edit .player-card-list .add-player,
+.tvo-match-create .player-card-list .add-player,
+.tvo-match-edit .player-card-list .remove-player,
+.tvo-match-create .player-card-list .remove-player {
+  display: inline-block;
+  float: right;
+}
+.tvo-match-edit .player-card-list md-title,
+.tvo-match-create .player-card-list md-title {
+  padding-bottom: 20px;
+  display: block;
+}
+.tvo-match-edit .player-card-list .player-in-team-row,
+.tvo-match-create .player-card-list .player-in-team-row {
+  width: 100%;
+  min-height: 35px;
+}
+.match-single-item {
+  padding-left: 8px;
+  margin-right: 35px;
+  border-bottom: #dfdfdf solid 1px;
+}
+.match-single-item:hover {
+  border-bottom: #858585 solid 1px;
+}
 .tvo-card {
   margin: 8px;
   padding: 13px;
@@ -59,31 +91,6 @@ div.input-label-text div.input-group input {
 .login-box form .btn-group {
   margin-top: 7px;
   margin-left: 15px;
-}
-.tvo-input-select-list {
-  display: inline-block;
-}
-.tvo-input-select-list div.tvo-has-label select {
-  border-bottom-left-radius: 0;
-  border-top-left-radius: 0;
-  width: 180px;
-}
-.tvo-input-select-list div.tvo-has-label select:focus {
-  border-bottom-left-radius: 0;
-  border-top-left-radius: 0;
-}
-.tvo-input-select-list select {
-  min-height: 34px;
-  min-width: 30px;
-  width: 235px;
-  background-color: white;
-  border-radius: 5px;
-  border-color: #ccc;
-}
-.tvo-input-select-list select:focus {
-  outline: none;
-  border-color: #9ecaed;
-  box-shadow: 0 0 10px #9ecaed;
 }
 /*!
  * Bootstrap v3.3.7 (http://getbootstrap.com)
@@ -6808,39 +6815,56 @@ button.close {
     display: none !important;
   }
 }
+div.ats-switch:focus {
+  outline: none;
+}
+.tvo-input-winner-red-blue span.switch-left {
+  background-color: #ca5e66;
+  color: white;
+}
+.tvo-input-winner-red-blue span.switch-right {
+  background-color: #428bca;
+  color: white;
+}
+.tvo-input-switch,
+.tvo-input-winner-red-blue {
+  height: 38px !important;
+  overflow: hidden !important;
+}
+.tvo-input-switch,
+.tvo-input-winner-red-blue {
+  width: 270px;
+  display: inline-block;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+.tvo-input-select-list {
+  display: inline-block;
+}
+.tvo-input-select-list div.tvo-has-label select {
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  width: 180px;
+}
+.tvo-input-select-list div.tvo-has-label select:focus {
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+}
+.tvo-input-select-list select {
+  min-height: 34px;
+  min-width: 30px;
+  width: 235px;
+  background-color: white;
+  border-radius: 5px;
+  border-color: #ccc;
+}
+.tvo-input-select-list select:focus {
+  outline: none;
+  border-color: #9ecaed;
+  box-shadow: 0 0 10px #9ecaed;
+}
 .tvo-input-select-list {
   width: 270px;
   padding-top: 4px;
   padding-bottom: 4px;
-}
-.tvo-match-edit .player-card-list,
-.tvo-match-create .player-card-list {
-  display: inline-block;
-  min-width: 350px;
-  vertical-align: top;
-}
-.tvo-match-edit .player-card-list .add-player,
-.tvo-match-create .player-card-list .add-player,
-.tvo-match-edit .player-card-list .remove-player,
-.tvo-match-create .player-card-list .remove-player {
-  display: inline-block;
-  float: right;
-}
-.tvo-match-edit .player-card-list md-title,
-.tvo-match-create .player-card-list md-title {
-  padding-bottom: 20px;
-  display: block;
-}
-.tvo-match-edit .player-card-list .player-in-team-row,
-.tvo-match-create .player-card-list .player-in-team-row {
-  width: 100%;
-  min-height: 35px;
-}
-.match-single-item {
-  padding-left: 8px;
-  margin-right: 35px;
-  border-bottom: #dfdfdf solid 1px;
-}
-.match-single-item:hover {
-  border-bottom: #858585 solid 1px;
 }

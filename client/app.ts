@@ -8,7 +8,11 @@ import {TeamModule} from "./app/team/module";
 import {GameModule} from "./app/game/module";
 import {EventModule} from "./app/event/module";
 
+import {InputSwitchModule} from "web-input-switch/index";
+import {} from 'web-chart';
+
 export let EloModule = angular.module('elo-module', [
+	InputSwitchModule.name,
 	EventModule.name,
 	GameModule.name,
 	TeamModule.name,
@@ -36,7 +40,10 @@ export let LoadRouter = function (stateProvider, $urlRouterProvider) {
 	stateProvider.state('team', new IRouter('/team', definition.team));
 
 	stateProvider.state('player-create', new IRouter('/player/create', definition.playerCreate));
-	stateProvider.state('player-edit', new IRouter({url: '/player/edit/{id}', params: {id: {}}}, definition.playerEdit));
+	stateProvider.state('player-edit', new IRouter({
+		url: '/player/edit/{id}',
+		params: {id: {}}
+	}, definition.playerEdit));
 	stateProvider.state('player-detail', new IRouter({url: '/player/{id}', params: {id: {}}}, definition.playerDetail));
 	stateProvider.state('player', new IRouter('/player', definition.player));
 

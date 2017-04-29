@@ -48,6 +48,7 @@ eloValue.belongsTo(match);
 eloValue.belongsTo(player);
 eloValue.belongsTo(team);
 
+player.hasMany(eloValue);
 
 // determine if it should sync
 if (path.join(process.cwd(), '/server/database') == __dirname)

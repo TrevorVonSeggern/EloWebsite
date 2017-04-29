@@ -13,21 +13,25 @@ export class processor {
 		processor.checkElo();
 		setInterval(() => {
 			if (!processor.inProgress) {
-				// processor.checkElo();
+				processor.checkElo();
 			}
 			//code goes here that will be run every x seconds.
 		}, 1000 * this.checkFrequency);
 	}
 
-	static checkElo() {
+	static checkElo(): Promise<void> {
 		this.inProgress = true;
 
-		// processed one match.
-		MatchServer.processOne().then((matchProcessed: boolean) => {
-			if(matchProcessed) // process the rest of the matches.
-				processor.checkElo();
-			else
-				this.inProgress = false;
-		}, (error) => logs(error));
+		return new Promise<void>((resolve, reject) => {
+			// processed one match.
+			MatchServer.processOne().then((matchProcessed: boolean) => {
+				if (matchProcessed) // process the rest of the matches.
+					processor.checkElo().then(resolve, reject);
+				else {
+					resolve();
+					this.inProgress = false;
+				}
+			}, (error) => logs(error));
+		});
 	}
 }

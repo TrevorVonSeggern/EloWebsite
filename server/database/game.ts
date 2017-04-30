@@ -1,4 +1,4 @@
-import {DBGame} from "./sequelize";
+import {DBGame, helperFunction_createIfNotExists} from "./sequelize";
 import {ServerBaseModel, all} from "web-base-server-model";
 import {mapObjectToObject} from 'web-base-model';
 import {Game} from "../../models/models";
@@ -39,6 +39,10 @@ export class GameServer extends ServerBaseModel implements Game {
 			}, reject);
 		});
 	};
+
+	createIfNotExists() :Promise<boolean> {
+		return helperFunction_createIfNotExists(GameServer, this);
+	}
 
 	static removeById(id: string | number): Promise<void> {
 		return new Promise<void>((resolve, reject) => {

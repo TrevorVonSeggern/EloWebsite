@@ -7,14 +7,14 @@ import logs from "web-server-database/server/logs";
 import {EloValueServer} from "./eloValue";
 
 export class MatchPlayerServer extends ServerBaseModel implements MatchPlayer {
-	id: string|number;
+	id: string | number;
 	startTime: Date;
 	endTime: Date;
-	TeamAId: string|number;
-	TeamBId: string|number;
-	TeamAPrevious: string|number;
-	TeamBPrevious: string|number;
-	EventId: string|number;
+	TeamAId: string | number;
+	TeamBId: string | number;
+	TeamAPrevious: string | number;
+	TeamBPrevious: string | number;
+	EventId: string | number;
 	status: number;
 	TeamAPlayers: EloValue[];
 	TeamBPlayers: EloValue[];
@@ -223,7 +223,7 @@ export class MatchPlayerServer extends ServerBaseModel implements MatchPlayer {
 		});
 	};
 
-	static removeById(id: string|number): Promise<void> {
+	static removeById(id: string | number): Promise<void> {
 		return new Promise<void>((resolve, reject) => {
 			DBMatch.destroy({where: {id: id}}).then(() => resolve(), reject);
 		});
@@ -280,7 +280,9 @@ export class MatchPlayerServer extends ServerBaseModel implements MatchPlayer {
 			DBMatch.all({
 				include: [{model: DBTeam, as: 'TeamA'},
 					{model: DBTeam, as: 'TeamB'},
-					DBEvent]
+					DBEvent],
+				limit: limit,
+				offset: skip
 			}).then((items: any[]) => {
 				let result: any[] = [];
 				if (!items)

@@ -1,4 +1,4 @@
-import {sqlize, SyncDatabase} from "web-server-database/server/database/sqlize";
+import {sqlize, SyncDatabase as sd} from "web-server-database/server/database/sqlize";
 import * as Sequelize from 'sequelize';
 import {DBUser} from 'web-user-management/server/database/sequelize/models';
 import * as path from 'path';
@@ -20,17 +20,20 @@ let event = sqlize.define('Event', {
 event.belongsTo(game);
 
 let team = sqlize.define('Team', {
+	id: {type: Sequelize.STRING, primaryKey: true},
 	name: {type: Sequelize.STRING},
 });
 team.belongsTo(game);
 
 let player = sqlize.define('Player', {
+	id: {type: Sequelize.STRING, primaryKey: true},
 	name: {type: Sequelize.STRING},
 });
 player.belongsTo(game);
 player.belongsTo(DBUser); // can be associated to a user.
 
 let match = sqlize.define('Match', {
+	id: {type: Sequelize.STRING, primaryKey: true},
 	name: {type: Sequelize.STRING},
 	status: {type: Sequelize.INTEGER},
 	startTime: {type: Sequelize.DATE},
@@ -50,6 +53,10 @@ eloValue.belongsTo(team);
 
 player.hasMany(eloValue);
 
+export function SyncDatabase() {
+	sd();
+}
+
 // determine if it should sync
 if (path.join(process.cwd(), '/server/database') == __dirname)
 	SyncDatabase();
@@ -61,3 +68,22 @@ export let DBPlayer = player;
 export let DBMatch = match;
 export let DBEloValue = eloValue;
 
+
+
+export function helperFunction_createIfNotExists (ServerClass, toCreate): Promise<boolean> {
+	return new Promise<boolean>((resolve, reject) => {
+		let create = function () {
+			toCreate.create().then(() => {
+				resolve(true);
+			}, reject);
+		};
+		if (!toCreate.id)
+			return create();
+		ServerClass.getOneById(toCreate.id).then((item) => {
+			if (item)
+				return resolve(false);
+			create();
+		}, reject)
+
+	});
+}

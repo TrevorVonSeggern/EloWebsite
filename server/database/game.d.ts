@@ -9,6 +9,7 @@ export declare class GameServer extends ServerBaseModel implements Game {
     constructor(instance?: any);
     save(): Promise<void>;
     create(): Promise<void>;
+    createIfNotExists(): Promise<boolean>;
     static removeById(id: string | number): Promise<void>;
     remove(): Promise<void>;
     static getOneById(id: string | number): Promise<GameServer>;

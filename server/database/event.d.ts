@@ -11,6 +11,7 @@ export declare class EventServer extends ServerBaseModel implements Event {
     static allByGame(gameId: string | number, limit: number, skip: number): Promise<any[]>;
     save(): Promise<void>;
     create(): Promise<void>;
+    createIfNotExists(): Promise<boolean>;
     static removeById(id: string | number): Promise<void>;
     remove(): Promise<void>;
     static getOneByName(name: string): Promise<EventServer>;

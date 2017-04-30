@@ -1,13 +1,14 @@
-import {DBTeam} from "./sequelize";
+import {DBTeam, helperFunction_createIfNotExists} from "./sequelize";
 import {ServerBaseModel, all} from "web-base-server-model";
 import {mapObjectToObject} from 'web-base-model';
 import {Team} from "../../models/models";
 import {DBGame} from "./sequelize";
+import {create} from "domain";
 
 export class TeamServer extends ServerBaseModel implements Team {
 	id: string;
 	name: string;
-	GameId: string;
+	GameId: string | number;
 
 	constructor(instance?) {
 		super(instance);
@@ -45,6 +46,10 @@ export class TeamServer extends ServerBaseModel implements Team {
 				resolve();
 			}, reject);
 		});
+	};
+
+	createIfNotExists(): Promise<boolean> {
+		return helperFunction_createIfNotExists(TeamServer, this);
 	};
 
 	static removeById(id: string): Promise<void> {

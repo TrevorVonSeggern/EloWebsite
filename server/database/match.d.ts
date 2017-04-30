@@ -17,6 +17,7 @@ export declare class MatchServer extends ServerBaseModel implements Match {
     static processOne(): Promise<Boolean>;
     save(): Promise<void>;
     create(): Promise<void>;
+    createIfNotExist(): Promise<boolean>;
     static removeById(id: string | number): Promise<void>;
     remove(): Promise<void>;
     static getOneById(id: string | number): Promise<MatchServer>;

@@ -1,4 +1,4 @@
-import {DBMatch} from "./sequelize";
+import {DBMatch, helperFunction_createIfNotExists} from "./sequelize";
 import {ServerBaseModel, all} from "web-base-server-model";
 import {mapObjectToObject} from 'web-base-model';
 import {Match} from "../../models/models";
@@ -180,6 +180,21 @@ export class MatchServer extends ServerBaseModel implements Match {
 	};
 
 	create(): Promise<void> {
+		if (!this.id) {
+			let guid = () => {
+				function s4() {
+					return Math.floor((1 + Math.random()) * 0x10000)
+						.toString(16)
+						.substring(1);
+				}
+
+				return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+					s4() + '-' + s4() + s4() + s4();
+			};
+
+			this.id = guid();
+		}
+
 		return new Promise<void>((resolve, reject) => {
 			DBMatch.create(this).then((item: any) => {
 				if (item && item.dataValues)
@@ -188,6 +203,10 @@ export class MatchServer extends ServerBaseModel implements Match {
 			}, reject);
 		});
 	};
+
+	createIfNotExist(): Promise<boolean> {
+		return helperFunction_createIfNotExists(MatchServer, this);
+	}
 
 	static removeById(id: string | number): Promise<void> {
 		return new Promise<void>((resolve, reject) => {

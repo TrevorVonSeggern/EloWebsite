@@ -19,8 +19,8 @@ export class controller extends BaseMultipleController {
 	loadMore() {
 		this.loading = true;
 		this.ajaxFactory.httpServerCall(this.itemsUrl, 'GET', {
-			limit: this.PAGE_SIZE,
-			skip: this.items.length,
+			limit: this.PAGE_SIZE/7,
+			skip: this.items.length/7,
 			gameId: this.gameId
 		}, (response) => {
 			let nItems = response;

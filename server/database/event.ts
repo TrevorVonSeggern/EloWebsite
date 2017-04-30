@@ -1,4 +1,4 @@
-import {DBEvent} from "./sequelize";
+import {DBEvent, helperFunction_createIfNotExists} from "./sequelize";
 import {ServerBaseModel, all} from "web-base-server-model";
 import {mapObjectToObject} from 'web-base-model';
 import {Event} from "../../models/models";
@@ -17,7 +17,7 @@ export class EventServer extends ServerBaseModel implements Event {
 
 	static allByGame(gameId: string | number, limit: number, skip: number): Promise<any[]> {
 		return new Promise<any[]>((resolve, reject) => {
-			DBEvent.findAll({where: {GameId:gameId}}).then((result) => {
+			DBEvent.findAll({where: {GameId: gameId}}).then((result) => {
 				resolve(result);
 			}, reject);
 		});
@@ -49,7 +49,11 @@ export class EventServer extends ServerBaseModel implements Event {
 		});
 	};
 
-	static removeById(id: string|number): Promise<void> {
+	createIfNotExists(): Promise<boolean> {
+		return helperFunction_createIfNotExists(EventServer, this);
+	}
+
+	static removeById(id: string | number): Promise<void> {
 		return new Promise<void>((resolve, reject) => {
 			DBEvent.destroy({where: {id: id}}).then(() => resolve(), reject);
 		});
@@ -70,7 +74,7 @@ export class EventServer extends ServerBaseModel implements Event {
 		});
 	};
 
-	static getOneById(id: string|number): Promise<EventServer> {
+	static getOneById(id: string | number): Promise<EventServer> {
 		return new Promise<EventServer>((resolve, reject) => {
 			DBEvent.findOne({where: {id: id}}).then((item: any) => {
 				if (item && item.dataValues)

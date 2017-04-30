@@ -8,11 +8,11 @@ import {TeamModule} from "./app/team/module";
 import {GameModule} from "./app/game/module";
 import {EventModule} from "./app/event/module";
 
-import {InputSwitchModule} from "web-input-switch/index";
+import {InputSuiteModule} from "web-input";
 import {WebChartModule} from 'web-chart';
 
 export let EloModule = angular.module('elo-module', [
-	InputSwitchModule.name,
+	InputSuiteModule.name,
 	EventModule.name,
 	GameModule.name,
 	TeamModule.name,

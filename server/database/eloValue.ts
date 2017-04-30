@@ -95,7 +95,7 @@ export class EloValueServer extends ServerBaseModel implements EloValue {
 				);
 			else
 				whereCondition = new Sequelize.Utils.literal(
-					'EloValue.PlayerId like `' + playerId + '` and Match.status like 1'
+					'EloValue.PlayerId like \'' + playerId + '\' and Match.status like 1'
 				);
 			DBEloValue.findOne({where: whereCondition, include: [DBMatch]}).then((item: any) => {
 				if (item && item.dataValues && item.dataValues.eloValue)

@@ -1,4 +1,4 @@
-import {DBEloValue, DBPlayer} from "./sequelize";
+import {DBEloValue, DBPlayer, helperFunction_createIfNotExists} from "./sequelize";
 import {ServerBaseModel, all} from "web-base-server-model";
 import {mapObjectToObject} from 'web-base-model';
 import {Player} from "../../models/models";
@@ -9,7 +9,7 @@ import * as Sequelize from "sequelize";
 export class PlayerServer extends ServerBaseModel implements Player {
 	id: string;
 	name: string;
-	GameId: string;
+	GameId: string | number;
 	UserId: string;
 	_currentElo: number;
 
@@ -62,6 +62,10 @@ export class PlayerServer extends ServerBaseModel implements Player {
 				resolve();
 			}, reject);
 		});
+	};
+
+	createIfNotExists(): Promise<boolean> {
+		return helperFunction_createIfNotExists(PlayerServer, this);
 	};
 
 	static removeById(id: string): Promise<void> {

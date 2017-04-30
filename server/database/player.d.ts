@@ -4,7 +4,7 @@ import { GameServer } from "./game";
 export declare class PlayerServer extends ServerBaseModel implements Player {
     id: string;
     name: string;
-    GameId: string;
+    GameId: string | number;
     UserId: string;
     _currentElo: number;
     constructor(instance?: any);
@@ -12,6 +12,7 @@ export declare class PlayerServer extends ServerBaseModel implements Player {
     static getAllPlayersInMatch(matchId: string | number): Promise<PlayerServer[]>;
     save(): Promise<void>;
     create(): Promise<void>;
+    createIfNotExists(): Promise<boolean>;
     static removeById(id: string): Promise<void>;
     remove(): Promise<void>;
     static getOneById(id: string | number): Promise<PlayerServer>;

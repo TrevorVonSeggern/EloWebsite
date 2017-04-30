@@ -1,4 +1,3 @@
-import {SyncDatabase} from '../server/database/sequelize';
 import * as fs from 'fs';
 import * as path from 'path';
 import {MatchServer} from "../server/database/match";

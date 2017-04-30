@@ -1,0 +1,91 @@
+{
+  "roles": [
+	{"name":"Administrator"},
+	{"name":"User"},
+	{"name":"Guest"}
+  ],
+  "resources": [
+	{"value":"get_/api", "description": "API Root. Displays index of endpoints.", "id": 1},
+	{"value":"get_/api/logs", "description": "Requests a list of the logs.", "id": 2 },
+	{"value":"put_/api/user/ChangePassword", "description": "Change password for self.", "id": 3 },
+	{"value":"put_/api/user/ChangePassword:*:", "description": "Change other peoples passwords.", "id": 4 },
+	{"value":"get_/api/user", "description": "get a list of users.", "id": 5 },
+	{"value":"get_/api/user/:*:", "description": "get a information on a user with the given id.", "id": 6 },
+	{"value":"get_/api/user/size", "description": "get a size of all users.", "id": 7 },
+	{"value":"delete_/api/user/:*:", "description": "delete a user of a given id.", "id": 8 },
+	{"value":"put_/api/user", "description": "save/update users.", "id": 9 },
+	{"value":"post_/api/user", "description": "create users.", "id": 10},
+	{"value":"get_/api/user/login", "description": "login a user.", "id": 11},
+	{"value":"get_/api/user/register", "description": "registers a user.", "id": 12},
+
+	{"value":"get_/api/game", "description": "Get a list of games.", "id": 13},
+	{"value":"post_/api/game", "description": "Create a new game.", "id": 14},
+	{"value":"put_/api/game", "description": "Save a game.", "id": 15},
+	{"value":"delete_/api/game/:*:", "description": "Delete a game.", "id": 16},
+
+	{"value":"get_/api/event", "description": "Get a list of events.", "id": 17},
+	{"value":"post_/api/event", "description": "Create a new event.", "id": 18},
+	{"value":"put_/api/event", "description": "Save a event.", "id": 19},
+	{"value":"delete_/api/event/:*:", "description": "Delete a event.", "id": 20},
+
+	{"value":"get_/api/match", "description": "Get a list of matchs.", "id": 21},
+	{"value":"post_/api/match", "description": "Create a new match.", "id": 22},
+	{"value":"put_/api/match", "description": "Save a match.", "id": 23},
+	{"value":"delete_/api/match/:*:", "description": "Delete a match.", "id": 24},
+
+	{"value":"get_/api/team", "description": "Get a list of teams.", "id": 25},
+	{"value":"post_/api/team", "description": "Create a new team.", "id": 26},
+	{"value":"put_/api/team", "description": "Save a team.", "id": 27},
+	{"value":"delete_/api/team/:*:", "description": "Delete a team.", "id": 28},
+
+	{"value":"get_/api/player", "description": "Get a list of players.", "id": 29},
+	{"value":"post_/api/player", "description": "Create a new player.", "id": 30},
+	{"value":"put_/api/player", "description": "Save a player.", "id": 31},
+	{"value":"delete_/api/player/:*:", "description": "Delete a player.", "id": 32},
+
+	{"value":"get_/api/game/:*:", "description": "Get a list of games.", "id": 33},
+	{"value":"get_/api/event/:*:", "description": "Get a list of events.", "id": 34},
+	{"value":"get_/api/match/:*:", "description": "Get a list of matches.", "id": 35},
+	{"value":"get_/api/team/:*:", "description": "Get a list of teams.", "id": 36},
+	{"value":"get_/api/player/:*:", "description": "Get a list of players.", "id": 37},
+
+	{"value":"get_/api/match_player", "description": "Get a list of players.", "id": 38}
+
+  ],
+  "permissions": [
+	{"roleId":2, "resourceId":1},
+	{"roleId":2, "resourceId":3},
+	{"roleId":2, "resourceId":5},
+	{"roleId":2, "resourceId":7},
+	{"roleId":2, "resourceId":10},
+	{"roleId":3, "resourceId": 11},
+	{"roleId":3, "resourceId": 12},
+
+	{"roleId":2, "resourceId": 13},
+	{"roleId":2, "resourceId": 14},
+	{"roleId":2, "resourceId": 15},
+	{"roleId":2, "resourceId": 16},
+	{"roleId":2, "resourceId": 17},
+	{"roleId":2, "resourceId": 18},
+	{"roleId":2, "resourceId": 19},
+	{"roleId":2, "resourceId": 20},
+	{"roleId":2, "resourceId": 21},
+	{"roleId":2, "resourceId": 22},
+	{"roleId":2, "resourceId": 23},
+	{"roleId":2, "resourceId": 24},
+	{"roleId":2, "resourceId": 25},
+	{"roleId":2, "resourceId": 26},
+	{"roleId":2, "resourceId": 27},
+	{"roleId":2, "resourceId": 28},
+	{"roleId":2, "resourceId": 29},
+	{"roleId":2, "resourceId": 30},
+	{"roleId":2, "resourceId": 31},
+	{"roleId":2, "resourceId": 32},
+	{"roleId":2, "resourceId": 33},
+	{"roleId":2, "resourceId": 34},
+	{"roleId":2, "resourceId": 35},
+	{"roleId":2, "resourceId": 36},
+	{"roleId":2, "resourceId": 37}
+
+  ]
+}

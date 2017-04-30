@@ -1,0 +1,31 @@
+<md-card ng-if="!vm.eventEditFocused">
+	<div ng-class="{loading: vm.loading}">
+		<md-card-title>
+			<md-card-title-text>
+				<span class="md-headline">Game</span>
+				<span class="md-subhead">Detail</span>
+			</md-card-title-text>
+		</md-card-title>
+
+		<div class="btn-group card-controls">
+			<tvo-button ui-sref="game" label="'Back'"></tvo-button>
+			<tvo-button ui-sref="game-edit({id:vm.item.id})" label="'Edit'"></tvo-button>
+		</div>
+
+		<md-card-content class="row">
+			<tvo-label-text label="'Name:'" value="vm.item.name"></tvo-label-text>
+			<tvo-label-text label="'Start Value:'" value="vm.item.startValue"></tvo-label-text>
+			<tvo-label-text label="'Scale:'" value="vm.item.scale"></tvo-label-text>
+			<div class="col-md-4">
+				<tvo-button label="'Process All Matches for Game'" ng-click="vm.processGame()"
+							class="btn-success"></tvo-button>
+			</div>
+		</md-card-content>
+
+		<tvo-event-item-multiple ng-if="!vm.loading" game-id="vm.item.id"
+								 data-mode="'substitute'"></tvo-event-item-multiple>
+	</div>
+</md-card>
+<div ng-if="vm.eventEditFocused">
+	<tvo-game-management-item-edit id="vm.item._id"></tvo-game-management-item-edit>
+</div>

@@ -1,0 +1,32 @@
+import { ServerBaseModel } from "web-base-server-model";
+import { MatchPlayer, EloValue } from "../../models/models";
+export declare class MatchPlayerServer extends ServerBaseModel implements MatchPlayer {
+    id: string | number;
+    startTime: Date;
+    endTime: Date;
+    TeamAId: string | number;
+    TeamBId: string | number;
+    TeamAPrevious: string | number;
+    TeamBPrevious: string | number;
+    EventId: string | number;
+    status: number;
+    TeamAPlayers: EloValue[];
+    TeamBPlayers: EloValue[];
+    TeamAPlayersPrevious: EloValue[];
+    TeamBPlayersPrevious: EloValue[];
+    winner: boolean;
+    constructor(instance?: any);
+    private static getCenterDeltaList(old, current);
+    private static getLeftDeltaList(old, current);
+    private save_delete_eloValues();
+    private save_update_eloValues();
+    private save_create_eloValues();
+    save(): Promise<void>;
+    create(): Promise<void>;
+    static removeById(id: string | number): Promise<void>;
+    remove(): Promise<void>;
+    static getOneById(id: string): Promise<MatchPlayerServer>;
+    static all(userId: any, limit?: number, skip?: number): Promise<any[]>;
+    static viewAll(userId: any, limit?: number, skip?: number): Promise<any[]>;
+    static getCount(): Promise<number>;
+}

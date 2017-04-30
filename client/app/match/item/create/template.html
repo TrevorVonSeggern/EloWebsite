@@ -1,0 +1,88 @@
+<md-card class="tvo-match-create">
+	<div ng-class="{loading: vm.loading}">
+		<md-card-title>
+			<md-card-title-text>
+				<span class="md-headline">Match</span>
+				<span class="md-subhead">Create</span>
+			</md-card-title-text>
+		</md-card-title>
+		<div class="btn-group card-controls">
+			<span ng-if="vm.error">{{vm.error}}</span>
+			<tvo-button ng-click="vm.cancel()" label="'Cancel'"></tvo-button>
+			<tvo-button ng-click="vm.save()" label="'Save'"></tvo-button>
+		</div>
+
+		<md-card-content>
+			<div class="row">
+				<tvo-datetime label="'Start Time:'" value="vm.item.startTime"></tvo-datetime>
+
+				<tvo-datetime label="'End Time:'" value="vm.item.endTime"></tvo-datetime>
+			</div>
+			<div class="row">
+				<tvo-input-single-select label="'TeamA:'" value="vm.item.TeamAId"
+										 list="vm.teamSelectList"></tvo-input-single-select>
+
+				<tvo-input-single-select label="'TeamB:'" value="vm.item.TeamBId"
+										 list="vm.teamSelectList"></tvo-input-single-select>
+			</div>
+			<div class="row">
+				<tvo-input-single-select label="'Event:'" value="vm.item.EventId"
+										 list="vm.eventSelectList"></tvo-input-single-select>
+				<tvo-switch label="'Winner (teamA)'" value="vm.item.winner"></tvo-switch>
+			</div>
+			<div class="row">
+				<md-card class="player-card-list">
+					<md-title>
+						<span class="md-headline">Team A</span>
+						<span class="md-subhead">Players</span>
+						<span class="btn-group add-player card-controls">
+							<input type="button" class="btn btn-default btn-success" value="Add"
+								   ng-click="vm.addPlayerTeamA()"/>
+						</span>
+					</md-title>
+					<md-content>
+						<div ng-repeat="(key, value) in vm.item.TeamAPlayers track by $index"
+							 class="player-in-team-row row">
+							<div>
+								<tvo-input-single-select value="value.PlayerId"
+														 list="vm.playerSelectList"></tvo-input-single-select>
+							</div>
+							<span class="btn-group remove-player">
+							<input type="button" class="btn btn-default btn-danger" value="x"
+								   ng-click="vm.removePlayerTeamA(key)"/>
+						</span>
+						</div>
+
+					</md-content>
+				</md-card>
+				<md-card class="player-card-list">
+					<md-title>
+						<span class="md-headline">Team B</span>
+						<span class="md-subhead">Players</span>
+						<span class="btn-group add-player card-controls">
+							<input type="button" class="btn btn-default btn-success" value="Add"
+								   ng-click="vm.addPlayerTeamB()"/>
+						</span>
+					</md-title>
+					<md-content>
+						<div ng-repeat="(key, value) in vm.item.TeamBPlayers track by $index"
+							 class="player-in-team-row row">
+							<div>
+								<tvo-input-single-select value="value.PlayerId"
+														 list="vm.playerSelectList"></tvo-input-single-select>
+							</div>
+							<span class="btn-group remove-player">
+							<input type="button" class="btn btn-default btn-danger" value="x"
+								   ng-click="vm.removePlayerTeamB(key)"/>
+						</span>
+						</div>
+
+					</md-content>
+
+				</md-card>
+			</div>
+
+		</md-card-content>
+
+	</div>
+</md-card>

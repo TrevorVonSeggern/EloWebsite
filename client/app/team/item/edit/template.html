@@ -1,0 +1,23 @@
+<md-card>
+	<div ng-class="{loading: vm.loading}">
+		<md-card-title>
+			<md-card-title-text>
+				<span class="md-headline">Team</span>
+				<span class="md-subhead">Edit</span>
+			</md-card-title-text>
+		</md-card-title>
+		<div class="btn-group card-controls">
+			<span ng-if="vm.error">{{vm.error}}</span>
+			<tvo-delete-button ng-click="vm.deleteItem('team')"></tvo-delete-button>
+			<tvo-button ui-sref="team-detail({id:vm.item.id})" label="'Cancel'"></tvo-button>
+			<tvo-button ng-click="vm.save('team-detail')" label="'Save'"></tvo-button>
+		</div>
+
+		<md-card-content>
+			<tvo-text label="'Name:'" value="vm.item.name"></tvo-text>
+			<tvo-input-single-select ng-if="!vm.GameId" label="'Game:'" value="vm.item.GameId"
+									 list="vm.gameSelectList"></tvo-input-single-select>
+		</md-card-content>
+
+	</div>
+</md-card>

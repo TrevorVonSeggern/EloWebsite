@@ -8,12 +8,20 @@ import {PlayerRouter} from './server/api/player/controller';
 import {MatchRouter} from './server/api/match/controller';
 import * as userServer from 'web-user-management/server';
 
+import {processor} from './server/processor';
+let pro = new processor();
+
+import {SyncDatabase} from 'web-server-database/server/database/sqlize';
+
+SyncDatabase();
+
 App.APIModules.push({name: 'game', router: GameRouter});
 App.APIModules.push({name: 'event', router: EventRouter});
 App.APIModules.push({name: 'team', router: TeamRouter});
 App.APIModules.push({name: 'player', router: PlayerRouter});
 App.APIModules.push({name: 'match', router: MatchRouter});
 App.APIModules.push({name: 'match_player', router: MatchPlayerRouter});
+
 
 App.APIModules.concat(userServer.default.APIModules); // load the user management modules
 

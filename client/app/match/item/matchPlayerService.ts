@@ -11,13 +11,14 @@ export class MatchPlayerService extends BasicItemService {
 		super(ajaxFactory, listFactory, '/api/match_player/');
 	}
 
-	saveItem(item: any, cb: () => void, failCB: (data) => void) {
+
+	saveItem(item: any, cb: (item) => void, failCB?: (data) => void): void {
 		this.ajaxFactory.httpServerCall('/api/match_player/', 'PUT', item, (response) => {
 			if (response.error)
 				return failCB && failCB(response);
 			this.listFactory.AddedItem();
 			item = response;
-			cb && cb();
+			cb && cb(item);
 		}, () => {
 			failCB && failCB(undefined);
 		});

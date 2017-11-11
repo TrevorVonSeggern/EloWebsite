@@ -20,20 +20,20 @@ let event = sqlize.define('Event', {
 event.belongsTo(game);
 
 let team = sqlize.define('Team', {
-	id: {type: Sequelize.STRING, primaryKey: true},
+	id: {type: Sequelize.INTEGER, autoIncrement: true,primaryKey: true},
 	name: {type: Sequelize.STRING},
 });
 team.belongsTo(game);
 
 let player = sqlize.define('Player', {
-	id: {type: Sequelize.STRING, primaryKey: true},
+	id: {type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true},
 	name: {type: Sequelize.STRING},
 });
 player.belongsTo(game);
 player.belongsTo(DBUser); // can be associated to a user.
 
 let match = sqlize.define('Match', {
-	id: {type: Sequelize.STRING, primaryKey: true},
+	id: {type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true},
 	name: {type: Sequelize.STRING},
 	status: {type: Sequelize.INTEGER},
 	startTime: {type: Sequelize.DATE},

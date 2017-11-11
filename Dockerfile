@@ -4,4 +4,4 @@ RUN npm install
 ADD . .
 EXPOSE 80
 ENV PORT 80
-CMD ["node","main.js"]
+CMD ["node","server.js"]

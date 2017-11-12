@@ -5,6 +5,7 @@ import {EloValue} from "../../models/models";
 import {GameServer} from "./game";
 import * as Sequelize from "sequelize";
 import {PlayerServer} from "./player";
+import * as sequelize from "sequelize";
 
 export class EloValueServer extends ServerBaseModel implements EloValue {
 	id: string | number;
@@ -88,16 +89,13 @@ export class EloValueServer extends ServerBaseModel implements EloValue {
 
 	static getPlayerCurrentElo(playerId: string | number, game?: GameServer): Promise<number> {
 		return new Promise<number>((resolve, reject) => {
-			let whereCondition: any;
-			if (typeof playerId === 'number')
-				whereCondition = new Sequelize.Utils.literal(
-					'EloValue.PlayerId like ' + playerId + ' and Match.status like 1'
-				);
-			else
-				whereCondition = new Sequelize.Utils.literal(
-					'EloValue.PlayerId like \'' + playerId + '\' and Match.status like 1'
-				);
-			DBEloValue.findOne({where: whereCondition, include: [DBMatch]}).then((item: any) => {
+			DBEloValue.findOne({
+				where: {
+					playerId: playerId
+				},
+				include: [{model: DBMatch, required: true, where: {status: 1}}],
+				order: [[DBMatch, 'endTime', 'DESC']]
+			}).then((item: any) => {
 				if (item && item.dataValues && item.dataValues.eloValue)
 					resolve(item.dataValues.eloValue);
 				else if (game && game.startValue)
@@ -117,7 +115,8 @@ export class EloValueServer extends ServerBaseModel implements EloValue {
 		return new Promise<EloValueServer[]>((resolve, reject) => {
 			DBEloValue.findAll({
 				where: {playerId: playerId, MatchId: {$ne: null}},
-				include: [DBMatch]
+				include: [DBMatch],
+				order: ['endTime']
 			}).then((item: any) => {
 				let result: EloValueServer[] = [];
 				for (let i = 0; i < item.length; ++i) {

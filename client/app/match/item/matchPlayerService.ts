@@ -2,6 +2,7 @@ import {BasicItemService} from 'web-angularjs-crud-base-items/item/service';
 import {AjaxFactory} from 'web-angularjs-user-factory/AjaxFactory';
 import {ListFactory} from "../list/factory";
 import {BasicListFactory} from 'web-angularjs-crud-base-items/list/factory';
+
 export class MatchPlayerService extends BasicItemService {
 
 	static serviceName: string = 'match-player-item-service';
@@ -19,6 +20,21 @@ export class MatchPlayerService extends BasicItemService {
 			this.listFactory.AddedItem();
 			item = response;
 			cb && cb(item);
+		}, () => {
+			failCB && failCB(undefined);
+		});
+	}
+
+	getPlayerListForTeam(teamId: string | number, date: string, cb: (item) => void, failCB?: (data) => void): void {
+		let query = 'teamId=' + teamId;
+		if (date != null && date != undefined)
+			query += '&date=' + date;
+
+		this.ajaxFactory.httpServerCall('/api/team/pastPlayers/?' + query, 'GET', undefined, (response) => {
+			if (response.error)
+				return failCB && failCB(response);
+			this.listFactory.AddedItem();
+			cb && cb(response);
 		}, () => {
 			failCB && failCB(undefined);
 		});

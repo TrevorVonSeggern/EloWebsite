@@ -1,4 +1,4 @@
-import {DBMatch, helperFunction_createIfNotExists} from "./sequelize";
+import {DBEloValue, DBMatch, helperFunction_createIfNotExists} from "./sequelize";
 import {ServerBaseModel, all} from "web-base-server-model";
 import {mapObjectToObject} from 'web-base-model';
 import {Match} from "../../models/models";
@@ -20,6 +20,14 @@ export class MatchServer extends ServerBaseModel implements Match {
 
 	constructor(instance?) {
 		super(instance);
+		if(!instance)
+			return;
+		if(instance.winner == 0)
+			this.winner = false;
+		else if(instance.winner == 1)
+			this.winner = true;
+		else
+			this.winner = null;
 	}
 
 	static setAllStatus(gameId: string | number): Promise<void> {
@@ -96,6 +104,8 @@ export class MatchServer extends ServerBaseModel implements Match {
 							for (let p = 0; p < players.length; ++p) {
 								if (players[p].id === elos[i].PlayerId) {
 									teamAElo += players[p]._currentElo || elos[i].eloValue;
+									if(players[p]._currentElo == null || players[p]._currentElo == undefined)
+										players[p]._currentElo = elos[i].eloValue;
 									break;
 								}
 							}
@@ -105,6 +115,8 @@ export class MatchServer extends ServerBaseModel implements Match {
 							for (let p = 0; p < players.length; ++p) {
 								if (players[p].id === elos[i].PlayerId) {
 									teamBElo += players[p]._currentElo || elos[i].eloValue;
+									if(players[p]._currentElo == null || players[p]._currentElo == undefined)
+										players[p]._currentElo = elos[i].eloValue;
 									break;
 								}
 							}
@@ -113,14 +125,17 @@ export class MatchServer extends ServerBaseModel implements Match {
 					if (teamACount === 0 || teamBCount === 0) {
 						return resolve();
 					}
+					teamAElo = teamAElo / teamACount;
+					teamBElo = teamBElo / teamBCount;
+
 					let rA = Math.pow(10, teamAElo / 400);
 					let rB = Math.pow(10, teamBElo / 400);
 					let eA = rA / (rA + rB);
 					let eB = rB / (rA + rB);
 					let sA = match.winner === true ? 1 : (match.winner === false ? 0 : 0.5);
 					let sB = 1 - sA;
-					let aDelta = (gameInstance.scale * (sA - eA)) / teamACount;
-					let bDelta = (gameInstance.scale * (sB - eB)) / teamBCount;
+					let aDelta = (gameInstance.scale * (sA - eA));
+					let bDelta = (gameInstance.scale * (sB - eB));
 
 					let dep = 1 /*match*/ + elos.length;
 					// update the elo values to their new score.
@@ -210,7 +225,9 @@ export class MatchServer extends ServerBaseModel implements Match {
 
 	static removeById(id: string | number): Promise<void> {
 		return new Promise<void>((resolve, reject) => {
-			DBMatch.destroy({where: {id: id}}).then(() => resolve(), reject);
+			DBEloValue.destroy({where: {matchId: id}}).then(() => () => {
+				DBMatch.destroy({where: {id: id}}).then(() => resolve(), reject);
+			}, reject);
 		});
 	};
 
@@ -226,6 +243,28 @@ export class MatchServer extends ServerBaseModel implements Match {
 				else
 					resolve(undefined);
 			}, reject);
+		});
+	};
+
+	static getMatchBeforeDate(date: Date, teamId): Promise<MatchServer> {
+		return new Promise<MatchServer>((resolve, reject) => {
+			let where:any = {$or: {teamAId: teamId, teamBId: teamId}};
+			if(date != null && date != undefined)
+				where = {$and: {
+					endTime: {$lt: date},
+					$or: {teamAId: teamId, teamBId: teamId}
+				}};
+
+			DBMatch.findAll({
+				where: where,
+				order: [['endTime', 'DESC']],
+				 limit: 1
+			}).then((item: any) => {
+				if (item.length == 1 && item[0].dataValues)
+					resolve(new MatchServer(item[0].dataValues));
+				else
+					resolve(undefined);
+			}, reject).catch(reject);
 		});
 	};
 

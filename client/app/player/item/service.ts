@@ -2,6 +2,7 @@ import {BasicItemService} from 'web-angularjs-crud-base-items/item/service';
 import {AjaxFactory} from 'web-angularjs-user-factory/AjaxFactory';
 import {ListFactory} from '../list/factory';
 import {BasicListFactory} from 'web-angularjs-crud-base-items/list/factory';
+
 export class ItemService extends BasicItemService {
 
 	static serviceName: string = 'player-item-service';
@@ -27,13 +28,13 @@ export class ItemService extends BasicItemService {
 		});
 	}
 
-	saveItem(item: any, cb: () => void, failCB: (data) => void) {
+	saveItem(item: any, cb: (item) => void, failCB: (data) => void) {
 		this.ajaxFactory.httpServerCall('/api/player/', 'PUT', item, (response) => {
 			if (response.error)
 				return failCB && failCB(response);
 			this.listFactory.AddedItem();
 			item = response;
-			cb && cb();
+			cb && cb(item);
 		}, () => {
 			failCB && failCB(undefined);
 		});

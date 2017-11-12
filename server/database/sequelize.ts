@@ -34,7 +34,6 @@ player.belongsTo(DBUser); // can be associated to a user.
 
 let match = sqlize.define('Match', {
 	id: {type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true},
-	name: {type: Sequelize.STRING},
 	status: {type: Sequelize.INTEGER},
 	startTime: {type: Sequelize.DATE},
 	endTime: {type: Sequelize.DATE},

@@ -28,7 +28,7 @@ export function getOneItem(req, res) { // get
 			let result: any = item;
 			result.eloValue = item._currentElo;
 			res.json(item);
-		}, (error) => res.json({error: true, message: error}));
+		}, (error) => res.json(item));
 	}, (error) => res.json({error: true, message: error}));
 }
 

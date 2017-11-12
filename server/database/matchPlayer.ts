@@ -275,7 +275,7 @@ export class MatchPlayerServer extends ServerBaseModel implements MatchPlayer {
 	};
 
 	static viewAll(userId, limit?: number, skip?: number): Promise<any[]> {
-		// TODO, limit by userId
+		// TODO:, limit by userId
 		return new Promise<any[]>((resolve, reject) => {
 			DBMatch.all({
 				include: [{model: DBTeam, as: 'TeamA'},

@@ -4,6 +4,7 @@ import {mapObjectToObject} from 'web-base-model';
 import {Team} from "../../models/models";
 import {DBGame} from "./sequelize";
 import {create} from "domain";
+import {PlayerServer} from "./player";
 
 export class TeamServer extends ServerBaseModel implements Team {
 	id: string;

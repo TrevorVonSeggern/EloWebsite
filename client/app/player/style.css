@@ -1,19 +1,19 @@
-.single-item {
-  min-height: 50px;
+.player-card .game-single-item {
+  height: 28px;
 }
-.player-single-item {
+.player-card .player-single-item {
   padding-left: 8px;
   margin-right: 35px;
   border-bottom: #dfdfdf solid 1px;
 }
-.player-single-item:hover {
+.player-card .player-single-item:hover {
   border-bottom: #858585 solid 1px;
 }
-.heading-2 {
+.player-card .heading-2 {
   font-size: xx-large;
   font-weight: bold;
 }
-.create-container {
+.player-card .create-container {
   position: absolute;
   right: 5px;
   outline: none;

@@ -28,7 +28,10 @@ export class PlayerServer extends ServerBaseModel implements Player {
 	static getAllPlayersInMatch(matchId: string | number): Promise<PlayerServer[]> {
 		return new Promise<PlayerServer[]>((resolve, reject) => {
 			let whereCondition: any = Sequelize.literal("EloValues.MatchId = " + matchId);
-			DBPlayer.findAll({where: whereCondition, include: [DBEloValue]}).then((result: any[]) => {
+			DBPlayer.findAll({
+				where: whereCondition,
+				include: [{model: DBEloValue, required: true, where: {matchId: matchId}}]
+			}).then((result: any[]) => {
 				let players: PlayerServer[] = [];
 				for (let i = 0; i < result.length; ++i) {
 					players.push(new PlayerServer(result[i].dataValues));

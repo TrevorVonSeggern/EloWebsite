@@ -31,6 +31,28 @@
 .match-single-item:hover {
   border-bottom: #858585 solid 1px;
 }
+.player-card .game-single-item {
+  height: 28px;
+}
+.player-card .player-single-item {
+  padding-left: 8px;
+  margin-right: 35px;
+  border-bottom: #dfdfdf solid 1px;
+}
+.player-card .player-single-item:hover {
+  border-bottom: #858585 solid 1px;
+}
+.player-card .heading-2 {
+  font-size: xx-large;
+  font-weight: bold;
+}
+.player-card .create-container {
+  position: absolute;
+  right: 5px;
+  outline: none;
+  cursor: pointer;
+  font-size: large;
+}
 .tvo-card {
   margin: 8px;
   padding: 13px;

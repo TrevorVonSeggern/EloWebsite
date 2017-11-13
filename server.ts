@@ -12,6 +12,7 @@ import {processor} from './server/processor';
 let pro = new processor();
 
 import {SyncDatabase} from 'web-server-database/server/database/sqlize';
+import logs from "web-server-database/server/logs";
 
 SyncDatabase();
 
@@ -22,6 +23,7 @@ App.APIModules.push({name: 'player', router: PlayerRouter});
 App.APIModules.push({name: 'match', router: MatchRouter});
 App.APIModules.push({name: 'match_player', router: MatchPlayerRouter});
 
+logs('started at time: ' + new Date().toString());
 
 App.APIModules.concat(userServer.default.APIModules); // load the user management modules
 

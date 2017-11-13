@@ -18,7 +18,7 @@
 		</div>
 
 		<ul infinite-scroll='vm.loadMore()' infinite-scroll-distance="0" class="list-group">
-			<li ng-repeat='item in vm.items' class="list-group-item" ui-sref="match-detail({id: item.id})">
+			<li ng-repeat='item in vm.list.items' class="list-group-item" ui-sref="match-detail({id: item.id})">
 				<div class="row">
 					<tvo-match-item-single x-item="item"></tvo-match-item-single>
 				</div>

@@ -1,4 +1,4 @@
-<md-card class="scroll-container" ng-if="!vm.eventDetailFocused && !vm.eventCreateFocused">
+<md-card class="scroll-container player-card" ng-if="!vm.eventDetailFocused && !vm.eventCreateFocused">
 	<div ng-class="{loading: vm.loading}">
 		<md-card-title>
 			<md-card-title-text>
@@ -15,8 +15,8 @@
 			<tvo-label-text value="'Player Name:'"></tvo-label-text>
 		</div>
 
-		<ul infinite-scroll='vm.loadMore()' infinite-scroll-distance="0" class="list-group">
-			<li ng-repeat='item in vm.items' class="list-group-item" ui-sref="player-detail({id: item.id})">
+		<ul infinite-scroll='vm.loadMore()' infinite-scroll-distance='1' infinite-scroll-disabled='vm.list.busy' class="list-group">
+			<li ng-repeat='item in vm.list.items' class="list-group-item" ui-sref="player-detail({id: item.id})">
 				<div class="row">
 					<tvo-player-item-single x-item="item"></tvo-player-item-single>
 				</div>
